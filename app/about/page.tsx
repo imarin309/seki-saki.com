@@ -29,7 +29,7 @@ export default function AboutPage() {
         >
           <div className="relative aspect-[4/5] overflow-hidden bg-gray-900">
             <Image
-              src="https://seki-saki.com/meta/seki-saki.webp"
+              src="https://assets.seki-saki.com/meta/seki-saki.webp"
               alt="profile"
               fill
               className="object-cover"
