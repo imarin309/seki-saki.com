@@ -10,7 +10,6 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Works", path: "/works" },
   { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
 ];
 
 export function Header() {
@@ -25,7 +24,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-md">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl tracking-wider">
@@ -33,7 +32,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8">
+          <div className="hidden gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -74,9 +73,9 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/10"
+            className="border-t border-white/10 md:hidden"
           >
-            <div className="container mx-auto px-6 py-4 flex flex-col gap-4">
+            <div className="container mx-auto flex flex-col gap-4 px-6 py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}

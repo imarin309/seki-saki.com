@@ -1,11 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { works } from "@/data/works";
 
-const categories = ["All", "デジタルイラスト", "ペンイラスト", "キャラクターイラスト", "レジンアート", "グラフィックデザイン"];
+const categories = [
+  "All",
+  "デジタルイラスト",
+  "ペンイラスト",
+  "キャラクターイラスト",
+  "レジンアート",
+  "グラフィックデザイン",
+];
 
 export default function WorksPage() {
   const [filter, setFilter] = useState<string>("All");
@@ -23,8 +31,10 @@ export default function WorksPage() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h1 className="text-4xl md:text-6xl mb-4">Works</h1>
-          <p className="text-xl text-gray-400">Selected projects and artworks</p>
+          <h1 className="mb-4 text-4xl md:text-6xl">Works</h1>
+          <p className="text-xl text-gray-400">
+            Selected projects and artworks
+          </p>
         </motion.div>
 
         {/* Filter */}
@@ -39,9 +49,9 @@ export default function WorksPage() {
               <button
                 key={category}
                 onClick={() => setFilter(category)}
-                className={`px-6 py-2 border transition-all ${
+                className={`border px-6 py-2 transition-all ${
                   filter === category
-                    ? "bg-white text-black border-white"
+                    ? "border-white bg-white text-black"
                     : "border-white/20 text-gray-400 hover:border-white hover:text-white"
                 }`}
               >
@@ -54,7 +64,7 @@ export default function WorksPage() {
         {/* Works Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           {filteredWorks.map((work, index) => (
             <motion.div
@@ -65,20 +75,21 @@ export default function WorksPage() {
               transition={{ duration: 0.4, delay: index * 0.05 }}
             >
               <Link href={`/works/${work.id}`} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-gray-900 mb-4">
-                  <img
+                <div className="relative mb-4 aspect-[4/5] overflow-hidden bg-gray-900">
+                  <Image
                     src={work.image}
                     alt={work.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute bottom-0 left-0 right-0 translate-y-4 p-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                     <p className="text-sm text-gray-300">{work.description}</p>
                   </div>
                 </div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl mb-1 group-hover:text-gray-400 transition-colors">
+                    <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
                       {work.title}
                     </h3>
                     <p className="text-gray-500">
@@ -92,7 +103,7 @@ export default function WorksPage() {
         </motion.div>
 
         {filteredWorks.length === 0 && (
-          <div className="text-center py-20 text-gray-400">
+          <div className="py-20 text-center text-gray-400">
             No works found in this category.
           </div>
         )}
