@@ -21,19 +21,8 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="mb-6 text-5xl tracking-tight md:text-7xl"
           >
-            Creative Designer
-            <br />& Illustrator
+            Designer & Illustrator
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mx-auto mb-8 max-w-2xl text-xl text-gray-400"
-          >
-            視覚的なストーリーテリングを通じて、
-            <br />
-            ブランドと人々をつなぐデザインを創造します
-          </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

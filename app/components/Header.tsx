@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { siteConfig } from "@/app/meta";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -28,7 +29,7 @@ export function Header() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl tracking-wider">
-            PORTFOLIO
+            {siteConfig.title}
           </Link>
 
           {/* Desktop Navigation */}

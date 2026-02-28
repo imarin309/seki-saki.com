@@ -14,8 +14,11 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       "img-src 'self' https://seki-saki.com https://images.unsplash.com",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "frame-ancestors 'none'",
     ].join("; "),
   },
 ];
