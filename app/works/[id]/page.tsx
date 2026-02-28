@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "motion/react";
@@ -13,10 +14,13 @@ export default function WorkDetailPage() {
 
   if (!work) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl mb-4">Work not found</h1>
-          <Link href="/works" className="text-gray-400 hover:text-white transition-colors">
+          <h1 className="mb-4 text-4xl">Work not found</h1>
+          <Link
+            href="/works"
+            className="text-gray-400 transition-colors hover:text-white"
+          >
             Back to Works
           </Link>
         </div>
@@ -26,7 +30,8 @@ export default function WorkDetailPage() {
 
   const currentIndex = works.findIndex((w) => w.id === id);
   const prevWork = currentIndex > 0 ? works[currentIndex - 1] : null;
-  const nextWork = currentIndex < works.length - 1 ? works[currentIndex + 1] : null;
+  const nextWork =
+    currentIndex < works.length - 1 ? works[currentIndex + 1] : null;
 
   return (
     <div className="min-h-screen py-20">
@@ -40,7 +45,7 @@ export default function WorkDetailPage() {
         >
           <button
             onClick={() => router.push("/works")}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
           >
             <ArrowLeft size={20} />
             Back to Works
@@ -48,18 +53,19 @@ export default function WorkDetailPage() {
         </motion.div>
 
         {/* Work Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+        <div className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="aspect-[4/5] overflow-hidden bg-gray-900"
+            className="relative aspect-[4/5] overflow-hidden bg-gray-900"
           >
-            <img
+            <Image
               src={work.image}
               alt={work.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </motion.div>
 
@@ -72,14 +78,14 @@ export default function WorkDetailPage() {
           >
             <div className="mb-4">
               <span className="text-gray-500">{work.category}</span>
-              <span className="text-gray-500 mx-2">/</span>
+              <span className="mx-2 text-gray-500">/</span>
               <span className="text-gray-500">{work.year}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl mb-6">{work.title}</h1>
-            <p className="text-xl text-gray-400 mb-8">{work.description}</p>
+            <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
+            <p className="mb-8 text-xl text-gray-400">{work.description}</p>
             <div className="border-t border-white/10 pt-8">
-              <h2 className="text-xl mb-4">プロジェクト詳細</h2>
-              <p className="text-gray-400 leading-relaxed">{work.details}</p>
+              <h2 className="mb-4 text-xl">プロジェクト詳細</h2>
+              <p className="leading-relaxed text-gray-400">{work.details}</p>
             </div>
           </motion.div>
         </div>
@@ -91,25 +97,26 @@ export default function WorkDetailPage() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="border-t border-white/10 pt-12"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {/* Previous Work */}
             <div>
               {prevWork ? (
                 <Link href={`/works/${prevWork.id}`} className="group block">
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
                     <span className="text-gray-500">Previous</span>
                   </div>
                   <div className="flex gap-4">
-                    <div className="w-24 h-24 bg-gray-900 overflow-hidden">
-                      <img
+                    <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
+                      <Image
                         src={prevWork.image}
                         alt={prevWork.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                     </div>
                     <div>
-                      <h3 className="text-xl mb-1 group-hover:text-gray-400 transition-colors">
+                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
                         {prevWork.title}
                       </h3>
                       <p className="text-gray-500">{prevWork.category}</p>
@@ -118,7 +125,7 @@ export default function WorkDetailPage() {
                 </Link>
               ) : (
                 <div className="opacity-30">
-                  <div className="flex items-center gap-4 mb-4">
+                  <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
                     <span className="text-gray-500">Previous</span>
                   </div>
@@ -131,29 +138,30 @@ export default function WorkDetailPage() {
             <div className="md:text-right">
               {nextWork ? (
                 <Link href={`/works/${nextWork.id}`} className="group block">
-                  <div className="flex items-center justify-end gap-4 mb-4">
+                  <div className="mb-4 flex items-center justify-end gap-4">
                     <span className="text-gray-500">Next</span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
-                  <div className="flex gap-4 justify-end">
+                  <div className="flex justify-end gap-4">
                     <div className="text-right">
-                      <h3 className="text-xl mb-1 group-hover:text-gray-400 transition-colors">
+                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
                         {nextWork.title}
                       </h3>
                       <p className="text-gray-500">{nextWork.category}</p>
                     </div>
-                    <div className="w-24 h-24 bg-gray-900 overflow-hidden">
-                      <img
+                    <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
+                      <Image
                         src={nextWork.image}
                         alt={nextWork.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                     </div>
                   </div>
                 </Link>
               ) : (
                 <div className="opacity-30">
-                  <div className="flex items-center justify-end gap-4 mb-4">
+                  <div className="mb-4 flex items-center justify-end gap-4">
                     <span className="text-gray-500">Next</span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
