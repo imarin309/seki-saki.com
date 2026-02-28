@@ -8,7 +8,7 @@ export interface Work {
   details: string;
 }
 
-const BASE = "https://seki-saki.com";
+const BASE = "https://assets.seki-saki.com";
 
 export const works: Work[] = [
   // デジタルイラスト

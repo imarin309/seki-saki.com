@@ -114,7 +114,7 @@ export default function HomePage() {
               className="relative aspect-square overflow-hidden bg-gray-900"
             >
               <Image
-                src="https://seki-saki.com/meta/seki-saki.webp"
+                src="https://assets.seki-saki.com/meta/seki-saki.webp"
                 alt="about"
                 fill
                 className="object-cover"

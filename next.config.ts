@@ -13,7 +13,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "img-src 'self' https://seki-saki.com https://images.unsplash.com",
+      "img-src 'self' https://assets.seki-saki.com https://images.unsplash.com",
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "object-src 'none'",
@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "seki-saki.com",
+        hostname: "assets.seki-saki.com",
       },
     ],
   },
