@@ -59,7 +59,9 @@ convert_image() {
 
   local quality=$INITIAL_QUALITY
   local success=false
+  local note=""
 
+  # Phase 1: quality を落としながら試す
   while [[ $quality -ge $MIN_QUALITY ]]; do
     "$CWEBP" -quiet -q "$quality" "$src" -o "$out"
     local size
@@ -73,12 +75,32 @@ convert_image() {
     quality=$((quality - 5))
   done
 
+  # Phase 2: quality=1 でも超過する場合はリサイズで対処
+  if ! $success; then
+    local orig_w
+    orig_w=$(sips -g pixelWidth "$src" | awk '/pixelWidth/{print $2}')
+    local scale=75
+    while [[ $scale -ge 25 ]]; do
+      local resize_w=$(( orig_w * scale / 100 ))
+      quality=$INITIAL_QUALITY
+      "$CWEBP" -quiet -q "$quality" -resize "$resize_w" 0 "$src" -o "$out"
+      local size
+      size=$(stat -f%z "$out")
+      if [[ $size -le $MAX_BYTES ]]; then
+        success=true
+        note=" resize=${scale}%"
+        break
+      fi
+      scale=$((scale - 25))
+    done
+  fi
+
   if $success; then
     local kb=$(( $(stat -f%z "$out") / 1024 ))
-    printf "  [OK] %s -> %s (q=%d, %dKB)\n" "$rel" "${out#$OUT_DIR/}" "$quality" "$kb"
+    printf "  [OK] %s -> %s (q=%d, %dKB%s)\n" "$rel" "${out#$OUT_DIR/}" "$quality" "$kb" "$note"
   else
-    printf "  [WARN] %s: quality=%d でも 300KB を超過 (%dKB)\n" \
-      "$rel" "$MIN_QUALITY" "$(( $(stat -f%z "$out") / 1024 ))"
+    printf "  [WARN] %s: リサイズしても 300KB を超過 (%dKB)\n" \
+      "$rel" "$(( $(stat -f%z "$out") / 1024 ))"
   fi
 }
 

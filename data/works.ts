@@ -5,7 +5,6 @@ export interface Work {
   year: string;
   image: string;
   description: string;
-  details: string;
 }
 
 const BASE = "https://assets.seki-saki.com";
@@ -19,7 +18,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/confidence.webp`,
     description: "",
-    details: "",
   },
   {
     id: "2",
@@ -28,7 +26,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/manatsu_no_shisen.webp`,
     description: "",
-    details: "",
   },
   {
     id: "3",
@@ -37,7 +34,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/electronics.webp`,
     description: "",
-    details: "",
   },
   {
     id: "4",
@@ -46,7 +42,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/megami.webp`,
     description: "",
-    details: "",
   },
   {
     id: "5",
@@ -55,7 +50,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/atsunuri_woman.webp`,
     description: "",
-    details: "",
   },
   {
     id: "6",
@@ -64,7 +58,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/concept_art.webp`,
     description: "",
-    details: "",
   },
   // ペンイラスト
   {
@@ -74,7 +67,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/pen1.webp`,
     description: "",
-    details: "",
   },
   {
     id: "8",
@@ -83,7 +75,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/pen2.webp`,
     description: "",
-    details: "",
   },
   {
     id: "9",
@@ -92,7 +83,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/human_pen.webp`,
     description: "",
-    details: "",
   },
   {
     id: "10",
@@ -101,7 +91,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/human_pen2.webp`,
     description: "",
-    details: "",
   },
   {
     id: "11",
@@ -110,7 +99,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/human_pen5.webp`,
     description: "",
-    details: "",
   },
   // キャラクターイラスト
   {
@@ -120,7 +108,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/anpan.webp`,
     description: "",
-    details: "",
   },
   {
     id: "13",
@@ -129,7 +116,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/onigiri.webp`,
     description: "",
-    details: "",
   },
   {
     id: "14",
@@ -138,7 +124,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/suica.webp`,
     description: "",
-    details: "",
   },
   {
     id: "15",
@@ -147,7 +132,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/cat.webp`,
     description: "",
-    details: "",
   },
   {
     id: "16",
@@ -156,7 +140,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/dog.webp`,
     description: "",
-    details: "",
   },
   {
     id: "17",
@@ -165,7 +148,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/purin.webp`,
     description: "",
-    details: "",
   },
   {
     id: "18",
@@ -174,7 +156,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/ramen.webp`,
     description: "",
-    details: "",
   },
   {
     id: "19",
@@ -183,7 +164,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/saboten.webp`,
     description: "",
-    details: "",
   },
   // レジンアート
   {
@@ -193,7 +173,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/resin1.webp`,
     description: "",
-    details: "",
   },
   {
     id: "21",
@@ -202,7 +181,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/resin2.webp`,
     description: "",
-    details: "",
   },
   {
     id: "22",
@@ -211,7 +189,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/resin3.webp`,
     description: "",
-    details: "",
   },
   {
     id: "23",
@@ -220,7 +197,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/resin4.webp`,
     description: "",
-    details: "",
   },
   // グラフィックデザイン
   {
@@ -230,7 +206,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/cd.webp`,
     description: "",
-    details: "",
   },
   {
     id: "25",
@@ -239,7 +214,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/rain.webp`,
     description: "",
-    details: "",
   },
   {
     id: "26",
@@ -248,7 +222,6 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/ahiru_icon.webp`,
     description: "",
-    details: "",
   },
   {
     id: "27",
@@ -257,6 +230,23 @@ export const works: Work[] = [
     year: "2025",
     image: `${BASE}/2025/ahiru_icon2.webp`,
     description: "",
-    details: "",
+  },
+  {
+    id: "28",
+    title: "致命傷は避けてやる",
+    category: "デジタルイラスト",
+    year: "2026", // 2025/12/30
+    image: `${BASE}/2026/avoid_fatal_injury.webp`,
+    description:
+      "自由に大胆でありたいという心情とは裏腹に、どこか保守的で自己愛の強い存在を揶揄する",
+  },
+  {
+    id: "29",
+    title: "FOCUS",
+    category: "デジタルイラスト",
+    year: "2026", // 2026/1/11
+    image: `${BASE}/2026/FOCUS.webp`,
+    description:
+      "助けを求める人を描きたいと思った。イラストは西洋絵画の涙の表現を参考にした。また、魅せたい箇所以外の情報を減らすためにノイズをかけた。",
   },
 ];
