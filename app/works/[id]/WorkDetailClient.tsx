@@ -82,10 +82,6 @@ export default function WorkDetailClient({ id }: { id: string }) {
             </div>
             <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
             <p className="mb-8 text-xl text-gray-400">{work.description}</p>
-            <div className="border-t border-white/10 pt-8">
-              <h2 className="mb-4 text-xl">プロジェクト詳細</h2>
-              <p className="leading-relaxed text-gray-400">{work.details}</p>
-            </div>
           </motion.div>
         </div>
 
