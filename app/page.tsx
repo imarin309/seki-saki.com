@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { works } from "@/data/works";
+import { sortedWorks } from "@/data/works";
 
 export default function HomePage() {
-  const featuredWorks = works.slice(0, 3);
+  const featuredWorks = sortedWorks.slice(0, 3);
 
   return (
     <div>
@@ -70,13 +70,18 @@ export default function HomePage() {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute bottom-0 left-0 right-0 translate-y-4 p-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                      <p className="text-sm text-gray-300">
+                        {work.description}
+                      </p>
+                    </div>
                   </div>
                   <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
                     {work.title}
                   </h3>
                   <p className="text-gray-500">
-                    {work.category} / {work.year}
+                    {work.category} {work.date}
                   </p>
                 </Link>
               </motion.div>

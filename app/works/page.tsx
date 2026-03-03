@@ -4,10 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { works } from "@/data/works";
+import { sortedWorks } from "@/data/works";
 
 const categories = [
-  "All",
   "デジタルイラスト",
   "ペンイラスト",
   "キャラクターイラスト",
@@ -16,10 +15,12 @@ const categories = [
 ];
 
 export default function WorksPage() {
-  const [filter, setFilter] = useState<string>("All");
+  const [filter, setFilter] = useState<string | null>("デジタルイラスト");
 
   const filteredWorks =
-    filter === "All" ? works : works.filter((work) => work.category === filter);
+    filter === null
+      ? []
+      : sortedWorks.filter((work) => work.category === filter);
 
   return (
     <div className="min-h-screen py-20">
@@ -93,7 +94,7 @@ export default function WorksPage() {
                       {work.title}
                     </h3>
                     <p className="text-gray-500">
-                      {work.category} / {work.year}
+                      {work.category} {work.date}
                     </p>
                   </div>
                 </div>
