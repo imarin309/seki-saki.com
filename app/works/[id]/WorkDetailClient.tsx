@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { works } from "@/data/works";
+import { sortedWorks } from "@/data/works";
 
 export default function WorkDetailClient({ id }: { id: string }) {
   const router = useRouter();
-  const work = works.find((w) => w.id === id);
+  const work = sortedWorks.find((w) => w.id === id);
 
   if (!work) {
     return (
@@ -27,10 +27,12 @@ export default function WorkDetailClient({ id }: { id: string }) {
     );
   }
 
-  const currentIndex = works.findIndex((w) => w.id === id);
-  const prevWork = currentIndex > 0 ? works[currentIndex - 1] : null;
+  const currentIndex = sortedWorks.findIndex((w) => w.id === id);
+  const prevWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
   const nextWork =
-    currentIndex < works.length - 1 ? works[currentIndex + 1] : null;
+    currentIndex < sortedWorks.length - 1
+      ? sortedWorks[currentIndex + 1]
+      : null;
 
   return (
     <div className="min-h-screen py-20">
@@ -78,7 +80,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
             <div className="mb-4">
               <span className="text-gray-500">{work.category}</span>
               <span className="mx-2 text-gray-500">/</span>
-              <span className="text-gray-500">{work.year}</span>
+              <span className="text-gray-500">{work.date}</span>
             </div>
             <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
             <p className="mb-8 text-xl text-gray-400">{work.description}</p>
