@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { siteConfig } from "@/app/meta";
+import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
 
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Works", path: "/works" },
   { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
 ];
 
 export function Header() {
@@ -29,7 +30,7 @@ export function Header() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="text-xl tracking-wider">
-            {siteConfig.title}
+            {SITE_TITLE}
           </Link>
 
           {/* Desktop Navigation */}
@@ -54,6 +55,14 @@ export function Header() {
                 )}
               </Link>
             ))}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 transition-colors hover:text-white"
+            >
+              Instagram
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -91,6 +100,14 @@ export function Header() {
                   {link.name}
                 </Link>
               ))}
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2 text-gray-400 transition-colors hover:text-white"
+              >
+                Instagram
+              </a>
             </div>
           </motion.div>
         )}
