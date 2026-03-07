@@ -14,6 +14,8 @@ const navLinks = [
   { name: "Contact", path: "/contact" },
 ];
 
+const externalLinks = [{ name: "Instagram", href: INSTAGRAM_URL }];
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -55,14 +57,17 @@ export function Header() {
                 )}
               </Link>
             ))}
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 transition-colors hover:text-white"
-            >
-              Instagram
-            </a>
+            {externalLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 transition-colors hover:text-white"
+              >
+                {link.name}
+              </a>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,14 +105,18 @@ export function Header() {
                   {link.name}
                 </Link>
               ))}
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="py-2 text-gray-400 transition-colors hover:text-white"
-              >
-                Instagram
-              </a>
+              {externalLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="py-2 text-gray-400 transition-colors hover:text-white"
+                >
+                  {link.name}
+                </a>
+              ))}
             </div>
           </motion.div>
         )}

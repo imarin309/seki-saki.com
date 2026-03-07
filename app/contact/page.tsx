@@ -3,6 +3,19 @@
 import { motion } from "motion/react";
 import { CONTACT_EMAIL, INSTAGRAM_URL } from "@/app/meta";
 
+const mailtoHref = (() => {
+  const params = new URLSearchParams({
+    subject: "イラスト制作のご依頼",
+    body: [
+      "お名前（ハンドルネーム可）：",
+      "ご依頼内容：",
+      "用途・使用媒体：",
+      "その他ご要望：",
+    ].join("\r\n"),
+  });
+  return `mailto:${CONTACT_EMAIL}?${params.toString()}`;
+})();
+
 export default function ContactPage() {
   return (
     <div className="min-h-screen py-20">
@@ -27,7 +40,7 @@ export default function ContactPage() {
           className="flex flex-col gap-10"
         >
           <a
-            href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("イラスト制作のご依頼")}&body=${encodeURIComponent("お名前（ハンドルネーム可）：\nご依頼内容：\n用途・使用媒体：\nその他ご要望：")}`}
+            href={mailtoHref}
             className="group inline-flex flex-col gap-2 border-b border-white/20 pb-4 transition-colors hover:border-white"
           >
             <span className="text-xs uppercase tracking-widest text-gray-500 transition-colors group-hover:text-gray-300">
