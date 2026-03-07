@@ -3,7 +3,7 @@ import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
-import { siteConfig } from "@/app/meta";
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_ICON } from "@/app/meta";
 
 const notoSerifJP = Noto_Serif_JP({
   subsets: ["latin"],
@@ -12,10 +12,10 @@ const notoSerifJP = Noto_Serif_JP({
 });
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   icons: {
-    icon: siteConfig.icon,
+    icon: SITE_ICON,
   },
 };
 
