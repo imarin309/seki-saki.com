@@ -12,8 +12,15 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]" />
+      <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
+        <Image
+          src={sortedWorks[0].image}
+          alt={sortedWorks[0].title}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#0a0a0a]" />
         <div className="container relative z-10 mx-auto px-6 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
