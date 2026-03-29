@@ -10,9 +10,10 @@ export interface Work {
 
 function normalizeDateForSort(date: string): string {
   const parts = date.split("/");
+  const pad = (s: string) => s.padStart(2, "0");
   if (parts.length === 1) return `${parts[0]}/01/01`;
-  if (parts.length === 2) return `${parts[0]}/${parts[1]}/01`;
-  return date;
+  if (parts.length === 2) return `${parts[0]}/${pad(parts[1])}/01`;
+  return `${parts[0]}/${pad(parts[1])}/${pad(parts[2])}`;
 }
 
 const BASE = "https://assets.seki-saki.com";
@@ -259,11 +260,19 @@ export const works: Work[] = [
   },
   {
     id: "30",
-    title: "log hair girl",
+    title: "long hair girl",
     category: "デジタルイラスト",
     date: "2026/3/3",
     image: `${BASE}/2026/long_hair_girl.webp`,
     description: "30 minutes sketch 1",
+  },
+  {
+    id: "31",
+    title: "boy",
+    category: "デジタルイラスト",
+    date: "2026/3/29",
+    image: `${BASE}/2026/boy.webp`,
+    description: "たまにはメンズも描いてみました。平成男子になりました。",
   },
 ];
 
