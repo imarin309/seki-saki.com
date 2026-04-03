@@ -274,6 +274,14 @@ export const works: Work[] = [
     image: `${BASE}/2026/boy.webp`,
     description: "たまにはメンズも描いてみました。平成男子になりました。",
   },
+    {
+    id: "32",
+    title: "maegami",
+    category: "デジタルイラスト",
+    date: "2026/3/31",
+    image: `${BASE}/2026/maegami.webp`,
+    description: "お昼休みスケッチ！前髪の長めの方を描きました。",
+  },
 ];
 
 export const sortedWorks = [...works].sort((a, b) => {
