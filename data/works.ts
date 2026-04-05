@@ -274,7 +274,7 @@ export const works: Work[] = [
     image: `${BASE}/2026/boy.webp`,
     description: "たまにはメンズも描いてみました。平成男子になりました。",
   },
-    {
+  {
     id: "32",
     title: "maegami",
     category: "デジタルイラスト",
