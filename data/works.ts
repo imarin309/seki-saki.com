@@ -276,11 +276,28 @@ export const works: Work[] = [
   },
   {
     id: "32",
+    title: "weding illust",
+    category: "デジタルイラスト",
+    date: "2026/3/29",
+    image: `${BASE}/2026/weding_illust.webp`,
+    description:
+      "友人のウェディングパンフレットのイラストを描きました。\n学生時代から可愛らしいカップルの印象があり、その雰囲気を明るくカラフルお花や笑顔で表現しました。\nお花はリクエストをいただいたもので構成されています。",
+  },
+  {
+    id: "33",
     title: "maegami",
     category: "デジタルイラスト",
     date: "2026/3/31",
     image: `${BASE}/2026/maegami.webp`,
     description: "お昼休みスケッチ！前髪の長めの方を描きました。",
+  },
+  {
+    id: "34",
+    title: "hikari",
+    category: "デジタルイラスト",
+    date: "2026/4/11",
+    image: `${BASE}/2026/hikari.webp`,
+    description: "",
   },
 ];
 
