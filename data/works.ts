@@ -276,7 +276,7 @@ export const works: Work[] = [
   },
   {
     id: "32",
-    title: "weding illust",
+    title: "wedding illust",
     category: "デジタルイラスト",
     date: "2026/3/29",
     image: `${BASE}/2026/weding_illust.webp`,
