@@ -18,7 +18,7 @@
 #   入力ディレクトリのサブディレクトリ構造をそのまま維持して .webp ファイルを配置する。
 #
 # 例:
-#   bash scripts/convert-to-webp.sh migration
+#   bash scripts/convert-to-webp.sh scripts/data
 #   # → migration と同じ階層に migration_edited/ が作成される
 #
 # 依存:

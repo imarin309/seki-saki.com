@@ -60,13 +60,15 @@ export default function WorkDetailClient({ id }: { id: string }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="relative aspect-[4/5] overflow-hidden bg-gray-900"
+            className="bg-gray-900"
           >
             <Image
               src={work.image}
               alt={work.title}
-              fill
-              className="object-cover"
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="h-auto w-full"
             />
           </motion.div>
 
@@ -83,7 +85,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
               <span className="text-gray-500">{work.date}</span>
             </div>
             <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
-            <p className="mb-8 text-xl text-gray-400">{work.description}</p>
+            <p className="mb-8 whitespace-pre-line text-xl text-gray-400">{work.description}</p>
           </motion.div>
         </div>
 
