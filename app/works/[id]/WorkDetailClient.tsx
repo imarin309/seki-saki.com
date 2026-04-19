@@ -85,7 +85,9 @@ export default function WorkDetailClient({ id }: { id: string }) {
               <span className="text-gray-500">{work.date}</span>
             </div>
             <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
-            <p className="mb-8 whitespace-pre-line text-xl text-gray-400">{work.description}</p>
+            <p className="mb-8 whitespace-pre-line text-xl text-gray-400">
+              {work.description}
+            </p>
           </motion.div>
         </div>
 

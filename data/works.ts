@@ -299,6 +299,22 @@ export const works: Work[] = [
     image: `${BASE}/2026/hikari.webp`,
     description: "",
   },
+  {
+    id: "35",
+    title: "hikari2",
+    category: "デジタルイラスト",
+    date: "2026/4/19",
+    image: `${BASE}/2026/hikari2.webp`,
+    description: "",
+  },
+  {
+    id: "36",
+    title: "hikari3",
+    category: "デジタルイラスト",
+    date: "2026/4/19",
+    image: `${BASE}/2026/hikari3.webp`,
+    description: "",
+  },
 ];
 
 export const sortedWorks = [...works].sort((a, b) => {
