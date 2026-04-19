@@ -8,7 +8,7 @@
 #   "{入力ディレクトリ名}_edited" という名前で出力される。
 #
 # 使い方:
-#   bash scripts/convert-to-webp.sh <input_dir>
+#   bash scripts/convert-to-webp.sh scripts/data
 #
 # 引数:
 #   input_dir   変換対象の画像が入ったディレクトリ（絶対パス・相対パス どちらも可）
