@@ -5,19 +5,19 @@
 ## コマンド
 
 ```bash
-npm run dev           # 開発サーバー起動（Next.js + Turbopack）
-npm run build         # 静的エクスポートビルド（/out に出力）
-npm run lint          # ESLint 実行
-npm run lint:fix      # ESLint 自動修正
-npm run format        # Prettier でフォーマット（Tailwind クラス順序の自動整列含む）
-npm run format:check  # フォーマットチェック（書き込みなし）
+pnpm dev           # 開発サーバー起動（Next.js + Turbopack）
+pnpm build         # 静的エクスポートビルド（/out に出力）
+pnpm lint          # ESLint 実行
+pnpm lint:fix      # ESLint 自動修正
+pnpm format        # Prettier でフォーマット（Tailwind クラス順序の自動整列含む）
+pnpm format:check  # フォーマットチェック（書き込みなし）
 ```
 
 テストスイートは設定されていません。
 
 ## アーキテクチャ
 
-イラストレーター・デザイナー「関口咲」の **Next.js 15 静的エクスポート** ポートフォリオサイトです。`next.config.ts` に `output: "export"` が設定されており、Cloudflare へのデプロイ用に `/out` ディレクトリへ静的サイトを生成します。
+イラストレーター・デザイナー「世木口」の **Next.js 15 静的エクスポート** ポートフォリオサイトです。`next.config.ts` に `output: "export"` が設定されており、Cloudflare へのデプロイ用に `/out` ディレクトリへ静的サイトを生成します。
 
 ### 重要な設計方針
 

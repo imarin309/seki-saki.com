@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -14,7 +16,7 @@ const securityHeaders = [
     value: [
       "default-src 'self'",
       "img-src 'self' https://assets.seki-saki.com https://images.unsplash.com",
-      "script-src 'self' 'unsafe-inline'",
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "object-src 'none'",
       "base-uri 'self'",
