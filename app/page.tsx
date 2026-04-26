@@ -107,9 +107,7 @@ export default function HomePage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="mb-6 text-3xl md:text-4xl">
-                関口咲 Sekiguchi saki
-              </h2>
+              <h2 className="mb-6 text-3xl md:text-4xl">世木口</h2>
               <Link
                 href="/about"
                 className="inline-flex items-center gap-2 text-white transition-colors hover:text-gray-400"

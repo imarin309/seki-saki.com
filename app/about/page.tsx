@@ -38,7 +38,7 @@ export default function AboutPage() {
           <div className="flex flex-col justify-center">
             <h2 className="mb-6 text-3xl">クリエイティブな視点から</h2>
             <p className="mb-4 leading-relaxed text-gray-400">
-              はじめまして。関口 咲と申します。
+              はじめまして。世木口と申します。
             </p>
             <p className="mb-4 leading-relaxed text-gray-400">
               芯のある美しい女性を中心にイラストレーションを描いています。
