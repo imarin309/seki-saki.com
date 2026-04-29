@@ -15,12 +15,9 @@ const categories = [
 ];
 
 export default function WorksPage() {
-  const [filter, setFilter] = useState<string | null>("デジタルイラスト");
+  const [filter, setFilter] = useState("デジタルイラスト");
 
-  const filteredWorks =
-    filter === null
-      ? []
-      : sortedWorks.filter((work) => work.category === filter);
+  const filteredWorks = sortedWorks.filter((work) => work.category === filter);
 
   return (
     <div className="min-h-screen py-20">

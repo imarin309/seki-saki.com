@@ -315,6 +315,14 @@ export const works: Work[] = [
     image: `${BASE}/2026/hikari3.webp`,
     description: "",
   },
+    {
+    id: "37",
+    title: "Boy meets Star.",
+    category: "デジタルイラスト",
+    date: "2026/4/29",
+    image: `${BASE}/2026/Boy_meets_Star.webp`,
+    description: "線画をしっかり描くことを意識しました。",
+  },
 ];
 
 export const sortedWorks = [...works].sort((a, b) => {
