@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { sortedWorks } from "@/data/works";
+import { sortedIllusts } from "@/data/illusts";
 
 export default function HomePage() {
-  const featuredWorks = sortedWorks.slice(0, 3);
+  const featuredIllusts = sortedIllusts.slice(0, 3);
 
   return (
     <div>
       {/* Hero Section */}
       <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
         <Image
-          src={sortedWorks[0].image}
-          alt={sortedWorks[0].title}
+          src={sortedIllusts[0].image}
+          alt={sortedIllusts[0].title}
           fill
           className="object-cover"
           priority
@@ -36,23 +36,23 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <Link
-              href="/works"
+              href="/illust"
               className="inline-flex items-center gap-2 bg-white px-8 py-3 text-black transition-colors hover:bg-gray-200"
             >
-              View Works
+              View Illusts
               <ArrowRight size={20} />
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* Featured Works Section */}
+      {/* Featured Illusts Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="mb-12 flex items-center justify-between">
-            <h2 className="text-3xl md:text-4xl">Featured Works</h2>
+            <h2 className="text-3xl md:text-4xl">Featured Illusts</h2>
             <Link
-              href="/works"
+              href="/illust"
               className="flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
             >
               View All
@@ -61,7 +61,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {featuredWorks.map((work, index) => (
+            {featuredIllusts.map((work, index) => (
               <motion.div
                 key={work.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -69,7 +69,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Link href={`/works/${work.id}`} className="group block">
+                <Link href={`/illust/${work.id}`} className="group block">
                   <div className="relative mb-4 aspect-[4/5] overflow-hidden bg-gray-900">
                     <Image
                       src={work.image}

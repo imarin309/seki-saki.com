@@ -4,13 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
-import { sortedWorks } from "@/data/works";
+import { sortedIllusts } from "@/data/illusts";
 import { WORK_CATEGORIES } from "@/app/config";
 
-export default function WorksPage() {
+export default function IllustPage() {
   const [filter, setFilter] = useState(WORK_CATEGORIES[0]);
 
-  const filteredWorks = sortedWorks.filter((work) => work.category === filter);
+  const filteredIllusts = sortedIllusts.filter(
+    (work) => work.category === filter
+  );
 
   return (
     <div className="min-h-screen py-20">
@@ -22,7 +24,7 @@ export default function WorksPage() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h1 className="mb-4 text-4xl md:text-6xl">Works</h1>
+          <h1 className="mb-4 text-4xl md:text-6xl">Illust</h1>
           <p className="text-xl text-gray-400">
             Selected projects and artworks
           </p>
@@ -52,12 +54,12 @@ export default function WorksPage() {
           </div>
         </motion.div>
 
-        {/* Works Grid */}
+        {/* Illusts Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
-          {filteredWorks.map((work, index) => (
+          {filteredIllusts.map((work, index) => (
             <motion.div
               key={work.id}
               layout
@@ -65,7 +67,7 @@ export default function WorksPage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
             >
-              <Link href={`/works/${work.id}`} className="group block">
+              <Link href={`/illust/${work.id}`} className="group block">
                 <div className="relative mb-4 aspect-[4/5] overflow-hidden bg-gray-900">
                   <Image
                     src={work.image}
@@ -95,9 +97,9 @@ export default function WorksPage() {
           ))}
         </motion.div>
 
-        {filteredWorks.length === 0 && (
+        {filteredIllusts.length === 0 && (
           <div className="py-20 text-center text-gray-400">
-            No works found in this category.
+            No Illusts found in this category.
           </div>
         )}
       </div>

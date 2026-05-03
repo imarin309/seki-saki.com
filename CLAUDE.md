@@ -21,23 +21,23 @@ pnpm format:check  # フォーマットチェック（書き込みなし）
 
 ### 重要な設計方針
 
-- **静的エクスポート**: 全ページは事前レンダリングされます。動的ルート（`/works/[id]`）はビルド時に全 ID を列挙するための `generateStaticParams()` が必要で、`app/works/[id]/page.tsx` に実装されています。
-- **クライアントコンポーネント**: `motion/react` によるアニメーションのため、多くのページで `"use client"` を使用しています。ワーク詳細ルートは、`generateStaticParams` を呼ぶサーバーコンポーネント（`page.tsx`）と、インタラクティブ処理を担うクライアントコンポーネント（`WorkDetailClient.tsx`）に分割されています。
-- **画像ホスティング**: 作品画像はすべて外部 CDN `https://assets.seki-saki.com` から配信され、アプリにはバンドルされません。`data/works.ts` の `BASE` 定数で管理されており、画像は `.webp` 形式である必要があります。
+- **静的エクスポート**: 全ページは事前レンダリングされます。動的ルート（`/illust/[id]`）はビルド時に全 ID を列挙するための `generateStaticParams()` が必要で、`app/illust/[id]/page.tsx` に実装されています。
+- **クライアントコンポーネント**: `motion/react` によるアニメーションのため、多くのページで `"use client"` を使用しています。イラスト詳細ルートは、`generateStaticParams` を呼ぶサーバーコンポーネント（`page.tsx`）と、インタラクティブ処理を担うクライアントコンポーネント（`WorkDetailClient.tsx`）に分割されています。
+- **画像ホスティング**: 作品画像はすべて外部 CDN `https://assets.seki-saki.com` から配信され、アプリにはバンドルされません。`data/illusts.ts` の `BASE` 定数で管理されており、画像は `.webp` 形式である必要があります。
 - **CSP ヘッダー**: `next.config.ts` に厳格なコンテンツセキュリティポリシーが定義されています。新しい外部画像ソースを追加する際は、CSP の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。
 
 ### データフロー
 
-全作品データは `data/works.ts` に TypeScript の静的配列として定義されています（型: `Work`）。新しい作品を追加する場合は、連番の `id` を付けてこのファイルにエントリを追記します。トップページは最初の 3 件（`works.slice(0, 3)`）を表示し、ワーク一覧ページではクライアントサイドでカテゴリフィルタリングを行います。
+全作品データは `data/illusts.ts` に TypeScript の静的配列として定義されています（型: `Illust`、配列: `illusts`、ソート済み配列: `sortedIllusts`）。新しい作品を追加する場合は、連番の `id` を付けてこのファイルにエントリを追記します。トップページは最初の 3 件（`sortedIllusts.slice(0, 3)`）を表示し、イラスト一覧ページではクライアントサイドでカテゴリフィルタリングを行います。
 
 ### ページ・ルート構成
 
-| ルート        | ファイル                  | 備考                                                |
-| ------------- | ------------------------- | --------------------------------------------------- |
-| `/`           | `app/page.tsx`            | ヒーロー + 注目作品（先頭3件）+ About プレビュー    |
-| `/works`      | `app/works/page.tsx`      | 全作品ギャラリー（カテゴリフィルター付き）          |
-| `/works/[id]` | `app/works/[id]/page.tsx` | 作品詳細。クライアント処理は `WorkDetailClient.tsx` |
-| `/about`      | `app/about/page.tsx`      | プロフィールページ                                  |
+| ルート         | ファイル                   | 備考                                                |
+| -------------- | -------------------------- | --------------------------------------------------- |
+| `/`            | `app/page.tsx`             | ヒーロー + 注目作品（先頭3件）+ About プレビュー    |
+| `/illust`      | `app/illust/page.tsx`      | 全作品ギャラリー（カテゴリフィルター付き）          |
+| `/illust/[id]` | `app/illust/[id]/page.tsx` | 作品詳細。クライアント処理は `WorkDetailClient.tsx` |
+| `/about`       | `app/about/page.tsx`       | プロフィールページ                                  |
 
 ### 共有コンポーネント
 

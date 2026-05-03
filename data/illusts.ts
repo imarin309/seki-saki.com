@@ -1,4 +1,4 @@
-export interface Work {
+export interface Illust {
   id: string;
   title: string;
   category: string;
@@ -18,7 +18,7 @@ function normalizeDateForSort(date: string): string {
 
 const BASE = "https://assets.seki-saki.com";
 
-export const works: Work[] = [
+export const illusts: Illust[] = [
   // 厚塗り
   {
     id: "1",
@@ -177,7 +177,7 @@ export const works: Work[] = [
   },
 ];
 
-export const sortedWorks = [...works].sort((a, b) => {
+export const sortedIllusts = [...illusts].sort((a, b) => {
   const dateA = normalizeDateForSort(a.date);
   const dateB = normalizeDateForSort(b.date);
   if (dateA !== dateB) return dateB.localeCompare(dateA);
