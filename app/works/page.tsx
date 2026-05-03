@@ -41,10 +41,10 @@ export default function WorksPage() {
                 <div className="absolute left-[-4px] top-1 size-2 rounded-full bg-white md:left-[176px]" />
 
                 {/* カード */}
-                <div className="flex flex-1 overflow-hidden rounded border border-white/10 bg-[#111111] md:ml-8">
-                  {/* 左：画像 */}
+                <div className="flex flex-1 flex-col overflow-hidden rounded border border-white/10 bg-[#111111] sm:flex-row md:ml-8">
+                  {/* 画像：モバイルは上部全幅、sm以上は左側固定幅 */}
                   {work.image && (
-                    <div className="relative hidden w-40 shrink-0 sm:block">
+                    <div className="relative h-48 w-full shrink-0 sm:h-auto sm:w-40">
                       <Image
                         src={work.image}
                         alt={work.title}
@@ -53,7 +53,7 @@ export default function WorksPage() {
                       />
                     </div>
                   )}
-                  {/* 右：テキスト */}
+                  {/* テキスト */}
                   <div className="flex-1 p-6">
                     <h2 className="mb-3 text-xl">{work.title}</h2>
                     <p className="mb-4 leading-relaxed text-gray-400">
