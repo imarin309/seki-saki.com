@@ -10,6 +10,7 @@ import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Illust", path: "/illust" },
+  { name: "Works", path: "/works" },
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
 ];
