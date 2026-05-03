@@ -56,7 +56,7 @@ export default function WorksPage() {
                   {/* テキスト */}
                   <div className="flex-1 p-6">
                     <h2 className="mb-3 text-xl">{work.title}</h2>
-                    <p className="mb-4 leading-relaxed text-gray-400">
+                    <p className="mb-4 whitespace-pre-line leading-relaxed text-gray-400">
                       {work.description}
                     </p>
                   </div>

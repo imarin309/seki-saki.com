@@ -5,10 +5,10 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { sortedIllusts } from "@/data/illusts";
-import { WORK_CATEGORIES } from "@/app/config";
+import { ILLUST_CATEGORIES } from "@/app/config";
 
 export default function IllustPage() {
-  const [filter, setFilter] = useState(WORK_CATEGORIES[0]);
+  const [filter, setFilter] = useState(ILLUST_CATEGORIES[0]);
 
   const filteredIllusts = sortedIllusts.filter(
     (work) => work.category === filter
@@ -38,7 +38,7 @@ export default function IllustPage() {
           className="mb-12"
         >
           <div className="flex flex-wrap gap-4">
-            {WORK_CATEGORIES.map((category) => (
+            {ILLUST_CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setFilter(category)}
