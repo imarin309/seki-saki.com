@@ -5,11 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { sortedWorks } from "@/data/works";
+import { sortedIllusts } from "@/data/illusts";
 
 export default function WorkDetailClient({ id }: { id: string }) {
   const router = useRouter();
-  const work = sortedWorks.find((w) => w.id === id);
+  const work = sortedIllusts.find((w) => w.id === id);
 
   if (!work) {
     return (
@@ -17,21 +17,21 @@ export default function WorkDetailClient({ id }: { id: string }) {
         <div className="text-center">
           <h1 className="mb-4 text-4xl">Work not found</h1>
           <Link
-            href="/works"
+            href="/illust"
             className="text-gray-400 transition-colors hover:text-white"
           >
-            Back to Works
+            Back to Illusts
           </Link>
         </div>
       </div>
     );
   }
 
-  const currentIndex = sortedWorks.findIndex((w) => w.id === id);
-  const prevWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
+  const currentIndex = sortedIllusts.findIndex((w) => w.id === id);
+  const prevWork = currentIndex > 0 ? sortedIllusts[currentIndex - 1] : null;
   const nextWork =
-    currentIndex < sortedWorks.length - 1
-      ? sortedWorks[currentIndex + 1]
+    currentIndex < sortedIllusts.length - 1
+      ? sortedIllusts[currentIndex + 1]
       : null;
 
   return (
@@ -45,11 +45,11 @@ export default function WorkDetailClient({ id }: { id: string }) {
           className="mb-8"
         >
           <button
-            onClick={() => router.push("/works")}
+            onClick={() => router.push("/illust")}
             className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
           >
             <ArrowLeft size={20} />
-            Back to Works
+            Back to Illusts
           </button>
         </motion.div>
 
@@ -102,7 +102,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
             {/* Previous Work */}
             <div>
               {prevWork ? (
-                <Link href={`/works/${prevWork.id}`} className="group block">
+                <Link href={`/illust/${prevWork.id}`} className="group block">
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
                     <span className="text-gray-500">Previous</span>
@@ -138,7 +138,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
             {/* Next Work */}
             <div className="md:text-right">
               {nextWork ? (
-                <Link href={`/works/${nextWork.id}`} className="group block">
+                <Link href={`/illust/${nextWork.id}`} className="group block">
                   <div className="mb-4 flex items-center justify-end gap-4">
                     <span className="text-gray-500">Next</span>
                     <ArrowRight size={20} className="text-gray-400" />

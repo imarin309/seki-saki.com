@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { works } from "@/data/works";
+import { illusts } from "@/data/illusts";
 import { SITE_TITLE, SITE_URL } from "@/app/meta";
 import WorkDetailClient from "./WorkDetailClient";
 
 export function generateStaticParams() {
-  return works.map((work) => ({ id: work.id }));
+  return illusts.map((work) => ({ id: work.id }));
 }
 
 export async function generateMetadata({
@@ -13,12 +13,12 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const work = works.find((w) => w.id === id);
+  const work = illusts.find((w) => w.id === id);
   if (!work) return {};
 
   const title = `${work.title} | ${SITE_TITLE}`;
   const description = work.description || work.title;
-  const url = `${SITE_URL}/works/${id}`;
+  const url = `${SITE_URL}/illust/${id}`;
 
   return {
     title,
