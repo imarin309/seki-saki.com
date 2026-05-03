@@ -5,17 +5,10 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { sortedWorks } from "@/data/works";
-
-const categories = [
-  "デジタルイラスト",
-  "ペンイラスト",
-  "キャラクターイラスト",
-  "レジンアート",
-  "グラフィックデザイン",
-];
+import { WORK_CATEGORIES } from "@/app/config";
 
 export default function WorksPage() {
-  const [filter, setFilter] = useState("デジタルイラスト");
+  const [filter, setFilter] = useState(WORK_CATEGORIES[0]);
 
   const filteredWorks = sortedWorks.filter((work) => work.category === filter);
 
@@ -43,7 +36,7 @@ export default function WorksPage() {
           className="mb-12"
         >
           <div className="flex flex-wrap gap-4">
-            {categories.map((category) => (
+            {WORK_CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setFilter(category)}
