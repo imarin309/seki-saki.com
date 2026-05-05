@@ -100,37 +100,30 @@ export default function HomePage() {
       {/* About Preview Section */}
       <section className="bg-[#111111] py-20">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="mb-6 text-3xl md:text-4xl">世木口</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-6 [&>*]:h-32">
+              <div className="relative w-32 flex-shrink-0 overflow-hidden bg-gray-900">
+                <Image
+                  src="https://assets.seki-saki.com/meta/star.webp"
+                  alt="about"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-white transition-colors hover:text-gray-400"
+                className="flex flex-shrink-0 items-center justify-center gap-3 text-3xl text-white transition-colors hover:text-gray-400"
               >
-                Learn More
-                <ArrowRight size={20} />
+                世木口について
+                <ArrowRight size={32} />
               </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="relative aspect-square overflow-hidden bg-gray-900"
-            >
-              <Image
-                src="https://assets.seki-saki.com/meta/seki-saki.webp"
-                alt="about"
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
