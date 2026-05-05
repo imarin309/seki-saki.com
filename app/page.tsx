@@ -107,7 +107,7 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <div className="flex items-center justify-center gap-6 [&>*]:h-32">
-              <div className="relative w-32 flex-shrink-0 overflow-hidden bg-gray-900">
+              <div className="relative w-32 flex-shrink-0 overflow-hidden rounded-full bg-gray-900">
                 <Image
                   src="https://assets.seki-saki.com/meta/star.webp"
                   alt="about"
