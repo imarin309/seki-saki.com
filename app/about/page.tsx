@@ -15,9 +15,6 @@ export default function AboutPage() {
           className="mb-20"
         >
           <h1 className="mb-6 text-4xl md:text-6xl">About Me</h1>
-          <p className="max-w-3xl text-xl text-gray-400">
-            デザインとアートの力で、人々の心に響く作品を創り続けています。
-          </p>
         </motion.div>
 
         {/* Bio */}
@@ -36,13 +33,14 @@ export default function AboutPage() {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <h2 className="mb-6 text-3xl">クリエイティブな視点から</h2>
+            <h2 className="mb-6 text-3xl">
+              派手で美しい人物をリアル調に描きます。
+            </h2>
             <p className="mb-4 leading-relaxed text-gray-400">
               はじめまして。世木口と申します。
             </p>
             <p className="mb-4 leading-relaxed text-gray-400">
               芯のある美しい女性を中心にイラストレーションを描いています。
-              また、ゆるくて可愛いイラストも得意です。
             </p>
             <p className="leading-relaxed text-gray-400">
               現在は会社員として勤めながら、フリーランスでイラストレーターとして活動しております。

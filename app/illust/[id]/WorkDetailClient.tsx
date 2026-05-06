@@ -3,12 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { clsx } from "clsx";
 import { sortedIllusts } from "@/data/illusts";
 
 export default function WorkDetailClient({ id }: { id: string }) {
   const router = useRouter();
+  const [showAlt, setShowAlt] = useState(false);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
   const work = sortedIllusts.find((w) => w.id === id);
 
   if (!work) {
@@ -60,7 +65,19 @@ export default function WorkDetailClient({ id }: { id: string }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="bg-gray-900"
+            className="group relative bg-gray-900 [touch-action:pan-y]"
+            onTouchStart={(e) => {
+              touchStartX.current = e.touches[0].clientX;
+              touchStartY.current = e.touches[0].clientY;
+            }}
+            onTouchEnd={(e) => {
+              if (!work.image2) return;
+              const dx = e.changedTouches[0].clientX - touchStartX.current;
+              const dy = e.changedTouches[0].clientY - touchStartY.current;
+              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+                setShowAlt((v) => !v);
+              }
+            }}
           >
             <Image
               src={work.image}
@@ -68,8 +85,36 @@ export default function WorkDetailClient({ id }: { id: string }) {
               width={0}
               height={0}
               sizes="100vw"
-              className="h-auto w-full"
+              className={clsx(
+                "h-auto w-full",
+                work.image2 && [
+                  "transition-opacity duration-500",
+                  showAlt ? "opacity-0" : "group-hover:opacity-0",
+                ]
+              )}
             />
+            {work.image2 && (
+              <>
+                <Image
+                  src={work.image2}
+                  alt={work.title}
+                  fill
+                  className={`object-cover transition-opacity duration-500 ${
+                    showAlt
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100"
+                  }`}
+                />
+                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 md:hidden">
+                  <span
+                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-white/40" : "bg-white"}`}
+                  />
+                  <span
+                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-white" : "bg-white/40"}`}
+                  />
+                </div>
+              </>
+            )}
           </motion.div>
 
           {/* Info */}

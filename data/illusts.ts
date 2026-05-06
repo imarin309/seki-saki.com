@@ -5,6 +5,8 @@ export interface Illust {
   /** yyyy / yyyy/mm / yyyy/mm/dd のいずれかの形式 */
   date: string;
   image: string;
+  /** ホバー時にクロスフェードで表示する別バージョン画像（任意） */
+  image2?: string;
   description: string;
 }
 
@@ -174,6 +176,15 @@ export const illusts: Illust[] = [
     date: "2026/4/29",
     image: `${BASE}/2026/Boy_meets_Star.webp`,
     description: "線画をしっかり描くことを意識しました。",
+  },
+  {
+    id: "20",
+    title: "engel or devil?",
+    category: "厚塗り",
+    date: "2026/5/6",
+    image: `${BASE}/2026/engel_or_devil.webp`,
+    image2: `${BASE}/2026/engel_or_devil_megane.webp`,
+    description: "",
   },
 ];
 
