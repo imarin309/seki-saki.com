@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { clsx } from "clsx";
 import { sortedIllusts } from "@/data/illusts";
 
 export default function WorkDetailClient({ id }: { id: string }) {
@@ -84,11 +85,13 @@ export default function WorkDetailClient({ id }: { id: string }) {
               width={0}
               height={0}
               sizes="100vw"
-              className={`h-auto w-full${
-                work.image2
-                  ? `transition-opacity duration-500 ${showAlt ? "opacity-0" : "group-hover:opacity-0"}`
-                  : ""
-              }`}
+              className={clsx(
+                "h-auto w-full",
+                work.image2 && [
+                  "transition-opacity duration-500",
+                  showAlt ? "opacity-0" : "group-hover:opacity-0",
+                ]
+              )}
             />
             {work.image2 && (
               <>
