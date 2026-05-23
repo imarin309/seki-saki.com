@@ -1,8 +1,93 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { sortedWorks } from "@/data/works";
+
+function WorkImageCarousel({
+  images,
+  title,
+}: {
+  images: string[];
+  title: string;
+}) {
+  const [current, setCurrent] = useState(0);
+
+  const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
+  const next = () => setCurrent((c) => (c + 1) % images.length);
+
+  return (
+    <div className="group relative h-48 w-full shrink-0 overflow-hidden sm:h-full sm:w-40">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[current]}
+            alt={`${title} ${current + 1}`}
+            fill
+            className="object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            aria-label="前の画像"
+            className="absolute left-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="size-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={next}
+            aria-label="次の画像"
+            className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="size-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <div className="absolute bottom-1.5 left-1/2 flex -translate-x-1/2 gap-1">
+            {images.map((_, i) => (
+              <div
+                key={i}
+                className={`size-1 rounded-full transition-colors ${i === current ? "bg-white" : "bg-white/40"}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function WorksPage() {
   return (
@@ -42,16 +127,11 @@ export default function WorksPage() {
 
                 {/* カード */}
                 <div className="flex flex-1 flex-col overflow-hidden rounded border border-white/10 bg-[#111111] sm:flex-row md:ml-8">
-                  {/* 画像：モバイルは上部全幅、sm以上は左側固定幅 */}
-                  {work.image && (
-                    <div className="relative h-48 w-full shrink-0 sm:h-auto sm:w-40">
-                      <Image
-                        src={work.image}
-                        alt={work.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                  {work.images && work.images.length > 0 && (
+                    <WorkImageCarousel
+                      images={work.images}
+                      title={work.title}
+                    />
                   )}
                   {/* テキスト */}
                   <div className="flex-1 p-6">

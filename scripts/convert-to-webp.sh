@@ -57,13 +57,25 @@ convert_image() {
 
   mkdir -p "$out_dir"
 
+  # cwebp は EXIF orientation を無視するため、Python(Pillow) で向き補正済みの一時ファイルを作成する
+  local tmp
+  tmp=$(mktemp "/tmp/webp_src_XXXXX.jpg")
+  python3 - "$src" "$tmp" <<'PYEOF'
+import sys
+from PIL import Image, ImageOps
+img = Image.open(sys.argv[1])
+img = ImageOps.exif_transpose(img)
+img.save(sys.argv[2], "JPEG", quality=95)
+PYEOF
+  local convert_src="$tmp"
+
   local quality=$INITIAL_QUALITY
   local success=false
   local note=""
 
   # Phase 1: quality を落としながら試す
   while [[ $quality -ge $MIN_QUALITY ]]; do
-    "$CWEBP" -quiet -q "$quality" "$src" -o "$out"
+    "$CWEBP" -quiet -q "$quality" "$convert_src" -o "$out"
     local size
     size=$(stat -f%z "$out")   # macOS: stat -f%z でバイト数取得
 
@@ -78,12 +90,12 @@ convert_image() {
   # Phase 2: quality=1 でも超過する場合はリサイズで対処
   if ! $success; then
     local orig_w
-    orig_w=$(sips -g pixelWidth "$src" | awk '/pixelWidth/{print $2}')
+    orig_w=$(sips -g pixelWidth "$convert_src" | awk '/pixelWidth/{print $2}')
     local scale=75
     while [[ $scale -ge 25 ]]; do
       local resize_w=$(( orig_w * scale / 100 ))
       quality=$INITIAL_QUALITY
-      "$CWEBP" -quiet -q "$quality" -resize "$resize_w" 0 "$src" -o "$out"
+      "$CWEBP" -quiet -q "$quality" -resize "$resize_w" 0 "$convert_src" -o "$out"
       local size
       size=$(stat -f%z "$out")
       if [[ $size -le $MAX_BYTES ]]; then
@@ -94,6 +106,8 @@ convert_image() {
       scale=$((scale - 25))
     done
   fi
+
+  rm -f "$tmp"
 
   if $success; then
     local kb=$(( $(stat -f%z "$out") / 1024 ))
