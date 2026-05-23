@@ -42,7 +42,7 @@ function WorkImageCarousel({
           <button
             onClick={prev}
             aria-label="前の画像"
-            className="absolute left-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute left-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ function WorkImageCarousel({
           <button
             onClick={next}
             aria-label="次の画像"
-            className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+            className="absolute right-1 top-1/2 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
