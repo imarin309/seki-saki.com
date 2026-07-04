@@ -1,11 +1,114 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { sortedWorks } from "@/data/works";
+
+const URL_PATTERN = /(https?:\/\/[^\s]+)/g;
+
+function Linkify({ text }: { text: string }) {
+  const parts = text.split(URL_PATTERN);
+
+  return parts.map((part, index) =>
+    // split() with a capturing group places matches at odd indices
+    index % 2 === 1 ? (
+      <a
+        key={index}
+        href={part}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-white underline underline-offset-2 hover:text-gray-300"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    )
+  );
+}
+
+function ImageCarousel({
+  images,
+  title,
+}: {
+  images: string[];
+  title: string;
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+
+  const scrollToIndex = (nextIndex: number) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    container.scrollTo({
+      left: nextIndex * container.clientWidth,
+      behavior: "smooth",
+    });
+    setIndex(nextIndex);
+  };
+
+  const handleScroll = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    setIndex(Math.round(container.scrollLeft / container.clientWidth));
+  };
+
+  return (
+    <div className="relative">
+      <div
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {images.map((image, i) => (
+          <div
+            key={image}
+            className="w-full shrink-0 snap-center overflow-hidden bg-gray-900"
+          >
+            <Image
+              src={image}
+              alt={`${title} ${i + 1}`}
+              width={1200}
+              height={900}
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              className="h-auto w-full"
+              priority={i === 0}
+            />
+          </div>
+        ))}
+      </div>
+
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={() => scrollToIndex(Math.max(index - 1, 0))}
+            disabled={index === 0}
+            aria-label="Previous image"
+            className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
+          >
+            <ArrowLeft size={20} />
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              scrollToIndex(Math.min(index + 1, images.length - 1))
+            }
+            disabled={index === images.length - 1}
+            aria-label="Next image"
+            className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
+          >
+            <ArrowRight size={20} />
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function WorkDetailClient({ slug }: { slug: string }) {
   const router = useRouter();
@@ -50,30 +153,26 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
           </button>
         </motion.div>
 
-        <div className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_420px]">
+        <div className="mb-20 flex flex-col gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="mb-4 tabular-nums text-gray-500">
+              {work.date.replace("/", " / ")}
+            </p>
+            <h1 className="text-4xl md:text-5xl">{work.title}</h1>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="order-2 flex flex-col gap-6 lg:order-1"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mx-auto w-full lg:max-w-2xl"
           >
             {work.images && work.images.length > 0 ? (
-              work.images.map((image, index) => (
-                <div
-                  key={image}
-                  className="relative overflow-hidden bg-gray-900"
-                >
-                  <Image
-                    src={image}
-                    alt={`${work.title} ${index + 1}`}
-                    width={1200}
-                    height={900}
-                    sizes="(min-width: 1024px) 60vw, 100vw"
-                    className="h-auto w-full"
-                    priority={index === 0}
-                  />
-                </div>
-              ))
+              <ImageCarousel images={work.images} title={work.title} />
             ) : (
               <div className="flex aspect-[4/3] items-center justify-center bg-gray-900 text-gray-500">
                 No image
@@ -85,14 +184,9 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-1 lg:sticky lg:top-28 lg:order-2 lg:self-start"
           >
-            <p className="mb-4 tabular-nums text-gray-500">
-              {work.date.replace("/", " / ")}
-            </p>
-            <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
             <p className="whitespace-pre-line text-xl leading-relaxed text-gray-400">
-              {work.description}
+              <Linkify text={work.description} />
             </p>
           </motion.div>
         </div>

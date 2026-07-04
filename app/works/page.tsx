@@ -6,14 +6,6 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { sortedWorks } from "@/data/works";
 
-function excerpt(text: string) {
-  const firstParagraph = text.split("\n").find((line) => line.trim());
-  if (!firstParagraph) return "";
-  return firstParagraph.length > 90
-    ? `${firstParagraph.slice(0, 90)}...`
-    : firstParagraph;
-}
-
 export default function WorksPage() {
   return (
     <div className="min-h-screen py-20">
@@ -52,23 +44,22 @@ export default function WorksPage() {
                   className="group flex flex-1 flex-col overflow-hidden rounded border border-white/10 bg-[#111111] transition-colors hover:border-white/30 sm:flex-row md:ml-8"
                 >
                   {work.images && work.images.length > 0 && (
-                    <div className="relative h-48 w-full shrink-0 overflow-hidden bg-gray-900 sm:h-auto sm:w-40">
+                    <div className="w-full shrink-0 overflow-hidden bg-gray-900 sm:w-40">
                       <Image
                         src={work.images[0]}
                         alt={work.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        width={640}
+                        height={480}
+                        sizes="(min-width: 640px) 160px, 100vw"
+                        className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   )}
 
                   <div className="flex flex-1 flex-col p-6">
-                    <h2 className="mb-3 text-xl transition-colors group-hover:text-gray-300">
+                    <h2 className="mb-5 text-xl transition-colors group-hover:text-gray-300">
                       {work.title}
                     </h2>
-                    <p className="mb-5 whitespace-pre-line leading-relaxed text-gray-400">
-                      {excerpt(work.description)}
-                    </p>
                     <span className="mt-auto inline-flex items-center gap-2 text-sm text-gray-400 transition-colors group-hover:text-white">
                       View work
                       <ArrowRight size={16} />
