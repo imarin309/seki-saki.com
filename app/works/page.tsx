@@ -48,7 +48,7 @@ export default function WorksPage() {
                 <div className="absolute left-[-4px] top-1 size-2 rounded-full bg-white md:left-[176px]" />
 
                 <Link
-                  href={`/works/${work.id}`}
+                  href={`/works/${work.slug}`}
                   className="group flex flex-1 flex-col overflow-hidden rounded border border-white/10 bg-[#111111] transition-colors hover:border-white/30 sm:flex-row md:ml-8"
                 >
                   {work.images && work.images.length > 0 && (

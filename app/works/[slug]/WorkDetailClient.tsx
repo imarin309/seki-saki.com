@@ -7,9 +7,9 @@ import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { sortedWorks } from "@/data/works";
 
-export default function WorkDetailClient({ id }: { id: string }) {
+export default function WorkDetailClient({ slug }: { slug: string }) {
   const router = useRouter();
-  const work = sortedWorks.find((w) => w.id === id);
+  const work = sortedWorks.find((w) => w.slug === slug);
 
   if (!work) {
     return (
@@ -27,7 +27,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
     );
   }
 
-  const currentIndex = sortedWorks.findIndex((w) => w.id === id);
+  const currentIndex = sortedWorks.findIndex((w) => w.slug === slug);
   const prevWork =
     currentIndex < sortedWorks.length - 1 ? sortedWorks[currentIndex + 1] : null;
   const nextWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
@@ -106,7 +106,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
               {prevWork ? (
-                <Link href={`/works/${prevWork.id}`} className="group block">
+                <Link href={`/works/${prevWork.slug}`} className="group block">
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
                     <span className="text-gray-500">Previous</span>
@@ -143,7 +143,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
 
             <div className="md:text-right">
               {nextWork ? (
-                <Link href={`/works/${nextWork.id}`} className="group block">
+                <Link href={`/works/${nextWork.slug}`} className="group block">
                   <div className="mb-4 flex items-center justify-end gap-4">
                     <span className="text-gray-500">Next</span>
                     <ArrowRight size={20} className="text-gray-400" />

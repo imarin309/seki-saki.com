@@ -4,21 +4,21 @@ import { SITE_TITLE, SITE_URL } from "@/app/meta";
 import WorkDetailClient from "./WorkDetailClient";
 
 export function generateStaticParams() {
-  return works.map((work) => ({ id: work.id }));
+  return works.map((work) => ({ slug: work.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
-  const work = works.find((w) => w.id === id);
+  const { slug } = await params;
+  const work = works.find((w) => w.slug === slug);
   if (!work) return {};
 
   const title = `${work.title} | ${SITE_TITLE}`;
   const description = work.description || work.title;
-  const url = `${SITE_URL}/works/${id}`;
+  const url = `${SITE_URL}/works/${work.slug}`;
   const image = work.images?.[0];
 
   return {
@@ -52,8 +52,8 @@ export async function generateMetadata({
 export default async function WorksDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { id } = await params;
-  return <WorkDetailClient id={id} />;
+  const { slug } = await params;
+  return <WorkDetailClient slug={slug} />;
 }
