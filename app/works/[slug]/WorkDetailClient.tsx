@@ -9,7 +9,8 @@ import { sortedWorks } from "@/data/works";
 
 export default function WorkDetailClient({ slug }: { slug: string }) {
   const router = useRouter();
-  const work = sortedWorks.find((w) => w.slug === slug);
+  const currentIndex = sortedWorks.findIndex((w) => w.slug === slug);
+  const work = currentIndex >= 0 ? sortedWorks[currentIndex] : null;
 
   if (!work) {
     return (
@@ -27,7 +28,6 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
     );
   }
 
-  const currentIndex = sortedWorks.findIndex((w) => w.slug === slug);
   const prevWork =
     currentIndex < sortedWorks.length - 1 ? sortedWorks[currentIndex + 1] : null;
   const nextWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;

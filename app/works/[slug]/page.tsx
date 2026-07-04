@@ -3,6 +3,8 @@ import { works } from "@/data/works";
 import { SITE_TITLE, SITE_URL } from "@/app/meta";
 import WorkDetailClient from "./WorkDetailClient";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return works.map((work) => ({ slug: work.slug }));
 }
