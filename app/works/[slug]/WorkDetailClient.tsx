@@ -28,9 +28,9 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
     );
   }
 
-  const prevWork =
+  const prevWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
+  const nextWork =
     currentIndex < sortedWorks.length - 1 ? sortedWorks[currentIndex + 1] : null;
-  const nextWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
 
   return (
     <div className="min-h-screen py-20">
