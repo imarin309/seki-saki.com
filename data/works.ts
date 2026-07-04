@@ -36,7 +36,7 @@ export const works: Work[] = [
     title: "2人展「STILL HERE」開催のお知らせ",
     date: "2026/07/04",
     description:
-      "学生時代からの友人と、夏に2人展を開催します。\nテキスタイルとイラストレーションという表現方法の異なる2人が、同じ「動物」というテーマで制作しました。\n\nギャラリーをお借りしての展示は今回が初めてです。\n私は主に土日に在廊する予定です。\n\nもしご都合よろしければ、ぜひお越しください。DMなどいただけますと尚嬉しいです。\n皆様にお会いできるのを楽しみにしております。\n\n【STILLHERE】\n▫・日程 2026年7月31日(金)-8月2日(日)\n▫・時間 11:00-18:00\n・会場 GALLERY SUMMER of LOVE\n　東京都杉並区高円寺南4丁目41-6\n JR高円寺駅南口から徒歩2分\n\n[Textile] たなかひなこ: https://www.instagram.com/tt.1212b\n[Illustration] 世木口: https://www.instagram.com/_sekisaki",
+      "学生時代からの友人と、夏に2人展を開催します。\nテキスタイルとイラストレーションという表現方法の異なる2人が、同じ「動物」というテーマで制作しました。\n\nギャラリーをお借りしての展示は今回が初めてです。\n私は主に土日に在廊する予定です。\n\nもしご都合よろしければ、ぜひお越しください。DMなどいただけますと尚嬉しいです。\n皆様にお会いできるのを楽しみにしております。\n\n【STILLHERE】\n▫・日程 2026年7月31日(金)-8月2日(日)\n▫・時間 11:00-18:00\n・会場 GALLERY SUMMER of LOVE\n 東京都杉並区高円寺南4丁目41-6\n JR高円寺駅南口から徒歩2分\n\n[Textile] たなかひなこ: https://www.instagram.com/tt.1212b\n[Illustration] 世木口: https://www.instagram.com/_sekisaki",
     images: [
       "https://assets.seki-saki.com/2026/stillhere_dm.webp",
       "https://assets.seki-saki.com/2026/stillhere_dm2.webp",
