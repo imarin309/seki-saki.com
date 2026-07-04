@@ -31,13 +31,7 @@ function Linkify({ text }: { text: string }) {
   );
 }
 
-function ImageCarousel({
-  images,
-  title,
-}: {
-  images: string[];
-  title: string;
-}) {
+function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
 
@@ -133,7 +127,9 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
 
   const prevWork = currentIndex > 0 ? sortedWorks[currentIndex - 1] : null;
   const nextWork =
-    currentIndex < sortedWorks.length - 1 ? sortedWorks[currentIndex + 1] : null;
+    currentIndex < sortedWorks.length - 1
+      ? sortedWorks[currentIndex + 1]
+      : null;
 
   return (
     <div className="min-h-screen py-20">
@@ -160,7 +156,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             transition={{ duration: 0.6 }}
           >
             <p className="mb-4 tabular-nums text-gray-500">
-              {work.date.replace("/", " / ")}
+              {work.date.replace(/\//g, " / ")}
             </p>
             <h1 className="text-4xl md:text-5xl">{work.title}</h1>
           </motion.div>

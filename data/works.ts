@@ -30,7 +30,7 @@ export const works: Work[] = [
       "https://assets.seki-saki.com/2026/works_beatiful5_2.webp",
     ],
   },
-    {
+  {
     id: "3",
     slug: "stillhere_announcement",
     title: "2人展「STILL HERE」開催のお知らせ",
