@@ -1,5 +1,6 @@
 export interface Work {
   id: string;
+  slug: string;
   title: string;
   /** yyyy/mm 形式 */
   date: string;
@@ -10,6 +11,7 @@ export interface Work {
 export const works: Work[] = [
   {
     id: "1",
+    slug: "wedding-pamphlet-illustration",
     title: "ウェディングパンフレット イラスト制作",
     date: "2026/03",
     description:
@@ -18,6 +20,7 @@ export const works: Work[] = [
   },
   {
     id: "2",
+    slug: "beautiful-5",
     title: "ART STORE IYNさま 「Beautiful 5」に出展させていただきました",
     date: "2026/05",
     description:
