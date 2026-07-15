@@ -1,5 +1,7 @@
 export interface Illust {
   id: string;
+  /** URLに使用するスラッグ。タイトルの空白を「_」で置き換え、記号は除去したもの */
+  slug: string;
   title: string;
   category: string;
   /** yyyy / yyyy/mm / yyyy/mm/dd のいずれかの形式 */
@@ -24,6 +26,7 @@ export const illusts: Illust[] = [
   // 厚塗り
   {
     id: "1",
+    slug: "Confidence",
     title: "Confidence",
     category: "厚塗り",
     date: "2025",
@@ -32,6 +35,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "2",
+    slug: "Midsummer_Gaze",
     title: "真夏の視線",
     category: "厚塗り",
     date: "2025",
@@ -40,6 +44,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "3",
+    slug: "Electronics",
     title: "Electronics",
     category: "厚塗り",
     date: "2025",
@@ -48,6 +53,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "4",
+    slug: "Thick_Paint_Illustration",
     title: "厚塗りイラスト",
     category: "厚塗り",
     date: "2025",
@@ -56,6 +62,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "5",
+    slug: "Pen_Drawing_1",
     title: "ペン①",
     category: "ペン画",
     date: "2025",
@@ -64,6 +71,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "6",
+    slug: "Pen_Drawing_2",
     title: "ペン画②",
     category: "ペン画",
     date: "2025",
@@ -72,6 +80,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "7",
+    slug: "Figure_Pen_Drawing_1",
     title: "人物ペン画①",
     category: "ペン画",
     date: "2025",
@@ -80,6 +89,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "8",
+    slug: "Figure_Pen_Drawing_2",
     title: "人物ペン画②",
     category: "ペン画",
     date: "2025",
@@ -88,6 +98,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "9",
+    slug: "Figure_Pen_Drawing_3",
     title: "人物ペン画③",
     category: "ペン画",
     date: "2025",
@@ -96,6 +107,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "10",
+    slug: "Avoid_Fatal_Injury",
     title: "致命傷は避けてやる",
     category: "厚塗り",
     date: "2025/12/30",
@@ -105,6 +117,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "11",
+    slug: "FOCUS",
     title: "FOCUS",
     category: "厚塗り",
     date: "2026/1/11",
@@ -114,6 +127,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "12",
+    slug: "long_hair_girl",
     title: "long hair girl",
     category: "モノクロ",
     date: "2026/3/3",
@@ -122,6 +136,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "13",
+    slug: "boy",
     title: "boy",
     category: "モノクロ",
     date: "2026/3/29",
@@ -130,6 +145,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "14",
+    slug: "wedding_illust",
     title: "wedding illust",
     category: "厚塗り",
     date: "2026/3/29",
@@ -139,6 +155,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "15",
+    slug: "maegami",
     title: "maegami",
     category: "モノクロ",
     date: "2026/3/31",
@@ -147,6 +164,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "16",
+    slug: "hikari",
     title: "hikari",
     category: "厚塗り",
     date: "2026/4/11",
@@ -155,6 +173,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "17",
+    slug: "hikari2",
     title: "hikari2",
     category: "厚塗り",
     date: "2026/4/19",
@@ -163,6 +182,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "18",
+    slug: "hikari3",
     title: "hikari3",
     category: "厚塗り",
     date: "2026/4/19",
@@ -171,6 +191,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "19",
+    slug: "Boy_meets_Star",
     title: "Boy meets Star.",
     category: "厚塗り",
     date: "2026/4/29",
@@ -179,6 +200,7 @@ export const illusts: Illust[] = [
   },
   {
     id: "20",
+    slug: "engel_or_devil",
     title: "engel or devil?",
     category: "厚塗り",
     date: "2026/5/6",
