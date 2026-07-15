@@ -10,7 +10,7 @@ interface Props {
 
 export default function IllustCard({ work }: Props) {
   return (
-    <Link href={`/illust/${work.id}`} className="group block">
+    <Link href={`/illust/${work.slug}`} className="group block">
       <div className="relative mb-4 aspect-[4/5] overflow-hidden bg-gray-900">
         <Image
           src={work.image}

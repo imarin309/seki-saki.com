@@ -9,12 +9,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
 import { sortedIllusts } from "@/data/illusts";
 
-export default function WorkDetailClient({ id }: { id: string }) {
+export default function WorkDetailClient({ slug }: { slug: string }) {
   const router = useRouter();
   const [showAlt, setShowAlt] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
-  const work = sortedIllusts.find((w) => w.id === id);
+  const work = sortedIllusts.find((w) => w.slug === slug);
 
   if (!work) {
     return (
@@ -32,7 +32,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
     );
   }
 
-  const currentIndex = sortedIllusts.findIndex((w) => w.id === id);
+  const currentIndex = sortedIllusts.findIndex((w) => w.slug === slug);
   const prevWork = currentIndex > 0 ? sortedIllusts[currentIndex - 1] : null;
   const nextWork =
     currentIndex < sortedIllusts.length - 1
@@ -147,7 +147,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
             {/* Previous Work */}
             <div>
               {prevWork ? (
-                <Link href={`/illust/${prevWork.id}`} className="group block">
+                <Link href={`/illust/${prevWork.slug}`} className="group block">
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
                     <span className="text-gray-500">Previous</span>
@@ -183,7 +183,7 @@ export default function WorkDetailClient({ id }: { id: string }) {
             {/* Next Work */}
             <div className="md:text-right">
               {nextWork ? (
-                <Link href={`/illust/${nextWork.id}`} className="group block">
+                <Link href={`/illust/${nextWork.slug}`} className="group block">
                   <div className="mb-4 flex items-center justify-end gap-4">
                     <span className="text-gray-500">Next</span>
                     <ArrowRight size={20} className="text-gray-400" />
