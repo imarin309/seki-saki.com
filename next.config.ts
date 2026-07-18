@@ -19,6 +19,7 @@ const securityHeaders = [
       `script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com${isDev ? " 'unsafe-eval'" : ""}`,
       "style-src 'self' 'unsafe-inline'",
       "frame-src 'self' https://challenges.cloudflare.com",
+      "connect-src 'self' https://api.seki-saki.com https://challenges.cloudflare.com",
       "object-src 'none'",
       "base-uri 'self'",
       "frame-ancestors 'none'",

@@ -5,6 +5,7 @@ import Script from "next/script";
 import { motion } from "motion/react";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+const CONTACT_API_URL = "https://api.seki-saki.com";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -61,7 +62,7 @@ export default function ContactPage() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(CONTACT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

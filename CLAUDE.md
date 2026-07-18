@@ -25,6 +25,7 @@ pnpm format:check  # フォーマットチェック（書き込みなし）
 - **クライアントコンポーネント**: `motion/react` によるアニメーションのため、多くのページで `"use client"` を使用しています。イラスト詳細ルートは、`generateStaticParams` を呼ぶサーバーコンポーネント（`page.tsx`）と、インタラクティブ処理を担うクライアントコンポーネント（`WorkDetailClient.tsx`）に分割されています。
 - **画像ホスティング**: 作品画像はすべて外部 CDN `https://assets.seki-saki.com` から配信され、アプリにはバンドルされません。`data/illusts.ts` の `BASE` 定数で管理されており、画像は `.webp` 形式である必要があります。
 - **CSP ヘッダー**: `next.config.ts` に厳格なコンテンツセキュリティポリシーが定義されています。新しい外部画像ソースを追加する際は、CSP の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。
+- **お問い合わせフォームの送信**: `/contact` ページはメール送信を `contact-worker/`（独立した Cloudflare Worker、`api.seki-saki.com` にカスタムドメインでルーティング）に委譲しています。Cloudflare Pages Functions は `send_email` バインディングに対応していないため、本体サイト（Pages）とは別デプロイの Worker として実装しています。Worker は Cloudflare Email Service の `send_email` バインディング経由で `contact@seki-saki.com`（検証済み宛先）にのみメールを送信し、Turnstile でスパム対策を行います。デプロイは `contact-worker/` 内で `pnpm install && pnpm deploy`（wrangler）、シークレットは `pnpm secret:turnstile` で設定します。`contact-worker/` は独自の `tsconfig.json` を持ち（ルート `tsconfig.json` の `exclude` に追加済み）、型チェックはビルドに含まれませんが、ESLint はルートの `eslint.config.mjs` 対象のまま `pnpm lint` でチェックされます。
 
 ### データフロー
 
