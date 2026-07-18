@@ -56,16 +56,21 @@ async function verifyTurnstile(
   const body = new URLSearchParams({ secret, response: token });
   if (ip) body.set("remoteip", ip);
 
-  const res = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-    },
-  );
-  const data = (await res.json()) as { success: boolean };
-  return data.success;
+  try {
+    const res = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      },
+    );
+    if (!res.ok) return false;
+    const data = (await res.json()) as { success: boolean };
+    return data.success;
+  } catch {
+    return false;
+  }
 }
 
 const worker = {
@@ -85,6 +90,10 @@ const worker = {
       return jsonResponse({ error: "invalid_json" }, 400);
     }
 
+    if (typeof payload !== "object" || payload === null) {
+      return jsonResponse({ error: "invalid_input" }, 400);
+    }
+
     const { name, email, message, usage, other, turnstileToken } = payload;
 
     if (
@@ -93,7 +102,8 @@ const worker = {
       !isNonEmptyString(message) ||
       !isNonEmptyString(turnstileToken, 2000) ||
       (usage !== undefined && usage !== "" && !isNonEmptyString(usage, 200)) ||
-      (other !== undefined && other.length > MAX_LENGTH)
+      (other !== undefined &&
+        (typeof other !== "string" || other.length > MAX_LENGTH))
     ) {
       return jsonResponse({ error: "invalid_input" }, 400);
     }

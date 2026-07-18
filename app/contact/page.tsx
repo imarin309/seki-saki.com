@@ -5,7 +5,8 @@ import Script from "next/script";
 import { motion } from "motion/react";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
-const CONTACT_API_URL = "https://api.seki-saki.com";
+const CONTACT_API_URL =
+  process.env.NEXT_PUBLIC_CONTACT_API_URL ?? "https://api.seki-saki.com";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
