@@ -5,33 +5,36 @@ import { SITE_URL } from "@/app/meta";
 
 export const dynamic = "force-static";
 
-function withAlternates(jaPath: string): MetadataRoute.Sitemap[number] {
+/**
+ * ja/en 双方の URL を、それぞれ自分自身を含む完全な hreflang alternates 付きで
+ * 個別の <url> エントリとして返す（Google 推奨のロケール別サイトマップ形式）。
+ */
+function withAlternates(jaPath: string): MetadataRoute.Sitemap {
   const enPath = jaPath === "" ? "/en" : `/en${jaPath}`;
-  return {
-    url: `${SITE_URL}${jaPath}`,
-    alternates: {
-      languages: {
-        ja: `${SITE_URL}${jaPath}`,
-        en: `${SITE_URL}${enPath}`,
-      },
-    },
-  };
+  const jaUrl = `${SITE_URL}${jaPath}`;
+  const enUrl = `${SITE_URL}${enPath}`;
+  const languages = { ja: jaUrl, en: enUrl };
+
+  return [
+    { url: jaUrl, alternates: { languages } },
+    { url: enUrl, alternates: { languages } },
+  ];
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
-    withAlternates(""),
-    withAlternates("/illust"),
-    withAlternates("/works"),
-    withAlternates("/about"),
-    withAlternates("/contact"),
+    ...withAlternates(""),
+    ...withAlternates("/illust"),
+    ...withAlternates("/works"),
+    ...withAlternates("/about"),
+    ...withAlternates("/contact"),
   ];
 
-  const illustRoutes: MetadataRoute.Sitemap = sortedIllusts.map((illust) =>
+  const illustRoutes: MetadataRoute.Sitemap = sortedIllusts.flatMap((illust) =>
     withAlternates(`/illust/${illust.slug}`)
   );
 
-  const workRoutes: MetadataRoute.Sitemap = sortedWorks.map((work) =>
+  const workRoutes: MetadataRoute.Sitemap = sortedWorks.flatMap((work) =>
     withAlternates(`/works/${work.slug}`)
   );
 
