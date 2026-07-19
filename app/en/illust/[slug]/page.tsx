@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { illusts, getIllustTitle, getIllustDescription } from "@/data/illusts";
 import { SITE_URL, getSiteTitle, getOgLocale } from "@/app/meta";
-import WorkDetailClient from "./WorkDetailClient";
+import WorkDetailClient from "@/app/illust/[slug]/WorkDetailClient";
 
 export function generateStaticParams() {
   return illusts.map((work) => ({ slug: work.slug }));
@@ -16,32 +16,32 @@ export async function generateMetadata({
   const work = illusts.find((w) => w.slug === slug);
   if (!work) return {};
 
-  const workTitle = getIllustTitle(work, "ja");
-  const title = `${workTitle} | ${getSiteTitle("ja")}`;
-  const description = getIllustDescription(work, "ja") || workTitle;
-  const url = `${SITE_URL}/illust/${slug}`;
+  const workTitle = getIllustTitle(work, "en");
+  const title = `${workTitle} | ${getSiteTitle("en")}`;
+  const description = getIllustDescription(work, "en") || workTitle;
+  const url = `${SITE_URL}/en/illust/${slug}`;
 
   return {
     title,
     description,
     alternates: {
       languages: {
-        ja: url,
-        en: `${SITE_URL}/en/illust/${slug}`,
+        ja: `${SITE_URL}/illust/${slug}`,
+        en: url,
       },
     },
     openGraph: {
       title,
       description,
       url,
-      siteName: getSiteTitle("ja"),
+      siteName: getSiteTitle("en"),
       images: [
         {
           url: work.image,
           alt: workTitle,
         },
       ],
-      locale: getOgLocale("ja"),
+      locale: getOgLocale("en"),
       type: "article",
     },
     twitter: {
@@ -59,5 +59,5 @@ export default async function WorkDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <WorkDetailClient slug={slug} locale="ja" />;
+  return <WorkDetailClient slug={slug} locale="en" />;
 }
