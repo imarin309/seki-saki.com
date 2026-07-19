@@ -9,8 +9,6 @@ export interface Dictionary {
     contact: string;
     instagram: string;
     openMenu: string;
-    localeNameJa: string;
-    localeNameEn: string;
   };
   home: {
     heroTitle: string;
@@ -77,8 +75,6 @@ const ja: Dictionary = {
     contact: "Contact",
     instagram: "Instagram",
     openMenu: "メニューを開く",
-    localeNameJa: "Japanese",
-    localeNameEn: "English",
   },
   home: {
     heroTitle: "Designer & Illustrator",
@@ -156,8 +152,6 @@ const en: Dictionary = {
     contact: "Contact",
     instagram: "Instagram",
     openMenu: "Open menu",
-    localeNameJa: "Japanese",
-    localeNameEn: "English",
   },
   home: {
     heroTitle: "Designer & Illustrator",

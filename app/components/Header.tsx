@@ -10,49 +10,42 @@ import {
   getAlternateLocalePath,
   localeFromPathname,
   withLocale,
-  LOCALE_STORAGE_KEY,
   type Locale,
 } from "@/i18n/config";
-import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
+import { getDictionary } from "@/i18n/dictionaries";
 
 function LocaleSwitch({
   locale,
-  dict,
   jaPath,
   enPath,
-  onNavigate,
   className = "",
 }: {
   locale: Locale;
-  dict: Dictionary;
   jaPath: string;
   enPath: string;
-  onNavigate: () => void;
   className?: string;
 }) {
   return (
     <div className={`flex items-center gap-1.5 ${className}`}>
       {locale === "ja" ? (
-        <span className="text-white">{dict.nav.localeNameJa}</span>
+        <span className="text-white">ja</span>
       ) : (
         <Link
           href={jaPath}
-          onClick={onNavigate}
           className="text-gray-500 transition-colors hover:text-white"
         >
-          {dict.nav.localeNameJa}
+          ja
         </Link>
       )}
       <span className="text-gray-600">/</span>
       {locale === "en" ? (
-        <span className="text-white">{dict.nav.localeNameEn}</span>
+        <span className="text-white">en</span>
       ) : (
         <Link
           href={enPath}
-          onClick={onNavigate}
           className="text-gray-500 transition-colors hover:text-white"
         >
-          {dict.nav.localeNameEn}
+          en
         </Link>
       )}
     </div>
@@ -65,13 +58,8 @@ export function Header() {
   const locale = localeFromPathname(pathname);
   const dict = getDictionary(locale);
   const alternatePath = getAlternateLocalePath(locale, pathname);
-  const otherLocale = locale === "ja" ? "en" : "ja";
   const jaPath = locale === "ja" ? pathname : alternatePath;
   const enPath = locale === "en" ? pathname : alternatePath;
-
-  const rememberLocaleChoice = () => {
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, otherLocale);
-  };
 
   const navLinks = [
     { name: dict.nav.home, path: withLocale(locale, "/") },
@@ -135,23 +123,19 @@ export function Header() {
                 {link.name}
               </a>
             ))}
-            <LocaleSwitch
-              locale={locale}
-              dict={dict}
-              jaPath={jaPath}
-              enPath={enPath}
-              onNavigate={rememberLocaleChoice}
-            />
+            <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={dict.nav.openMenu}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={dict.nav.openMenu}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -191,17 +175,6 @@ export function Header() {
                   {link.name}
                 </a>
               ))}
-              <LocaleSwitch
-                locale={locale}
-                dict={dict}
-                jaPath={jaPath}
-                enPath={enPath}
-                onNavigate={() => {
-                  rememberLocaleChoice();
-                  setMobileMenuOpen(false);
-                }}
-                className="py-2"
-              />
             </div>
           </motion.div>
         )}

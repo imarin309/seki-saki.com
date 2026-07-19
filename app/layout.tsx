@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import { SyncHtmlLang } from "@/app/components/SyncHtmlLang";
-import { LocaleAutoRedirect } from "@/app/components/LocaleAutoRedirect";
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
@@ -67,7 +66,6 @@ export default function RootLayout({
         className={`${notoSerifJP.className} min-h-screen bg-[#0a0a0a] text-white`}
       >
         <SyncHtmlLang />
-        <LocaleAutoRedirect />
         <Header />
         <main className="pt-20">{children}</main>
         <Footer />

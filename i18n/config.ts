@@ -2,9 +2,6 @@ export const locales = ["ja", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "ja";
 
-/** ユーザーが選択した（または自動判定済みの）ロケールを覚えておく localStorage キー */
-export const LOCALE_STORAGE_KEY = "seki-saki-locale-pref";
-
 /** パス名（例: "/en/about"）からロケールを判定する */
 export function localeFromPathname(pathname: string): Locale {
   return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "ja";
