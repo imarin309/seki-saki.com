@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { works, getWorkTitle, getWorkDescription } from "@/data/works";
 import { SITE_URL, getSiteTitle, getOgLocale } from "@/app/meta";
-import WorkDetailClient from "./WorkDetailClient";
+import WorkDetailClient from "@/app/works/[slug]/WorkDetailClient";
 
 export const dynamicParams = false;
 
@@ -18,10 +18,10 @@ export async function generateMetadata({
   const work = works.find((w) => w.slug === slug);
   if (!work) return {};
 
-  const workTitle = getWorkTitle(work, "ja");
-  const title = `${workTitle} | ${getSiteTitle("ja")}`;
-  const description = getWorkDescription(work, "ja") || workTitle;
-  const url = `${SITE_URL}/works/${work.slug}`;
+  const workTitle = getWorkTitle(work, "en");
+  const title = `${workTitle} | ${getSiteTitle("en")}`;
+  const description = getWorkDescription(work, "en") || workTitle;
+  const url = `${SITE_URL}/en/works/${slug}`;
   const image = work.images?.[0];
 
   return {
@@ -29,15 +29,15 @@ export async function generateMetadata({
     description,
     alternates: {
       languages: {
-        ja: url,
-        en: `${SITE_URL}/en/works/${slug}`,
+        ja: `${SITE_URL}/works/${slug}`,
+        en: url,
       },
     },
     openGraph: {
       title,
       description,
       url,
-      siteName: getSiteTitle("ja"),
+      siteName: getSiteTitle("en"),
       images: image
         ? [
             {
@@ -46,7 +46,7 @@ export async function generateMetadata({
             },
           ]
         : undefined,
-      locale: getOgLocale("ja"),
+      locale: getOgLocale("en"),
       type: "article",
     },
     twitter: {
@@ -64,5 +64,5 @@ export default async function WorksDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return <WorkDetailClient slug={slug} locale="ja" />;
+  return <WorkDetailClient slug={slug} locale="en" />;
 }

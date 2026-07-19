@@ -6,7 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { sortedWorks } from "@/data/works";
+import { sortedWorks, getWorkTitle, getWorkDescription } from "@/data/works";
+import { withLocale, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
 const URL_PATTERN = /(https?:\/\/[^\s]+)/g;
 
@@ -31,7 +33,15 @@ function Linkify({ text }: { text: string }) {
   );
 }
 
-function ImageCarousel({ images, title }: { images: string[]; title: string }) {
+function ImageCarousel({
+  images,
+  title,
+  dict,
+}: {
+  images: string[];
+  title: string;
+  dict: ReturnType<typeof getDictionary>;
+}) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
 
@@ -82,7 +92,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
             type="button"
             onClick={() => scrollToIndex(Math.max(index - 1, 0))}
             disabled={index === 0}
-            aria-label="Previous image"
+            aria-label={dict.worksDetail.prevImageAria}
             className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
           >
             <ArrowLeft size={20} />
@@ -93,7 +103,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
               scrollToIndex(Math.min(index + 1, images.length - 1))
             }
             disabled={index === images.length - 1}
-            aria-label="Next image"
+            aria-label={dict.worksDetail.nextImageAria}
             className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
           >
             <ArrowRight size={20} />
@@ -104,8 +114,15 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   );
 }
 
-export default function WorkDetailClient({ slug }: { slug: string }) {
+export default function WorkDetailClient({
+  slug,
+  locale,
+}: {
+  slug: string;
+  locale: Locale;
+}) {
   const router = useRouter();
+  const dict = getDictionary(locale);
   const currentIndex = sortedWorks.findIndex((w) => w.slug === slug);
   const work = currentIndex >= 0 ? sortedWorks[currentIndex] : null;
 
@@ -113,12 +130,12 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="mb-4 text-4xl">Work not found</h1>
+          <h1 className="mb-4 text-4xl">{dict.worksDetail.workNotFound}</h1>
           <Link
-            href="/works"
+            href={withLocale(locale, "/works")}
             className="text-gray-400 transition-colors hover:text-white"
           >
-            Back to Works
+            {dict.worksDetail.backToWorks}
           </Link>
         </div>
       </div>
@@ -131,6 +148,9 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
       ? sortedWorks[currentIndex + 1]
       : null;
 
+  const title = getWorkTitle(work, locale);
+  const description = getWorkDescription(work, locale);
+
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-6">
@@ -141,11 +161,11 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
           className="mb-8"
         >
           <button
-            onClick={() => router.push("/works")}
+            onClick={() => router.push(withLocale(locale, "/works"))}
             className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
           >
             <ArrowLeft size={20} />
-            Back to Works
+            {dict.worksDetail.backToWorks}
           </button>
         </motion.div>
 
@@ -158,7 +178,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             <p className="mb-4 tabular-nums text-gray-500">
               {work.date.replace(/\//g, " / ")}
             </p>
-            <h1 className="text-4xl md:text-5xl">{work.title}</h1>
+            <h1 className="text-4xl md:text-5xl">{title}</h1>
           </motion.div>
 
           <motion.div
@@ -168,10 +188,10 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             className="mx-auto w-full lg:max-w-2xl"
           >
             {work.images && work.images.length > 0 ? (
-              <ImageCarousel images={work.images} title={work.title} />
+              <ImageCarousel images={work.images} title={title} dict={dict} />
             ) : (
               <div className="flex aspect-[4/3] items-center justify-center bg-gray-900 text-gray-500">
-                No image
+                {dict.worksDetail.noImage}
               </div>
             )}
           </motion.div>
@@ -182,7 +202,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="whitespace-pre-line text-xl leading-relaxed text-gray-400">
-              <Linkify text={work.description} />
+              <Linkify text={description} />
             </p>
           </motion.div>
         </div>
@@ -196,17 +216,22 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
               {prevWork ? (
-                <Link href={`/works/${prevWork.slug}`} className="group block">
+                <Link
+                  href={withLocale(locale, `/works/${prevWork.slug}`)}
+                  className="group block"
+                >
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">Previous</span>
+                    <span className="text-gray-500">
+                      {dict.worksDetail.previous}
+                    </span>
                   </div>
                   <div className="flex gap-4">
                     {prevWork.images?.[0] && (
                       <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-gray-900">
                         <Image
                           src={prevWork.images[0]}
-                          alt={prevWork.title}
+                          alt={getWorkTitle(prevWork, locale)}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
@@ -214,7 +239,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
                     )}
                     <div>
                       <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
-                        {prevWork.title}
+                        {getWorkTitle(prevWork, locale)}
                       </h3>
                       <p className="text-gray-500">{prevWork.date}</p>
                     </div>
@@ -224,24 +249,33 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">Previous</span>
+                    <span className="text-gray-500">
+                      {dict.worksDetail.previous}
+                    </span>
                   </div>
-                  <p className="text-gray-500">No previous work</p>
+                  <p className="text-gray-500">
+                    {dict.worksDetail.noPreviousWork}
+                  </p>
                 </div>
               )}
             </div>
 
             <div className="md:text-right">
               {nextWork ? (
-                <Link href={`/works/${nextWork.slug}`} className="group block">
+                <Link
+                  href={withLocale(locale, `/works/${nextWork.slug}`)}
+                  className="group block"
+                >
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">Next</span>
+                    <span className="text-gray-500">
+                      {dict.worksDetail.next}
+                    </span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
                   <div className="flex justify-end gap-4">
                     <div className="text-right">
                       <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
-                        {nextWork.title}
+                        {getWorkTitle(nextWork, locale)}
                       </h3>
                       <p className="text-gray-500">{nextWork.date}</p>
                     </div>
@@ -249,7 +283,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
                       <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-gray-900">
                         <Image
                           src={nextWork.images[0]}
-                          alt={nextWork.title}
+                          alt={getWorkTitle(nextWork, locale)}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
@@ -260,10 +294,12 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">Next</span>
+                    <span className="text-gray-500">
+                      {dict.worksDetail.next}
+                    </span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
-                  <p className="text-gray-500">No next work</p>
+                  <p className="text-gray-500">{dict.worksDetail.noNextWork}</p>
                 </div>
               )}
             </div>

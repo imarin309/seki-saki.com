@@ -6,24 +6,40 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
-
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Illust", path: "/illust" },
-  { name: "Works", path: "/works" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
-];
-
-const externalLinks = [{ name: "Instagram", href: INSTAGRAM_URL }];
+import {
+  getAlternateLocalePath,
+  localeFromPathname,
+  withLocale,
+  LOCALE_STORAGE_KEY,
+} from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const locale = localeFromPathname(pathname);
+  const dict = getDictionary(locale);
+  const alternatePath = getAlternateLocalePath(locale, pathname);
+  const otherLocale = locale === "ja" ? "en" : "ja";
+
+  const rememberLocaleChoice = () => {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, otherLocale);
+  };
+
+  const navLinks = [
+    { name: dict.nav.home, path: withLocale(locale, "/") },
+    { name: dict.nav.illust, path: withLocale(locale, "/illust") },
+    { name: dict.nav.works, path: withLocale(locale, "/works") },
+    { name: dict.nav.about, path: withLocale(locale, "/about") },
+    { name: dict.nav.contact, path: withLocale(locale, "/contact") },
+  ];
+
+  const externalLinks = [{ name: dict.nav.instagram, href: INSTAGRAM_URL }];
 
   const isActive = (path: string) => {
-    if (path === "/") {
-      return pathname === "/";
+    const homePath = withLocale(locale, "/");
+    if (path === homePath) {
+      return pathname === homePath;
     }
     return pathname.startsWith(path);
   };
@@ -32,12 +48,15 @@ export function Header() {
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-md">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-xl tracking-wider">
+          <Link
+            href={withLocale(locale, "/")}
+            className="text-xl tracking-wider"
+          >
             {SITE_TITLE}
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden gap-8 md:flex">
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -69,13 +88,20 @@ export function Header() {
                 {link.name}
               </a>
             ))}
+            <Link
+              href={alternatePath}
+              onClick={rememberLocaleChoice}
+              className="text-gray-400 transition-colors hover:text-white"
+            >
+              {dict.nav.switchLocaleLabel}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="メニューを開く"
+            aria-label={dict.nav.openMenu}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -118,6 +144,16 @@ export function Header() {
                   {link.name}
                 </a>
               ))}
+              <Link
+                href={alternatePath}
+                onClick={() => {
+                  rememberLocaleChoice();
+                  setMobileMenuOpen(false);
+                }}
+                className="py-2 text-gray-400 transition-colors hover:text-white"
+              >
+                {dict.nav.switchLocaleLabel}
+              </Link>
             </div>
           </motion.div>
         )}

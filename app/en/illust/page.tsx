@@ -1,5 +1,5 @@
 import IllustListContent from "@/app/components/pages/IllustListContent";
 
 export default function IllustPage() {
-  return <IllustListContent locale="ja" />;
+  return <IllustListContent locale="en" />;
 }

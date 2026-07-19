@@ -7,10 +7,24 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { clsx } from "clsx";
-import { sortedIllusts } from "@/data/illusts";
+import {
+  sortedIllusts,
+  getIllustTitle,
+  getIllustDescription,
+} from "@/data/illusts";
+import { getIllustCategoryLabel } from "@/app/config";
+import { withLocale, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export default function WorkDetailClient({ slug }: { slug: string }) {
+export default function WorkDetailClient({
+  slug,
+  locale,
+}: {
+  slug: string;
+  locale: Locale;
+}) {
   const router = useRouter();
+  const dict = getDictionary(locale);
   const [showAlt, setShowAlt] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -20,12 +34,12 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="mb-4 text-4xl">Work not found</h1>
+          <h1 className="mb-4 text-4xl">{dict.illustDetail.workNotFound}</h1>
           <Link
-            href="/illust"
+            href={withLocale(locale, "/illust")}
             className="text-gray-400 transition-colors hover:text-white"
           >
-            Back to Illusts
+            {dict.illustDetail.backToIllusts}
           </Link>
         </div>
       </div>
@@ -39,6 +53,9 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
       ? sortedIllusts[currentIndex + 1]
       : null;
 
+  const title = getIllustTitle(work, locale);
+  const description = getIllustDescription(work, locale);
+
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-6">
@@ -50,11 +67,11 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
           className="mb-8"
         >
           <button
-            onClick={() => router.push("/illust")}
+            onClick={() => router.push(withLocale(locale, "/illust"))}
             className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
           >
             <ArrowLeft size={20} />
-            Back to Illusts
+            {dict.illustDetail.backToIllusts}
           </button>
         </motion.div>
 
@@ -81,7 +98,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
           >
             <Image
               src={work.image}
-              alt={work.title}
+              alt={title}
               width={0}
               height={0}
               sizes="100vw"
@@ -97,7 +114,7 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
               <>
                 <Image
                   src={work.image2}
-                  alt={work.title}
+                  alt={title}
                   fill
                   className={`object-cover transition-opacity duration-500 ${
                     showAlt
@@ -125,13 +142,15 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             className="flex flex-col justify-center"
           >
             <div className="mb-4">
-              <span className="text-gray-500">{work.category}</span>
+              <span className="text-gray-500">
+                {getIllustCategoryLabel(locale, work.category)}
+              </span>
               <span className="mx-2 text-gray-500">/</span>
               <span className="text-gray-500">{work.date}</span>
             </div>
-            <h1 className="mb-6 text-4xl md:text-5xl">{work.title}</h1>
+            <h1 className="mb-6 text-4xl md:text-5xl">{title}</h1>
             <p className="mb-8 whitespace-pre-line text-xl text-gray-400">
-              {work.description}
+              {description}
             </p>
           </motion.div>
         </div>
@@ -147,25 +166,32 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             {/* Previous Work */}
             <div>
               {prevWork ? (
-                <Link href={`/illust/${prevWork.slug}`} className="group block">
+                <Link
+                  href={withLocale(locale, `/illust/${prevWork.slug}`)}
+                  className="group block"
+                >
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">Previous</span>
+                    <span className="text-gray-500">
+                      {dict.illustDetail.previous}
+                    </span>
                   </div>
                   <div className="flex gap-4">
                     <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
                       <Image
                         src={prevWork.image}
-                        alt={prevWork.title}
+                        alt={getIllustTitle(prevWork, locale)}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                     </div>
                     <div>
                       <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
-                        {prevWork.title}
+                        {getIllustTitle(prevWork, locale)}
                       </h3>
-                      <p className="text-gray-500">{prevWork.category}</p>
+                      <p className="text-gray-500">
+                        {getIllustCategoryLabel(locale, prevWork.category)}
+                      </p>
                     </div>
                   </div>
                 </Link>
@@ -173,9 +199,13 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center gap-4">
                     <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">Previous</span>
+                    <span className="text-gray-500">
+                      {dict.illustDetail.previous}
+                    </span>
                   </div>
-                  <p className="text-gray-500">No previous work</p>
+                  <p className="text-gray-500">
+                    {dict.illustDetail.noPreviousWork}
+                  </p>
                 </div>
               )}
             </div>
@@ -183,22 +213,29 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
             {/* Next Work */}
             <div className="md:text-right">
               {nextWork ? (
-                <Link href={`/illust/${nextWork.slug}`} className="group block">
+                <Link
+                  href={withLocale(locale, `/illust/${nextWork.slug}`)}
+                  className="group block"
+                >
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">Next</span>
+                    <span className="text-gray-500">
+                      {dict.illustDetail.next}
+                    </span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
                   <div className="flex justify-end gap-4">
                     <div className="text-right">
                       <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
-                        {nextWork.title}
+                        {getIllustTitle(nextWork, locale)}
                       </h3>
-                      <p className="text-gray-500">{nextWork.category}</p>
+                      <p className="text-gray-500">
+                        {getIllustCategoryLabel(locale, nextWork.category)}
+                      </p>
                     </div>
                     <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
                       <Image
                         src={nextWork.image}
-                        alt={nextWork.title}
+                        alt={getIllustTitle(nextWork, locale)}
                         fill
                         className="object-cover transition-transform duration-300 group-hover:scale-110"
                       />
@@ -208,10 +245,14 @@ export default function WorkDetailClient({ slug }: { slug: string }) {
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">Next</span>
+                    <span className="text-gray-500">
+                      {dict.illustDetail.next}
+                    </span>
                     <ArrowRight size={20} className="text-gray-400" />
                   </div>
-                  <p className="text-gray-500">No next work</p>
+                  <p className="text-gray-500">
+                    {dict.illustDetail.noNextWork}
+                  </p>
                 </div>
               )}
             </div>

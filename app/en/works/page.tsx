@@ -1,5 +1,5 @@
 import WorksListContent from "@/app/components/pages/WorksListContent";
 
 export default function WorksPage() {
-  return <WorksListContent locale="ja" />;
+  return <WorksListContent locale="en" />;
 }
