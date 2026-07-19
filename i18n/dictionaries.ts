@@ -9,7 +9,8 @@ export interface Dictionary {
     contact: string;
     instagram: string;
     openMenu: string;
-    switchLocaleLabel: string;
+    localeNameJa: string;
+    localeNameEn: string;
   };
   home: {
     heroTitle: string;
@@ -76,7 +77,8 @@ const ja: Dictionary = {
     contact: "Contact",
     instagram: "Instagram",
     openMenu: "メニューを開く",
-    switchLocaleLabel: "English",
+    localeNameJa: "Japanese",
+    localeNameEn: "English",
   },
   home: {
     heroTitle: "Designer & Illustrator",
@@ -154,7 +156,8 @@ const en: Dictionary = {
     contact: "Contact",
     instagram: "Instagram",
     openMenu: "Open menu",
-    switchLocaleLabel: "日本語",
+    localeNameJa: "Japanese",
+    localeNameEn: "English",
   },
   home: {
     heroTitle: "Designer & Illustrator",

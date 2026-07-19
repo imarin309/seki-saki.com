@@ -11,8 +11,53 @@ import {
   localeFromPathname,
   withLocale,
   LOCALE_STORAGE_KEY,
+  type Locale,
 } from "@/i18n/config";
-import { getDictionary } from "@/i18n/dictionaries";
+import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
+
+function LocaleSwitch({
+  locale,
+  dict,
+  jaPath,
+  enPath,
+  onNavigate,
+  className = "",
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  jaPath: string;
+  enPath: string;
+  onNavigate: () => void;
+  className?: string;
+}) {
+  return (
+    <div className={`flex items-center gap-1.5 ${className}`}>
+      {locale === "ja" ? (
+        <span className="text-white">{dict.nav.localeNameJa}</span>
+      ) : (
+        <Link
+          href={jaPath}
+          onClick={onNavigate}
+          className="text-gray-500 transition-colors hover:text-white"
+        >
+          {dict.nav.localeNameJa}
+        </Link>
+      )}
+      <span className="text-gray-600">/</span>
+      {locale === "en" ? (
+        <span className="text-white">{dict.nav.localeNameEn}</span>
+      ) : (
+        <Link
+          href={enPath}
+          onClick={onNavigate}
+          className="text-gray-500 transition-colors hover:text-white"
+        >
+          {dict.nav.localeNameEn}
+        </Link>
+      )}
+    </div>
+  );
+}
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,6 +66,8 @@ export function Header() {
   const dict = getDictionary(locale);
   const alternatePath = getAlternateLocalePath(locale, pathname);
   const otherLocale = locale === "ja" ? "en" : "ja";
+  const jaPath = locale === "ja" ? pathname : alternatePath;
+  const enPath = locale === "en" ? pathname : alternatePath;
 
   const rememberLocaleChoice = () => {
     window.localStorage.setItem(LOCALE_STORAGE_KEY, otherLocale);
@@ -88,13 +135,13 @@ export function Header() {
                 {link.name}
               </a>
             ))}
-            <Link
-              href={alternatePath}
-              onClick={rememberLocaleChoice}
-              className="text-gray-400 transition-colors hover:text-white"
-            >
-              {dict.nav.switchLocaleLabel}
-            </Link>
+            <LocaleSwitch
+              locale={locale}
+              dict={dict}
+              jaPath={jaPath}
+              enPath={enPath}
+              onNavigate={rememberLocaleChoice}
+            />
           </div>
 
           {/* Mobile Menu Button */}
@@ -144,16 +191,17 @@ export function Header() {
                   {link.name}
                 </a>
               ))}
-              <Link
-                href={alternatePath}
-                onClick={() => {
+              <LocaleSwitch
+                locale={locale}
+                dict={dict}
+                jaPath={jaPath}
+                enPath={enPath}
+                onNavigate={() => {
                   rememberLocaleChoice();
                   setMobileMenuOpen(false);
                 }}
-                className="py-2 text-gray-400 transition-colors hover:text-white"
-              >
-                {dict.nav.switchLocaleLabel}
-              </Link>
+                className="py-2"
+              />
             </div>
           </motion.div>
         )}
