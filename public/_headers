@@ -5,3 +5,4 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains
   Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; img-src 'self' https://assets.seki-saki.com https://images.unsplash.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'

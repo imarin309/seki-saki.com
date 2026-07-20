@@ -1,29 +1,10 @@
 import type { NextConfig } from "next";
 import path from "path";
 
-const isDev = process.env.NODE_ENV === "development";
-
-const securityHeaders = [
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=()",
-  },
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      "img-src 'self' https://assets.seki-saki.com https://images.unsplash.com",
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-      "style-src 'self' 'unsafe-inline'",
-      "object-src 'none'",
-      "base-uri 'self'",
-      "frame-ancestors 'none'",
-    ].join("; "),
-  },
-];
+// セキュリティヘッダー（CSP 含む）は public/_headers で一元管理しています。
+// output: "export" の静的エクスポートでは headers() は本番ビルドに適用されないため、
+// ここでは定義していません。新しい外部画像ソースを追加する際は、
+// public/_headers の img-src と images.remotePatterns（下記）の両方を更新してください。
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -42,14 +23,6 @@ const nextConfig: NextConfig = {
         hostname: "assets.seki-saki.com",
       },
     ],
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-    ];
   },
 };
 
