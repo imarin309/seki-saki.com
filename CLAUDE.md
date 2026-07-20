@@ -25,7 +25,7 @@ pnpm format:check  # フォーマットチェック（書き込みなし）
 - **クライアントコンポーネント**: `motion/react` によるアニメーションのため、多くのページで `"use client"` を使用しています。詳細ルートは、`generateStaticParams` を呼ぶサーバーコンポーネント（`page.tsx`）と、インタラクティブ処理を担うクライアントコンポーネント（`WorkDetailClient.tsx`）に分割されています。
 - **多言語対応 (i18n)**: 日本語（デフォルト、プレフィックスなし）と英語（`/en` プレフィックス）に対応しています。詳細は下記「多言語対応 (i18n)」セクションを参照してください。
 - **画像ホスティング**: 作品画像はすべて外部 CDN `https://assets.seki-saki.com` から配信され、アプリにはバンドルされません。`data/illusts.ts` の `BASE` 定数で管理されており、画像は `.webp` 形式である必要があります。
-- **CSP ヘッダー**: `next.config.ts` に厳格なコンテンツセキュリティポリシーが定義されています。新しい外部画像ソースを追加する際は、CSP の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。
+- **CSP ヘッダー**: `output: "export"` の静的エクスポート構成では `next.config.ts` の `headers()` は本番ビルドに適用されないため、CSP を含むセキュリティヘッダーは `public/_headers`（Cloudflare Pages が解釈する形式。ビルド時に `out/_headers` へそのままコピーされます）で一元管理しています。新しい外部画像ソースを追加する際は、`public/_headers` の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。
 
 ### データフロー
 

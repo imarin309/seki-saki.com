@@ -28,24 +28,24 @@ function LocaleSwitch({
   return (
     <div className={`flex items-center gap-1.5 ${className}`}>
       {locale === "ja" ? (
-        <span className="text-white">ja</span>
+        <span className="text-white">Ja</span>
       ) : (
         <Link
           href={jaPath}
           className="text-gray-500 transition-colors hover:text-white"
         >
-          ja
+          Ja
         </Link>
       )}
       <span className="text-gray-600">/</span>
       {locale === "en" ? (
-        <span className="text-white">en</span>
+        <span className="text-white">En</span>
       ) : (
         <Link
           href={enPath}
           className="text-gray-500 transition-colors hover:text-white"
         >
-          en
+          En
         </Link>
       )}
     </div>
