@@ -19,12 +19,14 @@ function Field({
   type = "text",
   required = false,
   textarea = false,
+  maxLength,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
   textarea?: boolean;
+  maxLength?: number;
 }) {
   return (
     <label className="flex flex-col gap-2">
@@ -36,6 +38,8 @@ function Field({
         <textarea
           name={name}
           required={required}
+          minLength={required ? 1 : undefined}
+          maxLength={maxLength}
           rows={4}
           className={fieldClassName}
         />
@@ -44,6 +48,7 @@ function Field({
           type={type}
           name={name}
           required={required}
+          maxLength={maxLength}
           className={fieldClassName}
         />
       )}
@@ -68,9 +73,8 @@ export default function ContactPage() {
         body: JSON.stringify({
           name: formData.get("name"),
           email: formData.get("email"),
+          subject: formData.get("subject"),
           message: formData.get("message"),
-          usage: formData.get("usage"),
-          other: formData.get("other"),
           turnstileToken: formData.get("cf-turnstile-response"),
         }),
       });
@@ -108,23 +112,35 @@ export default function ContactPage() {
         >
           {state === "success" ? (
             <p className="max-w-2xl text-xl text-white">
-              送信しました。内容を確認の上、改めてご連絡いたします。
+              お問い合わせを送信しました。
+              <br />
+              内容を確認のうえ返信いたします。
             </p>
           ) : (
             <form
               onSubmit={handleSubmit}
               className="flex max-w-2xl flex-col gap-8"
             >
-              <Field label="お名前（ハンドルネーム可）" name="name" required />
+              <Field
+                label="お名前（ハンドルネーム可）"
+                name="name"
+                maxLength={100}
+              />
               <Field
                 label="メールアドレス"
                 name="email"
                 type="email"
                 required
+                maxLength={254}
               />
-              <Field label="ご依頼内容" name="message" textarea required />
-              <Field label="用途・使用媒体" name="usage" />
-              <Field label="その他ご要望" name="other" textarea />
+              <Field label="件名" name="subject" maxLength={200} />
+              <Field
+                label="お問い合わせ内容"
+                name="message"
+                textarea
+                required
+                maxLength={5000}
+              />
 
               <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
@@ -134,7 +150,9 @@ export default function ContactPage() {
 
               {state === "error" && (
                 <p className="text-sm text-red-400">
-                  送信に失敗しました。時間をおいて再度お試しください。
+                  送信できませんでした。
+                  <br />
+                  時間をおいて再度お試しください。
                 </p>
               )}
 
@@ -143,7 +161,7 @@ export default function ContactPage() {
                 disabled={state === "submitting"}
                 className="self-start border border-white/20 px-8 py-3 text-white transition-all hover:border-white disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {state === "submitting" ? "送信中..." : "送信する"}
+                {state === "submitting" ? "送信しています..." : "送信する"}
               </button>
             </form>
           )}
