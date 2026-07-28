@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { works, getWorkTitle, getWorkDescription } from "@/data/works";
+import { illusts, getIllustTitle, getIllustDescription } from "@/data/illusts";
 import { SITE_URL, getSiteTitle, getOgLocale } from "@/app/meta";
 import WorkDetailClient from "./WorkDetailClient";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
-  return works.map((work) => ({ slug: work.slug }));
+  return illusts.map((work) => ({ slug: work.slug }));
 }
 
 export async function generateMetadata({
@@ -15,14 +13,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const work = works.find((w) => w.slug === slug);
+  const work = illusts.find((w) => w.slug === slug);
   if (!work) return {};
 
-  const workTitle = getWorkTitle(work, "ja");
+  const workTitle = getIllustTitle(work, "ja");
   const title = `${workTitle} | ${getSiteTitle("ja")}`;
-  const description = getWorkDescription(work, "ja") || workTitle;
-  const url = `${SITE_URL}/works/${work.slug}`;
-  const image = work.images?.[0];
+  const description = getIllustDescription(work, "ja") || workTitle;
+  const url = `${SITE_URL}/illust/${slug}`;
 
   return {
     title,
@@ -30,7 +27,7 @@ export async function generateMetadata({
     alternates: {
       languages: {
         ja: url,
-        en: `${SITE_URL}/en/works/${slug}`,
+        en: `${SITE_URL}/en/illust/${slug}`,
       },
     },
     openGraph: {
@@ -38,27 +35,25 @@ export async function generateMetadata({
       description,
       url,
       siteName: getSiteTitle("ja"),
-      images: image
-        ? [
-            {
-              url: image,
-              alt: workTitle,
-            },
-          ]
-        : undefined,
+      images: [
+        {
+          url: work.image,
+          alt: workTitle,
+        },
+      ],
       locale: getOgLocale("ja"),
       type: "article",
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : undefined,
+      images: [work.image],
     },
   };
 }
 
-export default async function WorksDetailPage({
+export default async function WorkDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;

@@ -3,6 +3,7 @@ import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
+import { SyncHtmlLang } from "@/app/components/SyncHtmlLang";
 import {
   SITE_TITLE,
   SITE_DESCRIPTION,
@@ -23,6 +24,12 @@ export const metadata: Metadata = {
   icons: {
     icon: SITE_ICON,
     apple: SITE_ICON,
+  },
+  alternates: {
+    languages: {
+      ja: SITE_URL,
+      en: `${SITE_URL}/en`,
+    },
   },
   openGraph: {
     title: SITE_TITLE,
@@ -58,6 +65,7 @@ export default function RootLayout({
       <body
         className={`${notoSerifJP.className} min-h-screen bg-[#0a0a0a] text-white`}
       >
+        <SyncHtmlLang />
         <Header />
         <main className="pt-20">{children}</main>
         <Footer />
