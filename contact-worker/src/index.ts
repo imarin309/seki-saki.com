@@ -133,13 +133,15 @@ const worker = {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
+    const corsOrigin = isAllowedOrigin(origin) ? origin : undefined;
+
     if (request.method !== "POST") {
-      return jsonResponse({ error: "method_not_allowed" }, 405);
+      return jsonResponse({ error: "method_not_allowed" }, 405, corsOrigin);
     }
 
     const contentType = request.headers.get("Content-Type") ?? "";
     if (!contentType.toLowerCase().includes("application/json")) {
-      return jsonResponse({ error: "invalid_content_type" }, 400);
+      return jsonResponse({ error: "invalid_content_type" }, 400, corsOrigin);
     }
 
     if (!isAllowedOrigin(origin)) {

@@ -94,17 +94,27 @@ export default function ContactContent({ locale }: { locale: Locale }) {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const getField = (field: string): string => {
+      const value = formData.get(field);
+      return typeof value === "string" ? value : "";
+    };
+
+    const turnstileToken = getField("cf-turnstile-response");
+    if (!turnstileToken) {
+      setState("error");
+      return;
+    }
 
     try {
       const response = await fetch(CONTACT_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          subject: formData.get("subject"),
-          message: formData.get("message"),
-          turnstileToken: formData.get("cf-turnstile-response"),
+          name: getField("name"),
+          email: getField("email"),
+          subject: getField("subject"),
+          message: getField("message"),
+          turnstileToken,
         }),
       });
 
@@ -185,7 +195,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
                 strategy="afterInteractive"
-                onLoad={renderTurnstileWidget}
+                onReady={renderTurnstileWidget}
               />
               <div ref={turnstileContainerRef} />
 
