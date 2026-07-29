@@ -183,7 +183,7 @@ const worker = {
       return jsonResponse({ error: "turnstile_failed" }, 403, origin);
     }
 
-    const trimmedSubject = subject?.trim();
+    const trimmedSubject = subject?.trim().replace(/[\r\n]+/g, " ");
     const mailSubject = trimmedSubject
       ? `[seki-saki.com] ${trimmedSubject}`
       : "[seki-saki.com] お問い合わせ";
