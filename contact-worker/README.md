@@ -43,6 +43,7 @@ pnpm secret:turnstile # TURNSTILE_SECRET_KEY を設定/更新
 ```bash
 curl -X POST https://api.seki-saki.com \
   -H "Content-Type: application/json" \
+  -H "Origin: https://seki-saki.com" \
   -d '{"name":"test","email":"test@example.com","message":"test","turnstileToken":"dummy"}'
 ```
 
