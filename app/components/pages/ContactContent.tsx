@@ -110,9 +110,9 @@ export default function ContactContent({ locale }: { locale: Locale }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: getField("name"),
-          email: getField("email"),
-          subject: getField("subject"),
+          name: getField("name").trim(),
+          email: getField("email").trim(),
+          subject: getField("subject").trim(),
           message: getField("message"),
           turnstileToken,
         }),
