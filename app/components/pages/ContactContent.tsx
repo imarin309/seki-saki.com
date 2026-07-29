@@ -1,11 +1,20 @@
 "use client";
 
-import { useState, type SubmitEvent } from "react";
+import { useRef, useState, type SubmitEvent } from "react";
 import Script from "next/script";
 import { motion } from "motion/react";
 import { INSTAGRAM_URL } from "@/app/meta";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: { sitekey: string }) => string;
+      reset: (widgetId: string) => void;
+    };
+  }
+}
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
 const CONTACT_API_URL = "https://api.seki-saki.com";
@@ -62,6 +71,22 @@ function Field({
 export default function ContactContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
   const [state, setState] = useState<SubmitState>("idle");
+  const turnstileContainerRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
+
+  const renderTurnstileWidget = () => {
+    if (
+      !window.turnstile ||
+      !turnstileContainerRef.current ||
+      turnstileWidgetIdRef.current !== null
+    ) {
+      return;
+    }
+    turnstileWidgetIdRef.current = window.turnstile.render(
+      turnstileContainerRef.current,
+      { sitekey: TURNSTILE_SITE_KEY }
+    );
+  };
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -91,6 +116,10 @@ export default function ContactContent({ locale }: { locale: Locale }) {
       form.reset();
     } catch {
       setState("error");
+      // Turnstileトークンはsingle-useのため、失敗後に再送信できるようウィジェットをリセットする
+      if (turnstileWidgetIdRef.current !== null) {
+        window.turnstile?.reset(turnstileWidgetIdRef.current);
+      }
     }
   };
 
@@ -156,8 +185,9 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               <Script
                 src="https://challenges.cloudflare.com/turnstile/v0/api.js"
                 strategy="afterInteractive"
+                onLoad={renderTurnstileWidget}
               />
-              <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} />
+              <div ref={turnstileContainerRef} />
 
               {state === "error" && (
                 <p className="text-sm text-red-400">
