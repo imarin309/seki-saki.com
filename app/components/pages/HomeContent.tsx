@@ -111,6 +111,31 @@ export default function HomeContent({ locale }: { locale: Locale }) {
           </motion.div>
         </div>
       </section>
+
+      {/* Contact CTA Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center gap-6 text-center"
+          >
+            <h2 className="text-3xl md:text-4xl">
+              {dict.home.contactCtaHeading}
+            </h2>
+            <p className="max-w-md text-gray-400">{dict.home.contactCtaText}</p>
+            <Link
+              href={withLocale(locale, "/contact")}
+              className="inline-flex items-center gap-2 bg-white px-8 py-3 text-black transition-colors hover:bg-gray-200"
+            >
+              {dict.home.contactCtaButton}
+              <ArrowRight size={20} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
