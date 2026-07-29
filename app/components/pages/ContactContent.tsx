@@ -3,7 +3,6 @@
 import { useRef, useState, type SubmitEvent } from "react";
 import Script from "next/script";
 import { motion } from "motion/react";
-import { INSTAGRAM_URL } from "@/app/meta";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -221,27 +220,6 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               </button>
             </form>
           )}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-16"
-        >
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex flex-col gap-2 border-b border-white/20 pb-4 transition-colors hover:border-white"
-          >
-            <span className="text-xs uppercase tracking-widest text-gray-500 transition-colors group-hover:text-gray-300">
-              {dict.contact.instagramLabel}
-            </span>
-            <span className="text-2xl tracking-wide text-white md:text-3xl">
-              {dict.contact.instagramHandle}
-            </span>
-          </a>
         </motion.div>
 
         <motion.p
