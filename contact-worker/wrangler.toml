@@ -1,0 +1,11 @@
+name = "seki-saki-contact"
+main = "src/index.ts"
+compatibility_date = "2026-07-18"
+
+routes = [{ pattern = "api.seki-saki.com", custom_domain = true }]
+
+[[send_email]]
+name = "EMAIL"
+destination_address = "contact@seki-saki.com"
+
+# TURNSTILE_SECRET_KEY is set via `pnpm secret:turnstile` (wrangler secret put), not here.

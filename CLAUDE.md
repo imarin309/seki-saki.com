@@ -25,7 +25,8 @@ pnpm format:check  # フォーマットチェック（書き込みなし）
 - **クライアントコンポーネント**: `motion/react` によるアニメーションのため、多くのページで `"use client"` を使用しています。詳細ルートは、`generateStaticParams` を呼ぶサーバーコンポーネント（`page.tsx`）と、インタラクティブ処理を担うクライアントコンポーネント（`WorkDetailClient.tsx`）に分割されています。
 - **多言語対応 (i18n)**: 日本語（デフォルト、プレフィックスなし）と英語（`/en` プレフィックス）に対応しています。詳細は下記「多言語対応 (i18n)」セクションを参照してください。
 - **画像ホスティング**: 作品画像はすべて外部 CDN `https://assets.seki-saki.com` から配信され、アプリにはバンドルされません。`data/illusts.ts` の `BASE` 定数で管理されており、画像は `.webp` 形式である必要があります。
-- **CSP ヘッダー**: `output: "export"` の静的エクスポート構成では `next.config.ts` の `headers()` は本番ビルドに適用されないため、CSP を含むセキュリティヘッダーは `public/_headers`（Cloudflare Pages が解釈する形式。ビルド時に `out/_headers` へそのままコピーされます）で一元管理しています。新しい外部画像ソースを追加する際は、`public/_headers` の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。
+- **CSP ヘッダー**: `output: "export"` の静的エクスポート構成では `next.config.ts` の `headers()` は本番ビルドに適用されないため、CSP を含むセキュリティヘッダーは `public/_headers`（Cloudflare Pages が解釈する形式。ビルド時に `out/_headers` へそのままコピーされます）で一元管理しています。新しい外部画像ソースを追加する際は、`public/_headers` の `img-src` と `images` 設定の `remotePatterns` の両方を更新してください。Turnstile（`https://challenges.cloudflare.com`）と問い合わせ用 Worker（`https://api.seki-saki.com`）向けの `script-src` / `frame-src` / `connect-src` 許可も同ファイルに含まれています。
+- **お問い合わせフォームの送信**: `/contact` ページのフォーム送信は `contact-worker/`（独立した Cloudflare Worker、`api.seki-saki.com` にカスタムドメインでルーティング）に委譲しています。Cloudflare Pages Functions は `send_email` バインディングに対応していないため、本体サイト（Pages）とは別デプロイの Worker として実装しています。Worker は Cloudflare Email Service の `send_email` バインディング経由で `contact@seki-saki.com`（検証済み宛先）にのみメールを送信し、Origin 検証・Content-Type 検証・入力値バリデーション・Turnstile でスパム/不正リクエスト対策を行います。デプロイは `contact-worker/` 内で `pnpm install && pnpm deploy`（wrangler）、シークレットは `pnpm secret:turnstile` で設定します。`contact-worker/` は独自の `tsconfig.json` を持ち（ルート `tsconfig.json` の `exclude` に追加済み）、型チェックはビルドに含まれませんが、ESLint はルートの `eslint.config.mjs` 対象のまま `pnpm lint` でチェックされます。フロント側の実装は `app/components/pages/ContactContent.tsx` に集約されており、フォームラベルや状態メッセージは `i18n/dictionaries.ts` の `contact` セクション（`formNameLabel` 等）で ja/en を管理します。
 
 ### データフロー
 
@@ -33,15 +34,15 @@ pnpm format:check  # フォーマットチェック（書き込みなし）
 
 ### ページ・ルート構成
 
-| ルート           | ファイル                     | 備考                                                |
-| ---------------- | ---------------------------- | --------------------------------------------------- |
-| `/`              | `app/page.tsx`               | ヒーロー + 注目作品（先頭3件）+ About プレビュー    |
-| `/illust`        | `app/illust/page.tsx`        | 全作品ギャラリー（カテゴリフィルター付き）          |
-| `/illust/[slug]` | `app/illust/[slug]/page.tsx` | 作品詳細。クライアント処理は `WorkDetailClient.tsx` |
-| `/works`         | `app/works/page.tsx`         | 実績一覧（タイムライン表示）                        |
-| `/works/[slug]`  | `app/works/[slug]/page.tsx`  | 実績詳細。クライアント処理は `WorkDetailClient.tsx` |
-| `/about`         | `app/about/page.tsx`         | プロフィールページ                                  |
-| `/contact`       | `app/contact/page.tsx`       | 問い合わせページ（mailto リンク）                   |
+| ルート           | ファイル                     | 備考                                                     |
+| ---------------- | ---------------------------- | -------------------------------------------------------- |
+| `/`              | `app/page.tsx`               | ヒーロー + 注目作品（先頭3件）+ About プレビュー         |
+| `/illust`        | `app/illust/page.tsx`        | 全作品ギャラリー（カテゴリフィルター付き）               |
+| `/illust/[slug]` | `app/illust/[slug]/page.tsx` | 作品詳細。クライアント処理は `WorkDetailClient.tsx`      |
+| `/works`         | `app/works/page.tsx`         | 実績一覧（タイムライン表示）                             |
+| `/works/[slug]`  | `app/works/[slug]/page.tsx`  | 実績詳細。クライアント処理は `WorkDetailClient.tsx`      |
+| `/about`         | `app/about/page.tsx`         | プロフィールページ                                       |
+| `/contact`       | `app/contact/page.tsx`       | 問い合わせページ（フォーム送信、`contact-worker/` 経由） |
 
 上記の各ルートは `/en` プレフィックス付きで `app/en/` 配下にも同じ構成でミラーリングされています（例: `/en/illust/[slug]` → `app/en/illust/[slug]/page.tsx`）。
 

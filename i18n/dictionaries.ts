@@ -54,12 +54,17 @@ export interface Dictionary {
   contact: {
     title: string;
     intro: string;
-    emailLabel: string;
+    formNameLabel: string;
+    formEmailLabel: string;
+    formSubjectLabel: string;
+    formMessageLabel: string;
+    formSubmitLabel: string;
+    formSubmittingLabel: string;
+    formSuccessLines: string[];
+    formErrorLines: string[];
     instagramLabel: string;
     instagramHandle: string;
     privacyNote: string;
-    mailtoSubject: string;
-    mailtoBodyLines: string[];
   };
   footer: {
     copyright: string;
@@ -123,20 +128,25 @@ const ja: Dictionary = {
   },
   contact: {
     title: "Contact",
-    intro:
-      "お仕事のご依頼・ご相談はメールまたは Instagram の DM からお気軽にどうぞ。",
-    emailLabel: "Email",
+    intro: "お仕事のご依頼・ご相談は下記フォームからお気軽にどうぞ。",
+    formNameLabel: "お名前（ハンドルネーム可）",
+    formEmailLabel: "メールアドレス",
+    formSubjectLabel: "件名",
+    formMessageLabel: "お問い合わせ内容",
+    formSubmitLabel: "送信する",
+    formSubmittingLabel: "送信しています...",
+    formSuccessLines: [
+      "お問い合わせを送信しました。",
+      "内容を確認のうえ返信いたします。",
+    ],
+    formErrorLines: [
+      "送信できませんでした。",
+      "時間をおいて再度お試しください。",
+    ],
     instagramLabel: "Instagram",
     instagramHandle: "@_sekisaki",
     privacyNote:
       "ご依頼の際にいただいた個人情報は、業務上の連絡・対応の目的にのみ使用し、第三者への提供は行いません。",
-    mailtoSubject: "イラスト制作のご依頼",
-    mailtoBodyLines: [
-      "お名前（ハンドルネーム可）：",
-      "ご依頼内容：",
-      "用途・使用媒体：",
-      "その他ご要望：",
-    ],
   },
   footer: {
     copyright: "© 2026 seki-saki.com. All rights reserved.",
@@ -200,20 +210,22 @@ const en: Dictionary = {
   },
   contact: {
     title: "Contact",
-    intro:
-      "For work inquiries or questions, feel free to reach out by email or Instagram DM.",
-    emailLabel: "Email",
+    intro: "For work inquiries or questions, feel free to use the form below.",
+    formNameLabel: "Name (handle name is fine)",
+    formEmailLabel: "Email address",
+    formSubjectLabel: "Subject",
+    formMessageLabel: "Message",
+    formSubmitLabel: "Send",
+    formSubmittingLabel: "Sending...",
+    formSuccessLines: [
+      "Your inquiry has been sent.",
+      "We will review it and get back to you.",
+    ],
+    formErrorLines: ["Something went wrong.", "Please try again later."],
     instagramLabel: "Instagram",
     instagramHandle: "@_sekisaki",
     privacyNote:
       "Any personal information provided in your inquiry will be used solely for the purpose of responding to it and will not be shared with third parties.",
-    mailtoSubject: "Illustration commission inquiry",
-    mailtoBodyLines: [
-      "Name (handle name is fine):",
-      "Request details:",
-      "Intended use / media:",
-      "Other requests:",
-    ],
   },
   footer: {
     copyright: "© 2026 seki-saki.com. All rights reserved.",
