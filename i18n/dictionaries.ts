@@ -16,6 +16,9 @@ export interface Dictionary {
     featuredHeading: string;
     viewAll: string;
     aboutLink: string;
+    contactCtaHeading: string;
+    contactCtaText: string;
+    contactCtaButton: string;
   };
   illustList: {
     title: string;
@@ -85,6 +88,10 @@ const ja: Dictionary = {
     featuredHeading: "Featured Illusts",
     viewAll: "View All",
     aboutLink: "世木口について",
+    contactCtaHeading: "お仕事のご依頼はこちらから",
+    contactCtaText:
+      "イラスト制作のご依頼・ご相談はお気軽にお問い合わせください。",
+    contactCtaButton: "お問い合わせ",
   },
   illustList: {
     title: "Illust",
@@ -165,6 +172,10 @@ const en: Dictionary = {
     featuredHeading: "Featured Illusts",
     viewAll: "View All",
     aboutLink: "About Sekiguchi",
+    contactCtaHeading: "Get in Touch",
+    contactCtaText:
+      "Feel free to reach out for illustration commissions and inquiries.",
+    contactCtaButton: "Contact",
   },
   illustList: {
     title: "Illust",
