@@ -62,8 +62,6 @@ export interface Dictionary {
     formSubmittingLabel: string;
     formSuccessLines: string[];
     formErrorLines: string[];
-    instagramLabel: string;
-    instagramHandle: string;
     privacyNote: string;
   };
   footer: {
@@ -143,8 +141,6 @@ const ja: Dictionary = {
       "送信できませんでした。",
       "時間をおいて再度お試しください。",
     ],
-    instagramLabel: "Instagram",
-    instagramHandle: "@_sekisaki",
     privacyNote:
       "ご依頼の際にいただいた個人情報は、業務上の連絡・対応の目的にのみ使用し、第三者への提供は行いません。",
   },
@@ -222,8 +218,6 @@ const en: Dictionary = {
       "We will review it and get back to you.",
     ],
     formErrorLines: ["Something went wrong.", "Please try again later."],
-    instagramLabel: "Instagram",
-    instagramHandle: "@_sekisaki",
     privacyNote:
       "Any personal information provided in your inquiry will be used solely for the purpose of responding to it and will not be shared with third parties.",
   },
