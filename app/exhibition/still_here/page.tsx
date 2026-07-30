@@ -3,7 +3,7 @@ import { SITE_URL, SITE_OG_IMAGE } from "@/app/meta";
 import StillHereContent from "./StillHereContent";
 
 const title = "still here | 世木口 二人展";
-const description = "世木口 個展「still here」特設ページ。";
+const description = "世木口 二人展「still here」特設ページ。";
 const url = `${SITE_URL}/exhibition/still_here`;
 
 export const metadata: Metadata = {

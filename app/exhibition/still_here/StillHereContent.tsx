@@ -134,7 +134,7 @@ export default function StillHereContent() {
           transition={{ duration: 0.8 }}
           className="relative mb-6 text-sm tracking-[0.3em] text-gray-400"
         >
-          世木口 個展
+          世木口 たなかひなこ 二人展
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
