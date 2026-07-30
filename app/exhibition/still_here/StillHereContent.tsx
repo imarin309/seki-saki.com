@@ -113,7 +113,7 @@ export default function StillHereContent() {
       </Link>
 
       {/* Hero */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+      <section className="relative flex aspect-[2631/1861] flex-col items-center justify-center overflow-hidden px-6 text-center sm:aspect-auto sm:min-h-[100svh]">
         {HERO_IMAGE ? (
           <>
             <Image
