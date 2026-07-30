@@ -121,7 +121,7 @@ export default function StillHereContent() {
               alt="still here"
               fill
               priority
-              className="object-cover"
+              className="object-contain sm:object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-[#0a0a0a]" />
           </>
