@@ -38,6 +38,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
             <Link
               href={withLocale(locale, "/illust")}
@@ -46,6 +47,32 @@ export default function HomeContent({ locale }: { locale: Locale }) {
               {dict.home.viewIllusts}
               <ArrowRight size={20} />
             </Link>
+
+            {locale === "ja" && (
+              <Link
+                href="/exhibition/still_here"
+                className="group inline-flex items-center gap-3 border border-white/20 bg-black/40 py-2 pl-2 pr-4 backdrop-blur-sm transition-colors hover:bg-black/60"
+              >
+                <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden">
+                  <Image
+                    src="https://assets.seki-saki.com/2026/umigarasu.webp"
+                    alt="still here"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="text-left">
+                  <p className="text-xs tracking-widest text-gray-300">
+                    展示会開催中
+                  </p>
+                  <p className="text-sm text-white">still here</p>
+                </div>
+                <ArrowRight
+                  size={16}
+                  className="text-gray-300 transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            )}
           </motion.div>
         </div>
       </section>

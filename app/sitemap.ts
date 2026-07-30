@@ -38,5 +38,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     withAlternates(`/works/${work.slug}`)
   );
 
-  return [...staticRoutes, ...illustRoutes, ...workRoutes];
+  const exhibitionRoutes: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/exhibition/still_here` },
+  ];
+
+  return [...staticRoutes, ...illustRoutes, ...workRoutes, ...exhibitionRoutes];
 }
