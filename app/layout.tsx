@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/app/components/Header";
-import { Footer } from "@/app/components/Footer";
+import { SiteChrome } from "@/app/components/SiteChrome";
 import { SyncHtmlLang } from "@/app/components/SyncHtmlLang";
 import {
   SITE_TITLE,
@@ -66,9 +65,7 @@ export default function RootLayout({
         className={`${notoSerifJP.className} min-h-screen bg-[#0a0a0a] text-white`}
       >
         <SyncHtmlLang />
-        <Header />
-        <main className="pt-20">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
