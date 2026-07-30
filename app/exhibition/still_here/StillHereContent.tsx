@@ -24,7 +24,7 @@ const works: ExhibitionWork[] = [
     title: "平行線の抵抗",
     caption:
       "路上の境界で、命は何を問うのだろう。\n\n奪われ続ける野生と、人間の暮らし。互いが交わることのない平行線の先で、彼女たちの眼差しがこちらを見つめている。",
-    image: "https://assets.seki-saki.com/2026/wani.webp",
+    image: "https://assets.seki-saki.com/2026/iriomoteyamaneko.webp",
   },
   {
     number: "02",
@@ -60,7 +60,7 @@ const works: ExhibitionWork[] = [
     title: "休息のひたい",
     caption:
       "獰猛とされるその頭上は、時に小さな命たちの憩いの場となる。\n\n畏怖の裏側に存在する、知られざる平穏な日常の一幕。",
-    image: "https://assets.seki-saki.com/2026/iriomoteyamaneko.webp",
+    image: "https://assets.seki-saki.com/2026/wani.webp",
   },
   {
     number: "07",
@@ -113,15 +113,26 @@ export default function StillHereContent() {
       </Link>
 
       {/* Hero */}
-      <section className="relative flex aspect-[2631/1861] flex-col items-center justify-center overflow-hidden px-6 text-center sm:aspect-auto sm:min-h-[100svh]">
+      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         {HERO_IMAGE ? (
           <>
+            <div className="absolute inset-0 overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch] [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
+              <Image
+                src={HERO_IMAGE}
+                alt="still here"
+                width={2631}
+                height={1861}
+                priority
+                draggable={false}
+                className="h-full w-auto max-w-none select-none"
+              />
+            </div>
             <Image
               src={HERO_IMAGE}
               alt="still here"
               fill
               priority
-              className="object-contain sm:object-cover"
+              className="hidden object-cover sm:block"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-[#0a0a0a]" />
           </>
