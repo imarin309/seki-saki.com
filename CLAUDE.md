@@ -11,9 +11,17 @@ pnpm lint          # ESLint 実行
 pnpm lint:fix      # ESLint 自動修正
 pnpm format        # Prettier でフォーマット（Tailwind クラス順序の自動整列含む）
 pnpm format:check  # フォーマットチェック（書き込みなし）
+pnpm test          # Vitest でテスト実行（CI と同じ単発実行）
+pnpm test:watch    # Vitest をウォッチモードで実行
 ```
 
-テストスイートは設定されていません。
+### テスト
+
+Vitest + React Testing Library によるコンポーネントのスモークテストと、`i18n/config.ts` / `app/config.tsx` などの純粋関数のユニットテストを `*.test.ts(x)` として各実装ファイルの隣に配置しています。設定は `vitest.config.ts`（jsdom 環境、`@/*` エイリアス）と `test/setup.ts`（`next/navigation` のモック、`IntersectionObserver`/`ResizeObserver`/`matchMedia` のスタブ）にあります。`next/navigation` の `usePathname` / `useRouter` はグローバルにモックされているため、テスト内で `vi.mocked(usePathname).mockReturnValue(...)` のように上書きして使用します。新しいページ・共有コンポーネントを追加した際は、依存関係の更新（Dependabot 経由を含む）でページが壊れないことを検証できるよう、同様のレンダリングスモークテストの追加を検討してください。
+
+### Dependabot
+
+`.github/dependabot.yml` でルートの npm 依存関係・`contact-worker/` の npm 依存関係・GitHub Actions のバージョンを週次でチェックします。Dependabot が作成する PR は CI（`.github/workflows/ci.yml` の lint / test）が通ることで安全性を確認します。ビルド確認は Cloudflare Pages の自動ビルド（PR プレビュー）が担保するため CI には含めていません。
 
 ## アーキテクチャ
 
