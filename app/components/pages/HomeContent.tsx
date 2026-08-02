@@ -10,6 +10,17 @@ import ExhibitionBanner from "@/app/components/ExhibitionBanner";
 import { withLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
+type HeroImagePosition = "left" | "center" | "right";
+
+// モバイルでは画像が中央基準でクロップされるため、見せたい位置に合わせて調整する
+const HERO_IMAGE_POSITION: HeroImagePosition = "left";
+
+const HERO_IMAGE_POSITION_CLASS: Record<HeroImagePosition, string> = {
+  left: "object-left",
+  center: "object-center",
+  right: "object-right",
+};
+
 export default function HomeContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
   const featuredIllusts = sortedIllusts.slice(0, 3);
@@ -22,7 +33,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
           src={sortedIllusts[0].image}
           alt={sortedIllusts[0].title}
           fill
-          className="object-cover"
+          className={`object-cover ${HERO_IMAGE_POSITION_CLASS[HERO_IMAGE_POSITION]}`}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#0a0a0a]" />
