@@ -11,12 +11,7 @@ interface ContactPayload {
   turnstileToken?: string;
 }
 
-// 許可オリジンは設定として一元管理する（本番 + 既存の開発方法である `pnpm dev`（Next.js デフォルトの 3000 番）用）
-const ALLOWED_ORIGINS = [
-  "https://seki-saki.com",
-  "http://localhost:3000",
-  "http://127.0.0.1:3000",
-];
+const ALLOWED_ORIGINS = ["https://seki-saki.com"];
 
 const CONTACT_EMAIL = "contact@seki-saki.com";
 const NAME_MAX_LENGTH = 100;
