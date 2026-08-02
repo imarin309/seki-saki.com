@@ -232,6 +232,97 @@ export const illusts: Illust[] = [
     image2: `${BASE}/2026/engel_or_devil_megane.webp`,
     description: "",
   },
+  {
+    id: "21",
+    slug: "Resistance_of_Parallel_Lines",
+    title: "平行線の抵抗",
+    titleEn: "Resistance of Parallel Lines",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/iriomoteyamaneko.webp`,
+    description:
+      "路上の境界で、命は何を問うのだろう。\n\n奪われ続ける野生と、人間の暮らし。互いが交わることのない平行線の先で、彼女たちの眼差しがこちらを見つめている。",
+    descriptionEn:
+      "What does life ask for, at the boundary of the road?\n\nWildness endlessly taken away, and human life going on. Beyond parallel lines that never meet, their eyes gaze back at us.",
+  },
+  {
+    id: "22",
+    slug: "Ophelias_Ripples",
+    title: "オフィーリアの波紋",
+    titleEn: "Ophelia's Ripples",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/kame.webp`,
+    description:
+      "（シェイクスピア『ハムレット』より）\n\n悲劇の底で、もしも別の命と出逢っていたなら。\n\n水面に揺れる少女の傍らに寄り添う小さな命が、絶望の物語に密やかなIFを投げかける。",
+    descriptionEn:
+      "(From Shakespeare's Hamlet)\n\nWhat if, at the depths of tragedy, she had met another life?\n\nA small creature drifting beside the girl on the rippling water casts a quiet \"what if\" into a story of despair.",
+  },
+  {
+    id: "23",
+    slug: "Beyond_the_Gaze",
+    title: "まなざしの先",
+    titleEn: "Beyond the Gaze",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/yukihyou.webp`,
+    description:
+      "白銀の静寂の中、同じ地平を見つめる二人。\n\n風の音だけが響くその場所から、まだ見ぬ世界への旅が始まる。",
+    descriptionEn:
+      "Amid the silvery silence, two figures gaze toward the same horizon.\n\nFrom a place where only the wind speaks, a journey toward an unseen world begins.",
+  },
+  {
+    id: "24",
+    slug: "Bearing_Vermilion",
+    title: "朱を背負う",
+    titleEn: "Bearing Vermilion",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/toki.webp`,
+    description:
+      "人間が残した深い爪痕と、再び空へと還された命。\n\n肖像のように佇むトキの鋭い眼差しは、過去の後悔を試すように、まっすぐこちらを射抜いている。",
+    descriptionEn:
+      "Deep scars left behind by humans, and a life returned once more to the sky.\n\nStanding like a portrait, the crested ibis's sharp gaze pierces straight through us, as if testing our past regrets.",
+  },
+  {
+    id: "25",
+    slug: "A_Brow_at_Rest",
+    title: "休息のひたい",
+    titleEn: "A Brow at Rest",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/wani.webp`,
+    description:
+      "獰猛とされるその頭上は、時に小さな命たちの憩いの場となる。\n\n畏怖の裏側に存在する、知られざる平穏な日常の一幕。",
+    descriptionEn:
+      "The brow of a creature thought ferocious sometimes becomes a resting place for small lives.\n\nA quiet, unknown scene of everyday peace, hidden on the other side of fear.",
+  },
+  {
+    id: "26",
+    slug: "A_Whisper_Returning_to_Earth",
+    title: "土へ還る囁き",
+    titleEn: "A Whisper Returning to Earth",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/mizuramogura.webp`,
+    description:
+      "（カンタータ『土の歌』第四楽章より）\n\nゆらぐ世界のゆくえに抱く、言葉にならない漠然とした不安。\n\n足元の闇から聞こえるのは、「いずれ人間も同じ土へと還るのだ」という密やかな囁き。",
+    descriptionEn:
+      "(From the fourth movement of the cantata \"Tsuchi no Uta\")\n\nA vague, wordless unease about where this trembling world is headed.\n\nFrom the darkness underfoot comes a quiet whisper: \"someday, humans too will return to the same earth.\"",
+  },
+  {
+    id: "27",
+    slug: "A_Fleeting_Flutter",
+    title: "一瞬の羽ばたき",
+    titleEn: "A Fleeting Flutter",
+    category: "厚塗り",
+    date: "2026/7/31",
+    image: `${BASE}/2026/umigarasu.webp`,
+    description:
+      "水中を切り裂くように泳ぐウミガラスと、ひとりの女性が出会う一瞬。\n\nこの出会いは掠めるような奇跡か、それとも互いを知る始まりなのか。次の瞬間、鳥は深く静かな水中へと消えていく。",
+    descriptionEn:
+      "A moment when a guillemot, slicing through the water, meets a woman.\n\nIs this encounter a fleeting miracle, or the beginning of knowing one another? In the next instant, the bird vanishes into the deep, silent water.",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
