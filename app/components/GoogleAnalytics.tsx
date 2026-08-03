@@ -2,6 +2,13 @@ import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/app/meta";
 
 export function GoogleAnalytics() {
+  if (
+    process.env.NODE_ENV !== "production" ||
+    process.env.CF_PAGES_BRANCH !== "main"
+  ) {
+    return null;
+  }
+
   return (
     <>
       <Script
