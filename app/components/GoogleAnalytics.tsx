@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/app/meta";
+import { GoogleAnalyticsPageView } from "@/app/components/GoogleAnalyticsPageView";
 
 export function GoogleAnalytics() {
   if (
@@ -20,9 +22,12 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}');
+          gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
         `}
       </Script>
+      <Suspense fallback={null}>
+        <GoogleAnalyticsPageView />
+      </Suspense>
     </>
   );
 }
