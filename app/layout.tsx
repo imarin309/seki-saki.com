@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif_JP } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from "@/app/components/GoogleAnalytics";
 import { SiteChrome } from "@/app/components/SiteChrome";
 import { SyncHtmlLang } from "@/app/components/SyncHtmlLang";
 import {
@@ -64,6 +65,7 @@ export default function RootLayout({
       <body
         className={`${notoSerifJP.className} min-h-screen bg-[#0a0a0a] text-white`}
       >
+        <GoogleAnalytics />
         <SyncHtmlLang />
         <SiteChrome>{children}</SiteChrome>
       </body>

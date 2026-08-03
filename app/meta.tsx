@@ -11,6 +11,7 @@ export const SITE_OG_IMAGE = "https://assets.seki-saki.com/meta/star.webp";
 export const SITE_ICON = "https://assets.seki-saki.com/meta/star.webp";
 export const CONTACT_EMAIL = "contact@seki-saki.com";
 export const INSTAGRAM_URL = "https://www.instagram.com/_sekisaki/";
+export const GA_MEASUREMENT_ID = "G-SGTERNMNFP";
 
 export function getSiteTitle(locale: Locale): string {
   return locale === "en" ? SITE_TITLE_EN : SITE_TITLE;
