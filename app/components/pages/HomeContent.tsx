@@ -21,17 +21,23 @@ const HERO_IMAGE_POSITION_CLASS: Record<HeroImagePosition, string> = {
   right: "object-right",
 };
 
+// ヒーロー画像は固定。新着作品に追従させると縦横比によって見え方が変わるため、slug で指定する
+const HERO_ILLUST_SLUG = "drawing_0817";
+
 export default function HomeContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
   const featuredIllusts = sortedIllusts.slice(0, 3);
+  const heroIllust =
+    sortedIllusts.find((illust) => illust.slug === HERO_ILLUST_SLUG) ??
+    sortedIllusts[0];
 
   return (
     <div>
       {/* Hero Section */}
       <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
         <Image
-          src={sortedIllusts[0].image}
-          alt={sortedIllusts[0].title}
+          src={heroIllust.image}
+          alt={heroIllust.title}
           fill
           className={`object-cover ${HERO_IMAGE_POSITION_CLASS[HERO_IMAGE_POSITION]}`}
           priority

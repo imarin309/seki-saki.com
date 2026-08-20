@@ -256,7 +256,7 @@ export const illusts: Illust[] = [
     description:
       "（シェイクスピア『ハムレット』より）\n\n悲劇の底で、もしも別の命と出逢っていたなら。\n\n水面に揺れる少女の傍らに寄り添う小さな命が、絶望の物語に密やかなIFを投げかける。",
     descriptionEn:
-      "(From Shakespeare's Hamlet)\n\nWhat if, at the depths of tragedy, she had met another life?\n\nA small creature drifting beside the girl on the rippling water casts a quiet \"what if\" into a story of despair.",
+      '(From Shakespeare\'s Hamlet)\n\nWhat if, at the depths of tragedy, she had met another life?\n\nA small creature drifting beside the girl on the rippling water casts a quiet "what if" into a story of despair.',
   },
   {
     id: "23",
@@ -308,7 +308,7 @@ export const illusts: Illust[] = [
     description:
       "（カンタータ『土の歌』第四楽章より）\n\nゆらぐ世界のゆくえに抱く、言葉にならない漠然とした不安。\n\n足元の闇から聞こえるのは、「いずれ人間も同じ土へと還るのだ」という密やかな囁き。",
     descriptionEn:
-      "(From the fourth movement of the cantata \"Tsuchi no Uta\")\n\nA vague, wordless unease about where this trembling world is headed.\n\nFrom the darkness underfoot comes a quiet whisper: \"someday, humans too will return to the same earth.\"",
+      '(From the fourth movement of the cantata "Tsuchi no Uta")\n\nA vague, wordless unease about where this trembling world is headed.\n\nFrom the darkness underfoot comes a quiet whisper: "someday, humans too will return to the same earth."',
   },
   {
     id: "27",
@@ -322,6 +322,97 @@ export const illusts: Illust[] = [
       "水中を切り裂くように泳ぐウミガラスと、ひとりの女性が出会う一瞬。\n\nこの出会いは掠めるような奇跡か、それとも互いを知る始まりなのか。次の瞬間、鳥は深く静かな水中へと消えていく。",
     descriptionEn:
       "A moment when a guillemot, slicing through the water, meets a woman.\n\nIs this encounter a fleeting miracle, or the beginning of knowing one another? In the next instant, the bird vanishes into the deep, silent water.",
+  },
+  // ドローイング
+  {
+    id: "28",
+    slug: "drawing_0809",
+    title: "drawing_0809",
+    category: "ドローイング",
+    date: "2026/8/9",
+    image: `${BASE}/2026/drawing_0809.webp`,
+    description: "",
+  },
+  {
+    id: "29",
+    slug: "drawing_0811",
+    title: "drawing_0811",
+    category: "ドローイング",
+    date: "2026/8/11",
+    image: `${BASE}/2026/drawing_0811.webp`,
+    description: "",
+  },
+  {
+    id: "30",
+    slug: "drawing_0812",
+    title: "drawing_0812",
+    category: "ドローイング",
+    date: "2026/8/12",
+    image: `${BASE}/2026/drawing_0812.webp`,
+    description: "",
+  },
+  {
+    id: "31",
+    slug: "drawing_0813",
+    title: "drawing_0813",
+    category: "ドローイング",
+    date: "2026/8/13",
+    image: `${BASE}/2026/drawing_0813.webp`,
+    description: "",
+  },
+  {
+    id: "32",
+    slug: "drawing_0815",
+    title: "drawing_0815",
+    category: "ドローイング",
+    date: "2026/8/15",
+    image: `${BASE}/2026/drawing_0815.webp`,
+    description: "",
+  },
+  {
+    id: "33",
+    slug: "drawing_0816",
+    title: "drawing_0816",
+    category: "ドローイング",
+    date: "2026/8/16",
+    image: `${BASE}/2026/drawing_0816.webp`,
+    description: "",
+  },
+  {
+    id: "34",
+    slug: "drawing_0817",
+    title: "drawing_0817",
+    category: "ドローイング",
+    date: "2026/8/17",
+    image: `${BASE}/2026/drawing_0817.webp`,
+    description: "",
+  },
+  {
+    id: "35",
+    slug: "drawing_0818",
+    title: "drawing_0818",
+    category: "ドローイング",
+    date: "2026/8/18",
+    image: `${BASE}/2026/drawing_0818.webp`,
+    description: "",
+  },
+  {
+    id: "36",
+    slug: "drawing_0819",
+    title: "drawing_0819",
+    category: "ドローイング",
+    date: "2026/8/19",
+    image: `${BASE}/2026/drawing_0819.webp`,
+    description: "",
+  },
+  {
+    id: "37",
+    slug: "drawing_0820",
+    title: "drawing_0820",
+    category: "ドローイング",
+    date: "2026/8/20",
+    image: `${BASE}/2026/drawing_0820.webp`,
+    description: "",
   },
 ];
 
