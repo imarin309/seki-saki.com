@@ -8,7 +8,7 @@
     "secret:turnstile": "wrangler secret put TURNSTILE_SECRET_KEY"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260730.1",
+    "@cloudflare/workers-types": "^5.20260819.1",
     "typescript": "^7.0.2",
     "wrangler": "^4.118.0"
   }
