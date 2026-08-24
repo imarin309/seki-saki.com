@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
+import { SITE_TITLE, SITE_ICON, INSTAGRAM_URL } from "@/app/meta";
 import {
   getAlternateLocalePath,
   localeFromPathname,
@@ -28,22 +29,22 @@ function LocaleSwitch({
   return (
     <div className={`flex items-center gap-1.5 ${className}`}>
       {locale === "ja" ? (
-        <span className="text-white">Ja</span>
+        <span className="font-medium text-terracotta">Ja</span>
       ) : (
         <Link
           href={jaPath}
-          className="text-gray-500 transition-colors hover:text-white"
+          className="text-ink-muted transition-colors hover:text-terracotta"
         >
           Ja
         </Link>
       )}
-      <span className="text-gray-600">/</span>
+      <span className="text-line-strong">/</span>
       {locale === "en" ? (
-        <span className="text-white">En</span>
+        <span className="font-medium text-terracotta">En</span>
       ) : (
         <Link
           href={enPath}
-          className="text-gray-500 transition-colors hover:text-white"
+          className="text-ink-muted transition-colors hover:text-terracotta"
         >
           En
         </Link>
@@ -80,13 +81,23 @@ export function Header() {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/80 backdrop-blur-md">
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-md">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link
             href={withLocale(locale, "/")}
-            className="text-xl tracking-wider"
+            className="flex items-center gap-2.5 text-xl font-bold tracking-wider text-ink"
           >
+            {/* リンク名はサイト名で伝わるため、アイコンは読み上げ対象から外す */}
+            <Image
+              src={SITE_ICON}
+              alt=""
+              aria-hidden
+              width={40}
+              height={40}
+              priority
+              className="size-10 shrink-0 rounded-full border border-line bg-paper-card object-contain"
+            />
             {SITE_TITLE}
           </Link>
 
@@ -98,15 +109,15 @@ export function Header() {
                 href={link.path}
                 className={`relative transition-colors ${
                   isActive(link.path)
-                    ? "text-white"
-                    : "text-gray-400 hover:text-white"
+                    ? "font-medium text-terracotta"
+                    : "text-ink-soft hover:text-terracotta"
                 }`}
               >
                 {link.name}
                 {isActive(link.path) && (
                   <motion.div
                     layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-white"
+                    className="absolute -bottom-1 left-0 right-0 h-1 rounded-full bg-terracotta"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -118,7 +129,7 @@ export function Header() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 transition-colors hover:text-white"
+                className="text-ink-soft transition-colors hover:text-terracotta"
               >
                 {link.name}
               </a>
@@ -146,7 +157,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-white/10 md:hidden"
+            className="border-t border-line md:hidden"
           >
             <div className="container mx-auto flex flex-col gap-4 px-6 py-4">
               {navLinks.map((link) => (
@@ -156,8 +167,8 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`py-2 transition-colors ${
                     isActive(link.path)
-                      ? "text-white"
-                      : "text-gray-400 hover:text-white"
+                      ? "font-medium text-terracotta"
+                      : "text-ink-soft hover:text-terracotta"
                   }`}
                 >
                   {link.name}
@@ -170,7 +181,7 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2 text-gray-400 transition-colors hover:text-white"
+                  className="py-2 text-ink-soft transition-colors hover:text-terracotta"
                 >
                   {link.name}
                 </a>

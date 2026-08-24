@@ -23,7 +23,7 @@ function Linkify({ text }: { text: string }) {
         href={part}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-white underline underline-offset-2 hover:text-gray-300"
+        className="text-terracotta underline underline-offset-2 hover:text-terracotta-dark"
       >
         {part}
       </a>
@@ -62,7 +62,7 @@ function ImageCarousel({
   };
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden rounded-3xl border border-line shadow-soft">
       <div
         ref={scrollRef}
         onScroll={handleScroll}
@@ -71,7 +71,7 @@ function ImageCarousel({
         {images.map((image, i) => (
           <div
             key={image}
-            className="w-full shrink-0 snap-center overflow-hidden bg-gray-900"
+            className="w-full shrink-0 snap-center overflow-hidden bg-paper-deep"
           >
             <Image
               src={image}
@@ -93,7 +93,7 @@ function ImageCarousel({
             onClick={() => scrollToIndex(Math.max(index - 1, 0))}
             disabled={index === 0}
             aria-label={dict.worksDetail.prevImageAria}
-            className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
+            className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-paper-card/90 p-2 text-ink shadow-soft transition-colors hover:bg-paper-card disabled:opacity-30 sm:flex"
           >
             <ArrowLeft size={20} />
           </button>
@@ -104,7 +104,7 @@ function ImageCarousel({
             }
             disabled={index === images.length - 1}
             aria-label={dict.worksDetail.nextImageAria}
-            className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white transition-colors hover:bg-black/80 disabled:opacity-30 sm:flex"
+            className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-paper-card/90 p-2 text-ink shadow-soft transition-colors hover:bg-paper-card disabled:opacity-30 sm:flex"
           >
             <ArrowRight size={20} />
           </button>
@@ -130,10 +130,12 @@ export default function WorkDetailClient({
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="mb-4 text-4xl">{dict.worksDetail.workNotFound}</h1>
+          <h1 className="mb-4 text-4xl font-bold">
+            {dict.worksDetail.workNotFound}
+          </h1>
           <Link
             href={withLocale(locale, "/works")}
-            className="text-gray-400 transition-colors hover:text-white"
+            className="text-ink-soft transition-colors hover:text-terracotta"
           >
             {dict.worksDetail.backToWorks}
           </Link>
@@ -162,7 +164,7 @@ export default function WorkDetailClient({
         >
           <button
             onClick={() => router.push(withLocale(locale, "/works"))}
-            className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-terracotta"
           >
             <ArrowLeft size={20} />
             {dict.worksDetail.backToWorks}
@@ -175,10 +177,10 @@ export default function WorkDetailClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="mb-4 tabular-nums text-gray-500">
+            <p className="mb-4 tabular-nums text-ink-muted">
               {work.date.replace(/\//g, " / ")}
             </p>
-            <h1 className="text-4xl md:text-5xl">{title}</h1>
+            <h1 className="text-4xl font-bold md:text-5xl">{title}</h1>
           </motion.div>
 
           <motion.div
@@ -190,7 +192,7 @@ export default function WorkDetailClient({
             {work.images && work.images.length > 0 ? (
               <ImageCarousel images={work.images} title={title} dict={dict} />
             ) : (
-              <div className="flex aspect-[4/3] items-center justify-center bg-gray-900 text-gray-500">
+              <div className="flex aspect-[4/3] items-center justify-center rounded-3xl border border-line bg-paper-deep text-ink-muted">
                 {dict.worksDetail.noImage}
               </div>
             )}
@@ -201,7 +203,7 @@ export default function WorkDetailClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p className="whitespace-pre-line text-xl leading-relaxed text-gray-400">
+            <p className="whitespace-pre-line text-xl leading-relaxed text-ink-soft">
               <Linkify text={description} />
             </p>
           </motion.div>
@@ -211,7 +213,7 @@ export default function WorkDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="border-t border-white/10 pt-12"
+          className="border-t border-line pt-12"
         >
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div>
@@ -221,14 +223,14 @@ export default function WorkDetailClient({
                   className="group block"
                 >
                   <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">
+                    <ArrowLeft size={20} className="text-terracotta" />
+                    <span className="text-ink-muted">
                       {dict.worksDetail.previous}
                     </span>
                   </div>
                   <div className="flex gap-4">
                     {prevWork.images?.[0] && (
-                      <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-gray-900">
+                      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-line bg-paper-deep">
                         <Image
                           src={prevWork.images[0]}
                           alt={getWorkTitle(prevWork, locale)}
@@ -238,22 +240,22 @@ export default function WorkDetailClient({
                       </div>
                     )}
                     <div>
-                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
+                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
                         {getWorkTitle(prevWork, locale)}
                       </h3>
-                      <p className="text-gray-500">{prevWork.date}</p>
+                      <p className="text-ink-muted">{prevWork.date}</p>
                     </div>
                   </div>
                 </Link>
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">
+                    <ArrowLeft size={20} className="text-terracotta" />
+                    <span className="text-ink-muted">
                       {dict.worksDetail.previous}
                     </span>
                   </div>
-                  <p className="text-gray-500">
+                  <p className="text-ink-muted">
                     {dict.worksDetail.noPreviousWork}
                   </p>
                 </div>
@@ -267,20 +269,20 @@ export default function WorkDetailClient({
                   className="group block"
                 >
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">
+                    <span className="text-ink-muted">
                       {dict.worksDetail.next}
                     </span>
-                    <ArrowRight size={20} className="text-gray-400" />
+                    <ArrowRight size={20} className="text-terracotta" />
                   </div>
                   <div className="flex justify-end gap-4">
                     <div className="text-right">
-                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
+                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
                         {getWorkTitle(nextWork, locale)}
                       </h3>
-                      <p className="text-gray-500">{nextWork.date}</p>
+                      <p className="text-ink-muted">{nextWork.date}</p>
                     </div>
                     {nextWork.images?.[0] && (
-                      <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-gray-900">
+                      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-line bg-paper-deep">
                         <Image
                           src={nextWork.images[0]}
                           alt={getWorkTitle(nextWork, locale)}
@@ -294,12 +296,14 @@ export default function WorkDetailClient({
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">
+                    <span className="text-ink-muted">
                       {dict.worksDetail.next}
                     </span>
-                    <ArrowRight size={20} className="text-gray-400" />
+                    <ArrowRight size={20} className="text-terracotta" />
                   </div>
-                  <p className="text-gray-500">{dict.worksDetail.noNextWork}</p>
+                  <p className="text-ink-muted">
+                    {dict.worksDetail.noNextWork}
+                  </p>
                 </div>
               )}
             </div>

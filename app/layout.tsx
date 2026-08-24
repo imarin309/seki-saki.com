@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { Noto_Serif_JP } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Zen_Maru_Gothic } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@/app/components/GoogleAnalytics";
 import { SiteChrome } from "@/app/components/SiteChrome";
@@ -12,11 +12,15 @@ import {
   SITE_OG_IMAGE,
 } from "@/app/meta";
 
-const notoSerifJP = Noto_Serif_JP({
+const zenMaruGothic = Zen_Maru_Gothic({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "700"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  themeColor: "#f5ecdd",
+};
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
@@ -63,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${notoSerifJP.className} min-h-screen bg-[#0a0a0a] text-white`}
+        className={`${zenMaruGothic.className} min-h-screen bg-paper text-ink`}
       >
         <GoogleAnalytics />
         <SyncHtmlLang />

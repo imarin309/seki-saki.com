@@ -34,10 +34,12 @@ export default function WorkDetailClient({
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h1 className="mb-4 text-4xl">{dict.illustDetail.workNotFound}</h1>
+          <h1 className="mb-4 text-4xl font-bold">
+            {dict.illustDetail.workNotFound}
+          </h1>
           <Link
             href={withLocale(locale, "/illust")}
-            className="text-gray-400 transition-colors hover:text-white"
+            className="text-ink-soft transition-colors hover:text-terracotta"
           >
             {dict.illustDetail.backToIllusts}
           </Link>
@@ -68,7 +70,7 @@ export default function WorkDetailClient({
         >
           <button
             onClick={() => router.push(withLocale(locale, "/illust"))}
-            className="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-terracotta"
           >
             <ArrowLeft size={20} />
             {dict.illustDetail.backToIllusts}
@@ -82,7 +84,7 @@ export default function WorkDetailClient({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            className="group relative bg-gray-900 [touch-action:pan-y]"
+            className="group relative overflow-hidden rounded-3xl border border-line bg-paper-deep shadow-soft [touch-action:pan-y]"
             onTouchStart={(e) => {
               touchStartX.current = e.touches[0].clientX;
               touchStartY.current = e.touches[0].clientY;
@@ -124,10 +126,10 @@ export default function WorkDetailClient({
                 />
                 <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 md:hidden">
                   <span
-                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-white/40" : "bg-white"}`}
+                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-paper-card/50" : "bg-paper-card"}`}
                   />
                   <span
-                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-white" : "bg-white/40"}`}
+                    className={`block h-1.5 w-1.5 rounded-full transition-colors duration-300 ${showAlt ? "bg-paper-card" : "bg-paper-card/50"}`}
                   />
                 </div>
               </>
@@ -142,14 +144,14 @@ export default function WorkDetailClient({
             className="flex flex-col justify-center"
           >
             <div className="mb-4">
-              <span className="text-gray-500">
+              <span className="text-ink-muted">
                 {getIllustCategoryLabel(locale, work.category)}
               </span>
-              <span className="mx-2 text-gray-500">/</span>
-              <span className="text-gray-500">{work.date}</span>
+              <span className="mx-2 text-ink-muted">/</span>
+              <span className="text-ink-muted">{work.date}</span>
             </div>
-            <h1 className="mb-6 text-4xl md:text-5xl">{title}</h1>
-            <p className="mb-8 whitespace-pre-line text-xl text-gray-400">
+            <h1 className="mb-6 text-4xl font-bold md:text-5xl">{title}</h1>
+            <p className="mb-8 whitespace-pre-line text-xl leading-relaxed text-ink-soft">
               {description}
             </p>
           </motion.div>
@@ -160,7 +162,7 @@ export default function WorkDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="border-t border-white/10 pt-12"
+          className="border-t border-line pt-12"
         >
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {/* Previous Work */}
@@ -171,13 +173,13 @@ export default function WorkDetailClient({
                   className="group block"
                 >
                   <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">
+                    <ArrowLeft size={20} className="text-terracotta" />
+                    <span className="text-ink-muted">
                       {dict.illustDetail.previous}
                     </span>
                   </div>
                   <div className="flex gap-4">
-                    <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
+                    <div className="relative h-24 w-24 overflow-hidden rounded-2xl border border-line bg-paper-deep">
                       <Image
                         src={prevWork.image}
                         alt={getIllustTitle(prevWork, locale)}
@@ -186,10 +188,10 @@ export default function WorkDetailClient({
                       />
                     </div>
                     <div>
-                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
+                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
                         {getIllustTitle(prevWork, locale)}
                       </h3>
-                      <p className="text-gray-500">
+                      <p className="text-ink-muted">
                         {getIllustCategoryLabel(locale, prevWork.category)}
                       </p>
                     </div>
@@ -198,12 +200,12 @@ export default function WorkDetailClient({
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-gray-400" />
-                    <span className="text-gray-500">
+                    <ArrowLeft size={20} className="text-terracotta" />
+                    <span className="text-ink-muted">
                       {dict.illustDetail.previous}
                     </span>
                   </div>
-                  <p className="text-gray-500">
+                  <p className="text-ink-muted">
                     {dict.illustDetail.noPreviousWork}
                   </p>
                 </div>
@@ -218,21 +220,21 @@ export default function WorkDetailClient({
                   className="group block"
                 >
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">
+                    <span className="text-ink-muted">
                       {dict.illustDetail.next}
                     </span>
-                    <ArrowRight size={20} className="text-gray-400" />
+                    <ArrowRight size={20} className="text-terracotta" />
                   </div>
                   <div className="flex justify-end gap-4">
                     <div className="text-right">
-                      <h3 className="mb-1 text-xl transition-colors group-hover:text-gray-400">
+                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
                         {getIllustTitle(nextWork, locale)}
                       </h3>
-                      <p className="text-gray-500">
+                      <p className="text-ink-muted">
                         {getIllustCategoryLabel(locale, nextWork.category)}
                       </p>
                     </div>
-                    <div className="relative h-24 w-24 overflow-hidden bg-gray-900">
+                    <div className="relative h-24 w-24 overflow-hidden rounded-2xl border border-line bg-paper-deep">
                       <Image
                         src={nextWork.image}
                         alt={getIllustTitle(nextWork, locale)}
@@ -245,12 +247,12 @@ export default function WorkDetailClient({
               ) : (
                 <div className="opacity-30">
                   <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-gray-500">
+                    <span className="text-ink-muted">
                       {dict.illustDetail.next}
                     </span>
-                    <ArrowRight size={20} className="text-gray-400" />
+                    <ArrowRight size={20} className="text-terracotta" />
                   </div>
-                  <p className="text-gray-500">
+                  <p className="text-ink-muted">
                     {dict.illustDetail.noNextWork}
                   </p>
                 </div>

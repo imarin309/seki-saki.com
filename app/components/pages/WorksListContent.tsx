@@ -20,11 +20,13 @@ export default function WorksListContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h1 className="mb-4 text-4xl md:text-6xl">{dict.worksList.title}</h1>
+          <h1 className="mb-4 text-4xl font-bold md:text-6xl">
+            {dict.worksList.title}
+          </h1>
         </motion.div>
 
         <div className="relative">
-          <div className="absolute left-0 top-0 h-full w-px bg-white/10 md:left-[180px]" />
+          <div className="absolute left-0 top-0 h-full w-px bg-line md:left-[180px]" />
 
           <div className="flex flex-col gap-12">
             {sortedWorks.map((work, index) => {
@@ -38,19 +40,19 @@ export default function WorksListContent({ locale }: { locale: Locale }) {
                   className="relative flex flex-col gap-4 pl-8 md:flex-row md:pl-0"
                 >
                   <div className="shrink-0 md:w-[168px] md:pr-8 md:text-right">
-                    <span className="text-sm tabular-nums text-gray-500">
+                    <span className="text-sm tabular-nums text-ink-muted">
                       {work.date.replace("/", " / ")}
                     </span>
                   </div>
 
-                  <div className="absolute left-[-4px] top-1 size-2 rounded-full bg-white md:left-[176px]" />
+                  <div className="absolute left-[-5px] top-1 size-2.5 rounded-full bg-terracotta ring-4 ring-paper md:left-[175px]" />
 
                   <Link
                     href={withLocale(locale, `/works/${work.slug}`)}
-                    className="group flex flex-1 flex-col overflow-hidden rounded border border-white/10 bg-[#111111] transition-colors hover:border-white/30 sm:flex-row md:ml-8"
+                    className="group flex flex-1 flex-col overflow-hidden rounded-2xl border border-line bg-paper-card shadow-soft transition-all hover:border-terracotta hover:shadow-lift sm:flex-row md:ml-8"
                   >
                     {work.images && work.images.length > 0 && (
-                      <div className="w-full shrink-0 overflow-hidden bg-gray-900 sm:w-40">
+                      <div className="w-full shrink-0 overflow-hidden bg-paper-deep sm:w-40">
                         <Image
                           src={work.images[0]}
                           alt={title}
@@ -63,10 +65,10 @@ export default function WorksListContent({ locale }: { locale: Locale }) {
                     )}
 
                     <div className="flex flex-1 flex-col p-6">
-                      <h2 className="mb-5 text-xl transition-colors group-hover:text-gray-300">
+                      <h2 className="mb-5 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
                         {title}
                       </h2>
-                      <span className="mt-auto inline-flex items-center gap-2 text-sm text-gray-400 transition-colors group-hover:text-white">
+                      <span className="mt-auto inline-flex items-center gap-2 text-sm text-terracotta transition-transform group-hover:translate-x-1">
                         {dict.worksList.viewWork}
                         <ArrowRight size={16} />
                       </span>
@@ -78,7 +80,7 @@ export default function WorksListContent({ locale }: { locale: Locale }) {
           </div>
 
           {sortedWorks.length === 0 && (
-            <p className="py-20 text-center text-gray-400">
+            <p className="py-20 text-center text-ink-muted">
               {dict.worksList.empty}
             </p>
           )}

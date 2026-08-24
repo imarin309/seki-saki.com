@@ -14,7 +14,7 @@ describe("HomeContent", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the en hero without crashing", () => {
+  it("renders the en hero and contact section without crashing", () => {
     render(<HomeContent locale="en" />);
 
     expect(

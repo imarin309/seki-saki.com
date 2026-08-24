@@ -76,7 +76,23 @@ Vitest + React Testing Library によるコンポーネントのスモークテ�
 
 ### スタイリング
 
-Tailwind CSS でダークテーマ。背景色は `#0a0a0a`、サブセクションは `#111111`。カスタム Tailwind テーマの拡張はありません。`prettier-plugin-tailwindcss` により Prettier が Tailwind クラスを自動整列します。
+Tailwind CSS で「ポップな絵本」風のライトテーマ。薄い茶色〜クリームの紙のような背景に、丸ゴシック（`Zen Maru Gothic`、`app/layout.tsx` で `next/font/google` から読み込み）・丸角・やわらかい影を組み合わせています。色は生の 16 進数を直書きせず、`tailwind.config.ts` の `theme.extend.colors` に定義したセマンティックなトークンを使ってください。
+
+| トークン                         | 値                                | 用途                                            |
+| -------------------------------- | --------------------------------- | ----------------------------------------------- |
+| `paper`                          | `#f5ecdd`                         | ページ全体の背景（`app/globals.css` の `body`） |
+| `paper-deep`                     | `#ece0cc`                         | 帯状のサブセクション、画像プレースホルダー      |
+| `paper-card`                     | `#fdf8f0`                         | カード面、アクセント上の文字色                  |
+| `line` / `line-strong`           | `#ddcdb3` / `#c9b499`             | 枠線・区切り線                                  |
+| `ink` / `ink-soft` / `ink-muted` | `#3d2f24` / `#6f5c4a` / `#94816d` | 本文・副次テキスト・メタ情報                    |
+| `terracotta` / `-dark` / `-soft` | `#e2725b` / `#c85a44` / `#f7ded6` | アクセント（アクティブなナビ、ボタン、リンク）  |
+| `mustard` / `leaf` / `sky`       | `#e8a33d` / `#7fa650` / `#6b93a8` | サブアクセント（未使用の予備）                  |
+
+影は `shadow-soft`（通常）と `shadow-lift`（ホバー時）を使います。ブラウザの UI 色は `app/layout.tsx` の `viewport.themeColor` で背景色に合わせています。
+
+`/exhibition/*` 配下は展示ごとに独立したアートディレクションを持つスタンドアロンページのため、この配色には従わず個別に配色を指定しています（`still_here` は黒背景のまま）。
+
+`prettier-plugin-tailwindcss` により Prettier が Tailwind クラスを自動整列します。
 
 ### スクリプト
 
