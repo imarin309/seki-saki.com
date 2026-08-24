@@ -18,7 +18,9 @@ export default function AboutContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h1 className="mb-6 text-4xl md:text-6xl">{dict.about.title}</h1>
+          <h1 className="mb-6 text-4xl font-bold md:text-6xl">
+            {dict.about.title}
+          </h1>
         </motion.div>
 
         {/* Bio */}
@@ -28,7 +30,7 @@ export default function AboutContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-2"
         >
-          <div className="relative aspect-[4/5] overflow-hidden bg-gray-900">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-paper-deep shadow-soft">
             <Image
               src="https://assets.seki-saki.com/meta/star.webp"
               alt="profile"
@@ -37,11 +39,11 @@ export default function AboutContent({ locale }: { locale: Locale }) {
             />
           </div>
           <div className="flex flex-col justify-center">
-            <h2 className="mb-6 text-3xl">{dict.about.heading}</h2>
+            <h2 className="mb-6 text-3xl font-bold">{dict.about.heading}</h2>
             {dict.about.bio.map((paragraph, index) => (
               <p
                 key={index}
-                className={`leading-relaxed text-gray-400 ${
+                className={`leading-relaxed text-ink-soft ${
                   index === dict.about.bio.length - 1 ? "" : "mb-4"
                 }`}
               >

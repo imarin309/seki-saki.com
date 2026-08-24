@@ -12,9 +12,9 @@ export default function ExhibitionBanner({ locale }: { locale: Locale }) {
   return (
     <Link
       href={currentExhibition.href}
-      className="group inline-flex items-center gap-3 border border-white/20 bg-black/40 py-2 pl-2 pr-4 backdrop-blur-sm transition-colors hover:bg-black/60"
+      className="group inline-flex items-center gap-3 rounded-full border border-line bg-paper-card/90 py-2 pl-2 pr-5 shadow-soft backdrop-blur-sm transition-colors hover:bg-paper-card"
     >
-      <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden">
+      <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
         <Image
           src={currentExhibition.image}
           alt={currentExhibition.title}
@@ -22,10 +22,10 @@ export default function ExhibitionBanner({ locale }: { locale: Locale }) {
           className="object-cover"
         />
       </div>
-      <p className="text-sm text-white">{currentExhibition.title}</p>
+      <p className="text-sm text-ink">{currentExhibition.title}</p>
       <ArrowRight
         size={16}
-        className="text-gray-300 transition-transform group-hover:translate-x-1"
+        className="text-terracotta transition-transform group-hover:translate-x-1"
       />
     </Link>
   );

@@ -13,7 +13,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 type HeroImagePosition = "left" | "center" | "right";
 
 // モバイルでは画像が中央基準でクロップされるため、見せたい位置に合わせて調整する
-const HERO_IMAGE_POSITION: HeroImagePosition = "left";
+const HERO_IMAGE_POSITION: HeroImagePosition = "right";
 
 const HERO_IMAGE_POSITION_CLASS: Record<HeroImagePosition, string> = {
   left: "object-left",
@@ -23,6 +23,10 @@ const HERO_IMAGE_POSITION_CLASS: Record<HeroImagePosition, string> = {
 
 // ヒーロー画像は固定。新着作品に追従させると縦横比によって見え方が変わるため、slug で指定する
 const HERO_ILLUST_SLUG = "drawing_0817";
+
+// md 以上ではヒーローの高さを画像の縦横比から決め、object-cover による縦の見切れを防ぐ。
+// ヒーロー画像を差し替えたら、その画像の実寸に合わせて更新すること。
+const HERO_ASPECT_CLASS = "md:aspect-[2094/1406]";
 
 export default function HomeContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -34,7 +38,9 @@ export default function HomeContent({ locale }: { locale: Locale }) {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative flex min-h-[100vh] items-center justify-center overflow-hidden">
+      <section
+        className={`relative flex min-h-[100svh] items-center justify-center overflow-hidden ${HERO_ASPECT_CLASS}`}
+      >
         <Image
           src={heroIllust.image}
           alt={heroIllust.title}
@@ -42,13 +48,12 @@ export default function HomeContent({ locale }: { locale: Locale }) {
           className={`object-cover ${HERO_IMAGE_POSITION_CLASS[HERO_IMAGE_POSITION]}`}
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#0a0a0a]" />
         <div className="container relative z-10 mx-auto px-6 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-6 text-5xl tracking-tight md:text-7xl"
+            className="mb-6 text-5xl font-bold tracking-tight text-paper-card [text-shadow:0_2px_12px_rgba(61,47,36,0.7)] md:text-7xl"
           >
             {dict.home.heroTitle}
           </motion.h1>
@@ -60,7 +65,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
           >
             <Link
               href={withLocale(locale, "/illust")}
-              className="inline-flex items-center gap-2 bg-white px-8 py-3 text-black transition-colors hover:bg-gray-200"
+              className="inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark"
             >
               {dict.home.viewIllusts}
               <ArrowRight size={20} />
@@ -73,12 +78,12 @@ export default function HomeContent({ locale }: { locale: Locale }) {
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="mb-12 flex items-center justify-between">
-            <h2 className="text-3xl md:text-4xl">
+            <h2 className="text-3xl font-bold md:text-4xl">
               {dict.home.featuredHeading}
             </h2>
             <Link
               href={withLocale(locale, "/illust")}
-              className="flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+              className="flex items-center gap-2 text-ink-soft transition-colors hover:text-terracotta"
             >
               {dict.home.viewAll}
               <ArrowRight size={20} />
@@ -102,7 +107,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
       </section>
 
       {/* About Preview Section */}
-      <section className="bg-[#111111] py-20">
+      <section className="border-y border-line bg-paper-deep py-20">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +116,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
             viewport={{ once: true }}
           >
             <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
-              <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-full bg-gray-900">
+              <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-full border-4 border-paper-card bg-paper-card shadow-soft">
                 <Image
                   src="https://assets.seki-saki.com/meta/star.webp"
                   alt="about"
@@ -121,7 +126,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
               </div>
               <Link
                 href={withLocale(locale, "/about")}
-                className="flex flex-shrink-0 items-center justify-center gap-3 text-3xl text-white transition-colors hover:text-gray-400"
+                className="flex flex-shrink-0 items-center justify-center gap-3 text-3xl font-bold text-ink transition-colors hover:text-terracotta"
               >
                 {dict.home.aboutLink}
                 <ArrowRight size={32} />
@@ -141,13 +146,13 @@ export default function HomeContent({ locale }: { locale: Locale }) {
             viewport={{ once: true }}
             className="flex flex-col items-center gap-6 text-center"
           >
-            <h2 className="text-3xl md:text-4xl">
+            <h2 className="text-3xl font-bold md:text-4xl">
               {dict.home.contactCtaHeading}
             </h2>
-            <p className="max-w-md text-gray-400">{dict.home.contactCtaText}</p>
+            <p className="max-w-md text-ink-soft">{dict.home.contactCtaText}</p>
             <Link
               href={withLocale(locale, "/contact")}
-              className="inline-flex items-center gap-2 bg-white px-8 py-3 text-black transition-colors hover:bg-gray-200"
+              className="inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark"
             >
               {dict.home.contactCtaButton}
               <ArrowRight size={20} />

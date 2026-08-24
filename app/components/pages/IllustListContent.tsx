@@ -26,8 +26,10 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h1 className="mb-4 text-4xl md:text-6xl">{dict.illustList.title}</h1>
-          <p className="text-xl text-gray-400">{dict.illustList.subtitle}</p>
+          <h1 className="mb-4 text-4xl font-bold md:text-6xl">
+            {dict.illustList.title}
+          </h1>
+          <p className="text-xl text-ink-soft">{dict.illustList.subtitle}</p>
         </motion.div>
 
         {/* Filter */}
@@ -42,10 +44,10 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
               <button
                 key={category}
                 onClick={() => setFilter(category)}
-                className={`border px-6 py-2 transition-all ${
+                className={`rounded-full border px-6 py-2 transition-all ${
                   filter === category
-                    ? "border-white bg-white text-black"
-                    : "border-white/20 text-gray-400 hover:border-white hover:text-white"
+                    ? "border-terracotta bg-terracotta font-medium text-paper-card shadow-soft"
+                    : "border-line bg-paper-card text-ink-soft hover:border-terracotta hover:text-terracotta"
                 }`}
               >
                 {getIllustCategoryLabel(locale, category)}
@@ -73,7 +75,7 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
         </motion.div>
 
         {filteredIllusts.length === 0 && (
-          <div className="py-20 text-center text-gray-400">
+          <div className="py-20 text-center text-ink-muted">
             {dict.illustList.noResults}
           </div>
         )}

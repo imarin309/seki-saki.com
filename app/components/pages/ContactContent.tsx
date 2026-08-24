@@ -21,8 +21,9 @@ const CONTACT_API_URL = "https://api.seki-saki.com";
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
 const fieldClassName =
-  "border-b border-white/20 bg-transparent py-2 text-lg text-white placeholder-gray-600 transition-colors focus:border-white focus:outline-none";
-const labelClassName = "text-xs uppercase tracking-widest text-gray-500";
+  "border-b-2 border-line bg-transparent py-2 text-lg text-ink placeholder-ink-muted transition-colors focus:border-terracotta focus:outline-none";
+const labelClassName =
+  "text-xs font-medium uppercase tracking-widest text-ink-soft";
 
 function Field({
   label,
@@ -141,8 +142,10 @@ export default function ContactContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h1 className="mb-6 text-4xl md:text-6xl">{dict.contact.title}</h1>
-          <p className="max-w-3xl text-xl text-gray-400">
+          <h1 className="mb-6 text-4xl font-bold md:text-6xl">
+            {dict.contact.title}
+          </h1>
+          <p className="max-w-3xl text-xl text-ink-soft">
             {dict.contact.intro}
           </p>
         </motion.div>
@@ -153,7 +156,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {state === "success" ? (
-            <p className="max-w-2xl text-xl text-white">
+            <p className="max-w-2xl text-xl text-ink">
               {dict.contact.formSuccessLines.map((line, index) => (
                 <span key={line}>
                   {index > 0 && <br />}
@@ -164,7 +167,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex max-w-2xl flex-col gap-8"
+              className="flex max-w-2xl flex-col gap-8 rounded-3xl border border-line bg-paper-card p-8 shadow-soft sm:p-10"
             >
               <Field
                 label={dict.contact.formNameLabel}
@@ -199,7 +202,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               <div ref={turnstileContainerRef} />
 
               {state === "error" && (
-                <p className="text-sm text-red-400">
+                <p className="text-sm text-terracotta-dark">
                   {dict.contact.formErrorLines.map((line, index) => (
                     <span key={line}>
                       {index > 0 && <br />}
@@ -212,7 +215,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               <button
                 type="submit"
                 disabled={state === "submitting"}
-                className="self-start border border-white/20 px-8 py-3 text-white transition-all hover:border-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="self-start rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {state === "submitting"
                   ? dict.contact.formSubmittingLabel
@@ -226,7 +229,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 max-w-xl text-sm leading-relaxed text-gray-600"
+          className="mt-20 max-w-xl text-sm leading-relaxed text-ink-muted"
         >
           {dict.contact.privacyNote}
         </motion.p>
