@@ -414,6 +414,33 @@ export const illusts: Illust[] = [
     image: `${BASE}/2026/drawing_0820.webp`,
     description: "",
   },
+  {
+    id: "38",
+    slug: "drawing_0822",
+    title: "drawing_0822",
+    category: "ドローイング",
+    date: "2026/8/22",
+    image: `${BASE}/2026/drawing_0822.webp`,
+    description: "",
+  },
+  {
+    id: "39",
+    slug: "drawing_0823",
+    title: "drawing_0823",
+    category: "ドローイング",
+    date: "2026/8/23",
+    image: `${BASE}/2026/drawing_0823.webp`,
+    description: "",
+  },
+  {
+    id: "40",
+    slug: "drawing_0824",
+    title: "drawing_0824",
+    category: "ドローイング",
+    date: "2026/8/24",
+    image: `${BASE}/2026/drawing_0824.webp`,
+    description: "",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
