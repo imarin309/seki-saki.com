@@ -32,22 +32,23 @@ const COVER_ILLUST_SLUG = "drawing_0817";
  */
 const SELECTED_LAYOUTS = [
   {
-    // 1点目：大きく、右へ寄せる。キャプションも右揃えで積む
+    // 1点目：いちばん大きく。md 以上ではさらに右へ寄せる
     figure: "md:ml-auto md:w-[74%]",
     caption: "md:items-end md:text-right",
     spacing: "",
   },
   {
-    // 2点目：小さく、左端に置いて大きく余白をとる
-    figure: "md:w-[44%]",
+    // 2点目：小さく左端に置き、前に大きく余白をとる
+    figure: "w-[72%] md:w-[44%]",
     caption: "md:flex-row md:items-baseline md:justify-between",
     spacing: "mt-32 md:mt-56",
   },
   {
-    // 3点目：中くらい、中央よりやや右
-    figure: "md:ml-[16%] md:w-[60%]",
-    caption: "md:flex-row md:items-baseline md:justify-between",
-    spacing: "mt-32 md:mt-48",
+    // 3点目：中くらいで右へ寄せる。キャプションも寄せた側に揃える
+    figure: "ml-auto w-[88%] md:ml-[16%] md:w-[60%]",
+    caption:
+      "items-end text-right md:flex-row md:items-baseline md:justify-between md:text-left",
+    spacing: "mt-24 md:mt-48",
   },
 ];
 
@@ -107,10 +108,28 @@ export default function HomeContent({ locale }: { locale: Locale }) {
         </motion.div>
       </section>
 
-      {/* 01 / Selected Works */}
+      {/* 01 / Introduction */}
       <section className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
         <motion.div {...fadeInView()}>
-          <Chapter number="01" label={dict.home.selectedLabel} />
+          <Chapter number="01" label={dict.home.introLabel} />
+        </motion.div>
+        <div className="mt-14 md:ml-[28%] md:mt-20">
+          {dict.home.introBody.map((line, index) => (
+            <motion.p
+              key={line}
+              {...fadeInView(index * 0.12)}
+              className={`${PROSE} max-w-xl`}
+            >
+              {line}
+            </motion.p>
+          ))}
+        </div>
+      </section>
+
+      {/* 02 / Selected Works */}
+      <section className="mx-auto max-w-[1600px] px-6 pb-32 md:px-10 md:pb-48">
+        <motion.div {...fadeInView()}>
+          <Chapter number="02" label={dict.home.selectedLabel} />
           <p className={`${LABEL} mt-5`}>{dict.home.selectedNote}</p>
         </motion.div>
 
@@ -164,11 +183,11 @@ export default function HomeContent({ locale }: { locale: Locale }) {
         </motion.div>
       </section>
 
-      {/* 02 / About */}
+      {/* 03 / About */}
       <section className="border-t border-line">
         <div className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
           <motion.div {...fadeInView()}>
-            <Chapter number="02" label={dict.home.aboutLabel} />
+            <Chapter number="03" label={dict.home.aboutLabel} />
           </motion.div>
           <div className="mt-14 flex flex-col gap-10 md:mt-20 md:flex-row md:items-end md:gap-20">
             <motion.div
@@ -196,11 +215,11 @@ export default function HomeContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* 03 / Contact */}
+      {/* 04 / Contact */}
       <section className="border-t border-line">
         <div className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
           <motion.div {...fadeInView()}>
-            <Chapter number="03" label={dict.home.contactLabel} />
+            <Chapter number="04" label={dict.home.contactLabel} />
           </motion.div>
           <motion.div {...fadeInView(0.1)} className="mt-14 md:ml-[28%]">
             <p className={`${PROSE} max-w-xl`}>{dict.home.contactLead}</p>

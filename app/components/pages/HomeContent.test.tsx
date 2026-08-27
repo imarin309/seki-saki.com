@@ -17,7 +17,7 @@ describe("HomeContent", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: new RegExp(`01\\s*/\\s*${dict.home.selectedLabel}`),
+        name: new RegExp(`02\\s*/\\s*${dict.home.selectedLabel}`),
       })
     ).toBeInTheDocument();
   });
@@ -35,7 +35,7 @@ describe("HomeContent", () => {
     expect(
       screen.getByRole("heading", {
         level: 2,
-        name: new RegExp(`03\\s*/\\s*${dict.home.contactLabel}`),
+        name: new RegExp(`04\\s*/\\s*${dict.home.contactLabel}`),
       })
     ).toBeInTheDocument();
   });
