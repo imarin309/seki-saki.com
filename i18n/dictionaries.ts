@@ -19,6 +19,8 @@ export interface Dictionary {
     /** 一般的な View Works ではなく、作品集をひらく言葉 */
     coverCta: string;
     scrollHint: string;
+    introLabel: string;
+    introBody: string[];
     selectedLabel: string;
     selectedNote: string;
     viewIndex: string;
@@ -111,6 +113,9 @@ const ja: Dictionary = {
     coverCopy: "芯のある人を、一枚ずつ。",
     coverCta: "作品集をひらく",
     scrollHint: "Scroll",
+    introLabel: "Introduction",
+    // TODO: 作家紹介の文章が決まったら差し替える
+    introBody: ["準備中です。"],
     selectedLabel: "Selected Works",
     selectedNote: "近作より数点。",
     viewIndex: "すべての作品を見る",
@@ -164,11 +169,8 @@ const ja: Dictionary = {
     title: "About Me",
     kicker: "About",
     heading: "派手で美しい人物をリアル調に描きます。",
-    bio: [
-      "はじめまして。世木口と申します。",
-      "芯のある美しい女性を中心にイラストレーションを描いています。",
-      "現在は会社員として勤めながら、フリーランスでイラストレーターとして活動しております。",
-    ],
+    // TODO: プロフィール文が決まったら差し替える
+    bio: ["準備中です。"],
   },
   contact: {
     title: "Contact",
@@ -212,6 +214,8 @@ const en: Dictionary = {
     coverCopy: "People with a quiet strength, one page at a time.",
     coverCta: "Open the book",
     scrollHint: "Scroll",
+    introLabel: "Introduction",
+    introBody: ["Coming soon."],
     selectedLabel: "Selected Works",
     selectedNote: "A few recent pieces.",
     viewIndex: "See all works",
@@ -265,11 +269,7 @@ const en: Dictionary = {
     title: "About Me",
     kicker: "About",
     heading: "I draw vivid, beautiful figures with a realistic touch.",
-    bio: [
-      "Hello, I'm Sekiguchi.",
-      "I mainly draw illustrations of beautiful women with a strong sense of self.",
-      "I currently work as a full-time employee while also active as a freelance illustrator.",
-    ],
+    bio: ["Coming soon."],
   },
   contact: {
     title: "Contact",
