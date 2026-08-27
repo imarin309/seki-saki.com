@@ -168,7 +168,7 @@ const ja: Dictionary = {
   about: {
     title: "About Me",
     kicker: "About",
-    heading: "派手で美しい人物をリアル調に描きます。",
+    heading: "準備中です",
     // TODO: プロフィール文が決まったら差し替える
     bio: ["準備中です。"],
   },
