@@ -32,22 +32,23 @@ const COVER_ILLUST_SLUG = "drawing_0817";
  */
 const SELECTED_LAYOUTS = [
   {
-    // 1点目：大きく、右へ寄せる。キャプションも右揃えで積む
+    // 1点目：いちばん大きく。md 以上ではさらに右へ寄せる
     figure: "md:ml-auto md:w-[74%]",
     caption: "md:items-end md:text-right",
     spacing: "",
   },
   {
-    // 2点目：小さく、左端に置いて大きく余白をとる
-    figure: "md:w-[44%]",
+    // 2点目：小さく左端に置き、前に大きく余白をとる
+    figure: "w-[72%] md:w-[44%]",
     caption: "md:flex-row md:items-baseline md:justify-between",
     spacing: "mt-32 md:mt-56",
   },
   {
-    // 3点目：中くらい、中央よりやや右
-    figure: "md:ml-[16%] md:w-[60%]",
-    caption: "md:flex-row md:items-baseline md:justify-between",
-    spacing: "mt-32 md:mt-48",
+    // 3点目：中くらいで右へ寄せる。キャプションも寄せた側に揃える
+    figure: "ml-auto w-[88%] md:ml-[16%] md:w-[60%]",
+    caption:
+      "items-end text-right md:flex-row md:items-baseline md:justify-between md:text-left",
+    spacing: "mt-24 md:mt-48",
   },
 ];
 
