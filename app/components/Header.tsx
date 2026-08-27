@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { SITE_TITLE, SITE_ICON, INSTAGRAM_URL } from "@/app/meta";
+import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
+import { EASE } from "@/app/design";
 import {
   getAlternateLocalePath,
   localeFromPathname,
@@ -14,6 +13,8 @@ import {
   type Locale,
 } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+
+const NAV_ITEM = "text-xs tracking-[0.18em] transition-colors";
 
 function LocaleSwitch({
   locale,
@@ -27,9 +28,11 @@ function LocaleSwitch({
   className?: string;
 }) {
   return (
-    <div className={`flex items-center gap-1.5 ${className}`}>
+    <div
+      className={`flex items-center gap-1.5 text-xs tracking-[0.1em] ${className}`}
+    >
       {locale === "ja" ? (
-        <span className="font-medium text-terracotta">Ja</span>
+        <span className="text-terracotta">Ja</span>
       ) : (
         <Link
           href={jaPath}
@@ -40,7 +43,7 @@ function LocaleSwitch({
       )}
       <span className="text-line-strong">/</span>
       {locale === "en" ? (
-        <span className="font-medium text-terracotta">En</span>
+        <span className="text-terracotta">En</span>
       ) : (
         <Link
           href={enPath}
@@ -81,72 +84,72 @@ export function Header() {
   };
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-md">
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          <Link
-            href={withLocale(locale, "/")}
-            className="flex items-center gap-2.5 text-xl font-bold tracking-wider text-ink"
-          >
-            {/* リンク名はサイト名で伝わるため、アイコンは読み上げ対象から外す */}
-            <Image
-              src={SITE_ICON}
-              alt=""
-              aria-hidden
-              width={40}
-              height={40}
-              priority
-              className="size-10 shrink-0 rounded-full border border-line bg-paper-card object-contain"
-            />
-            {SITE_TITLE}
-          </Link>
+    <header className="fixed left-0 right-0 top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-md">
+      <nav className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-6 md:px-10">
+        <Link
+          href={withLocale(locale, "/")}
+          className="font-display text-base tracking-[0.2em] text-ink transition-colors hover:text-terracotta"
+        >
+          {SITE_TITLE}
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`relative transition-colors ${
-                  isActive(link.path)
-                    ? "font-medium text-terracotta"
-                    : "text-ink-soft hover:text-terracotta"
-                }`}
-              >
-                {link.name}
-                {isActive(link.path) && (
-                  <motion.div
-                    layoutId="activeNav"
-                    className="absolute -bottom-1 left-0 right-0 h-1 rounded-full bg-terracotta"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
-            ))}
-            {externalLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-ink-soft transition-colors hover:text-terracotta"
-              >
-                {link.name}
-              </a>
-            ))}
-            <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
-            <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={dict.nav.openMenu}
+        {/* Desktop Navigation */}
+        <div className="hidden items-center gap-9 md:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              href={link.path}
+              className={`relative ${NAV_ITEM} ${
+                isActive(link.path)
+                  ? "text-ink"
+                  : "text-ink-muted hover:text-ink"
+              }`}
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+              {link.name}
+              {isActive(link.path) && (
+                <motion.span
+                  layoutId="activeNav"
+                  className="absolute -bottom-1.5 left-0 right-0 block h-px bg-terracotta"
+                  transition={{ duration: 0.5, ease: EASE }}
+                />
+              )}
+            </Link>
+          ))}
+          {externalLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${NAV_ITEM} text-ink-muted hover:text-ink`}
+            >
+              {link.name}
+            </a>
+          ))}
+          <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex items-center gap-5 md:hidden">
+          <LocaleSwitch locale={locale} jaPath={jaPath} enPath={enPath} />
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={dict.nav.openMenu}
+            aria-expanded={mobileMenuOpen}
+            className="flex h-6 w-6 flex-col items-end justify-center gap-1.5"
+          >
+            {/* 罫線 2 本だけのメニューアイコン。開いているときは細い 1 本に畳む */}
+            <span
+              className={`block h-px bg-ink transition-all duration-500 ${
+                mobileMenuOpen ? "w-6" : "w-6"
+              }`}
+            />
+            <span
+              className={`block h-px bg-ink transition-all duration-500 ${
+                mobileMenuOpen ? "w-6 opacity-0" : "w-4 opacity-100"
+              }`}
+            />
+          </button>
         </div>
       </nav>
 
@@ -157,18 +160,17 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="border-t border-line md:hidden"
+            transition={{ duration: 0.5, ease: EASE }}
+            className="overflow-hidden border-t border-line bg-paper md:hidden"
           >
-            <div className="container mx-auto flex flex-col gap-4 px-6 py-4">
+            <div className="flex flex-col px-6 py-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`py-2 transition-colors ${
-                    isActive(link.path)
-                      ? "font-medium text-terracotta"
-                      : "text-ink-soft hover:text-terracotta"
+                  className={`border-b border-line py-4 ${NAV_ITEM} ${
+                    isActive(link.path) ? "text-terracotta" : "text-ink-soft"
                   }`}
                 >
                   {link.name}
@@ -181,7 +183,7 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="py-2 text-ink-soft transition-colors hover:text-terracotta"
+                  className={`py-4 ${NAV_ITEM} text-ink-soft`}
                 >
                   {link.name}
                 </a>

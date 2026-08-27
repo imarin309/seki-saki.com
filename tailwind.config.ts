@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -7,39 +8,35 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        // 紙のような薄い茶色〜クリームのベース面
-        paper: {
-          DEFAULT: "#f5ecdd",
-          deep: "#ece0cc",
-          card: "#fdf8f0",
-        },
-        // 罫線・枠線
-        line: {
-          DEFAULT: "#ddcdb3",
-          strong: "#c9b499",
-        },
-        // 文字色（濃い茶）
-        ink: {
-          DEFAULT: "#3d2f24",
-          soft: "#6f5c4a",
-          muted: "#94816d",
-        },
-        // アクセント（テラコッタ）
-        terracotta: {
-          DEFAULT: "#e2725b",
-          dark: "#c85a44",
-          soft: "#f7ded6",
-        },
-        // カテゴリーなどのサブアクセント
-        mustard: "#e8a33d",
-        leaf: "#7fa650",
-        sky: "#6b93a8",
+      fontFamily: {
+        // 本文・ナビゲーションなどの UI
+        sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        // 大きな見出し・作品タイトル・章番号（明朝）
+        display: ["var(--font-display)", ...defaultTheme.fontFamily.serif],
       },
-      boxShadow: {
-        // 絵本の紙が浮いているような、やわらかい影
-        soft: "0 6px 20px -8px rgba(61, 47, 36, 0.25)",
-        lift: "0 14px 32px -12px rgba(61, 47, 36, 0.35)",
+      colors: {
+        // 紙の面。作品の色が主役になるよう彩度は抑える
+        paper: {
+          DEFAULT: "#f6f3ec",
+          deep: "#eae5da",
+        },
+        // 罫線（極細でのみ使う）
+        line: {
+          DEFAULT: "#e0dacd",
+          strong: "#c3bbaa",
+        },
+        // 文字色
+        ink: {
+          DEFAULT: "#26221e",
+          soft: "#6a625a",
+          muted: "#a09789",
+        },
+        // 唯一のアクセント
+        terracotta: {
+          DEFAULT: "#b4553c",
+          dark: "#8f4029",
+          soft: "#ead9d2",
+        },
       },
     },
   },

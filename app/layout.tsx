@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Zen_Maru_Gothic } from "next/font/google";
+import { Zen_Kaku_Gothic_New, Zen_Old_Mincho } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@/app/components/GoogleAnalytics";
 import { SiteChrome } from "@/app/components/SiteChrome";
@@ -12,14 +12,24 @@ import {
   SITE_OG_IMAGE,
 } from "@/app/meta";
 
-const zenMaruGothic = Zen_Maru_Gothic({
+// 本文・UI 用のゴシック
+const zenKakuGothicNew = Zen_Kaku_Gothic_New({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
   display: "swap",
+  variable: "--font-sans",
+});
+
+// 作品タイトル・大見出し用の明朝（作品集の版面をつくる書体）
+const zenOldMincho = Zen_Old_Mincho({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-display",
 });
 
 export const viewport: Viewport = {
-  themeColor: "#f5ecdd",
+  themeColor: "#f6f3ec",
 };
 
 export const metadata: Metadata = {
@@ -67,8 +77,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${zenMaruGothic.className} min-h-screen bg-paper text-ink`}
+        className={`${zenKakuGothicNew.variable} ${zenOldMincho.variable} min-h-screen bg-paper font-sans text-ink`}
       >
+        {/* JS 無効時にフェードイン前（opacity: 0）のまま固定されないようにする */}
+        <noscript>
+          <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <GoogleAnalytics />
         <SyncHtmlLang />
         <SiteChrome>{children}</SiteChrome>

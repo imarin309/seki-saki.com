@@ -3,6 +3,8 @@
 import { useRef, useState, type SubmitEvent } from "react";
 import Script from "next/script";
 import { motion } from "motion/react";
+import { PageHeader } from "@/app/components/PageHeader";
+import { LABEL, fadeIn } from "@/app/design";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -21,9 +23,7 @@ const CONTACT_API_URL = "https://api.seki-saki.com";
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
 const fieldClassName =
-  "border-b-2 border-line bg-transparent py-2 text-lg text-ink placeholder-ink-muted transition-colors focus:border-terracotta focus:outline-none";
-const labelClassName =
-  "text-xs font-medium uppercase tracking-widest text-ink-soft";
+  "border-b border-line-strong bg-transparent py-2.5 text-base text-ink transition-colors focus:border-terracotta focus:outline-none";
 
 function Field({
   label,
@@ -42,7 +42,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className={labelClassName}>
+      <span className={LABEL}>
         {label}
         {required && " *"}
       </span>
@@ -52,7 +52,7 @@ function Field({
           required={required}
           minLength={required ? 1 : undefined}
           maxLength={maxLength}
-          rows={4}
+          rows={5}
           className={fieldClassName}
         />
       ) : (
@@ -134,29 +134,17 @@ export default function ContactContent({ locale }: { locale: Locale }) {
   };
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-20"
-        >
-          <h1 className="mb-6 text-4xl font-bold md:text-6xl">
-            {dict.contact.title}
-          </h1>
-          <p className="max-w-3xl text-xl text-ink-soft">
-            {dict.contact.intro}
-          </p>
-        </motion.div>
+    <div className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+      <div>
+        <PageHeader
+          kicker={dict.contact.kicker}
+          title={dict.contact.title}
+          description={dict.contact.intro}
+        />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
+        <motion.div {...fadeIn(0.3)}>
           {state === "success" ? (
-            <p className="max-w-2xl text-xl text-ink">
+            <p className="max-w-2xl font-display text-xl leading-loose text-ink">
               {dict.contact.formSuccessLines.map((line, index) => (
                 <span key={line}>
                   {index > 0 && <br />}
@@ -167,7 +155,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="flex max-w-2xl flex-col gap-8 rounded-3xl border border-line bg-paper-card p-8 shadow-soft sm:p-10"
+              className="flex max-w-2xl flex-col gap-10"
             >
               <Field
                 label={dict.contact.formNameLabel}
@@ -215,7 +203,7 @@ export default function ContactContent({ locale }: { locale: Locale }) {
               <button
                 type="submit"
                 disabled={state === "submitting"}
-                className="self-start rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark disabled:cursor-not-allowed disabled:opacity-50"
+                className="self-start border border-ink px-10 py-3.5 font-display text-sm tracking-[0.1em] text-ink transition-colors hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {state === "submitting"
                   ? dict.contact.formSubmittingLabel
@@ -226,10 +214,8 @@ export default function ContactContent({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 max-w-xl text-sm leading-relaxed text-ink-muted"
+          {...fadeIn(0.5)}
+          className="mt-24 max-w-xl border-t border-line pt-6 text-xs leading-loose text-ink-muted"
         >
           {dict.contact.privacyNote}
         </motion.p>

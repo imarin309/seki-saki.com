@@ -3,161 +3,215 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
-import { sortedIllusts } from "@/data/illusts";
-import IllustCard from "@/app/components/IllustCard";
+import { sortedIllusts, getIllustTitle } from "@/data/illusts";
+import { getIllustCategoryLabel } from "@/app/config";
+import { Chapter } from "@/app/components/Chapter";
 import ExhibitionBanner from "@/app/components/ExhibitionBanner";
+import { BookLink } from "@/app/components/BookLink";
+import { LABEL, PROSE, fadeIn, fadeInView } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
-type HeroImagePosition = "left" | "center" | "right";
+type CoverImagePosition = "left" | "center" | "right";
 
-// モバイルでは画像が中央基準でクロップされるため、見せたい位置に合わせて調整する
-const HERO_IMAGE_POSITION: HeroImagePosition = "right";
+// 縦長のカバー面に収めるため、見せたい位置に合わせて調整する
+const COVER_IMAGE_POSITION: CoverImagePosition = "right";
 
-const HERO_IMAGE_POSITION_CLASS: Record<HeroImagePosition, string> = {
+const COVER_IMAGE_POSITION_CLASS: Record<CoverImagePosition, string> = {
   left: "object-left",
   center: "object-center",
   right: "object-right",
 };
 
-// ヒーロー画像は固定。新着作品に追従させると縦横比によって見え方が変わるため、slug で指定する
-const HERO_ILLUST_SLUG = "drawing_0817";
+// 表紙の作品は固定。新着に追従させると縦横比によって見え方が変わるため、slug で指定する
+const COVER_ILLUST_SLUG = "drawing_0817";
 
-// md 以上ではヒーローの高さを画像の縦横比から決め、object-cover による縦の見切れを防ぐ。
-// ヒーロー画像を差し替えたら、その画像の実寸に合わせて更新すること。
-const HERO_ASPECT_CLASS = "md:aspect-[2094/1406]";
+/**
+ * Selected Works は均等なカード一覧にしない。
+ * 作品ごとに幅・寄せ・前後の余白を変えて、ページをめくる速度そのものを変える。
+ */
+const SELECTED_LAYOUTS = [
+  {
+    // 1点目：大きく、右へ寄せる。キャプションも右揃えで積む
+    figure: "md:ml-auto md:w-[74%]",
+    caption: "md:items-end md:text-right",
+    spacing: "",
+  },
+  {
+    // 2点目：小さく、左端に置いて大きく余白をとる
+    figure: "md:w-[44%]",
+    caption: "md:flex-row md:items-baseline md:justify-between",
+    spacing: "mt-32 md:mt-56",
+  },
+  {
+    // 3点目：中くらい、中央よりやや右
+    figure: "md:ml-[16%] md:w-[60%]",
+    caption: "md:flex-row md:items-baseline md:justify-between",
+    spacing: "mt-32 md:mt-48",
+  },
+];
 
 export default function HomeContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
-  const featuredIllusts = sortedIllusts.slice(0, 3);
-  const heroIllust =
-    sortedIllusts.find((illust) => illust.slug === HERO_ILLUST_SLUG) ??
+  const featuredIllusts = sortedIllusts.slice(0, SELECTED_LAYOUTS.length);
+  const coverIllust =
+    sortedIllusts.find((illust) => illust.slug === COVER_ILLUST_SLUG) ??
     sortedIllusts[0];
 
   return (
     <div>
-      {/* Hero Section */}
-      <section
-        className={`relative flex min-h-[100svh] items-center justify-center overflow-hidden ${HERO_ASPECT_CLASS}`}
-      >
-        <Image
-          src={heroIllust.image}
-          alt={heroIllust.title}
-          fill
-          className={`object-cover ${HERO_IMAGE_POSITION_CLASS[HERO_IMAGE_POSITION]}`}
-          priority
-        />
-        <div className="container relative z-10 mx-auto px-6 text-center">
+      {/* Cover */}
+      <section className="flex min-h-[calc(100svh-4rem)] flex-col md:flex-row">
+        <div className="relative order-2 flex flex-1 flex-col justify-center px-6 py-20 md:order-1 md:px-10 md:py-0 lg:px-16">
+          <motion.p {...fadeIn()} className={LABEL}>
+            {dict.home.coverRole}
+          </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-6 text-5xl font-bold tracking-tight text-paper-card [text-shadow:0_2px_12px_rgba(61,47,36,0.7)] md:text-7xl"
+            {...fadeIn(0.15)}
+            className="mt-6 font-display text-6xl leading-none tracking-[0.08em] text-ink md:text-7xl lg:text-8xl"
           >
-            {dict.home.heroTitle}
+            {dict.home.coverName}
           </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row"
+          <motion.p
+            {...fadeIn(0.3)}
+            className="mt-10 max-w-sm font-display text-lg leading-loose text-ink-soft md:text-xl"
           >
-            <Link
-              href={withLocale(locale, "/illust")}
-              className="inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark"
-            >
-              {dict.home.viewIllusts}
-              <ArrowRight size={20} />
-            </Link>
+            {dict.home.coverCopy}
+          </motion.p>
+          <motion.div {...fadeIn(0.45)} className="mt-14">
+            <BookLink href={withLocale(locale, "/illust")}>
+              {dict.home.coverCta}
+            </BookLink>
           </motion.div>
+          <motion.p
+            {...fadeIn(0.9)}
+            className={`${LABEL} absolute bottom-10 left-10 hidden md:block lg:left-16`}
+          >
+            {dict.home.scrollHint}
+          </motion.p>
         </div>
+
+        {/* 代表作を画面の端まで届かせる */}
+        <motion.div
+          {...fadeIn(0, 0)}
+          className="relative order-1 h-[56svh] w-full bg-paper-deep md:order-2 md:h-auto md:w-[52%] lg:w-[56%]"
+        >
+          <Image
+            src={coverIllust.image}
+            alt={getIllustTitle(coverIllust, locale)}
+            fill
+            sizes="(min-width: 768px) 56vw, 100vw"
+            className={`object-cover ${COVER_IMAGE_POSITION_CLASS[COVER_IMAGE_POSITION]}`}
+            priority
+          />
+        </motion.div>
       </section>
 
-      {/* Featured Illusts Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="mb-12 flex items-center justify-between">
-            <h2 className="text-3xl font-bold md:text-4xl">
-              {dict.home.featuredHeading}
-            </h2>
-            <Link
-              href={withLocale(locale, "/illust")}
-              className="flex items-center gap-2 text-ink-soft transition-colors hover:text-terracotta"
-            >
-              {dict.home.viewAll}
-              <ArrowRight size={20} />
-            </Link>
-          </div>
+      {/* 01 / Selected Works */}
+      <section className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
+        <motion.div {...fadeInView()}>
+          <Chapter number="01" label={dict.home.selectedLabel} />
+          <p className={`${LABEL} mt-5`}>{dict.home.selectedNote}</p>
+        </motion.div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {featuredIllusts.map((work, index) => (
-              <motion.div
+        <div className="mt-20 md:mt-28">
+          {featuredIllusts.map((work, index) => {
+            const layout = SELECTED_LAYOUTS[index];
+            const title = getIllustTitle(work, locale);
+
+            return (
+              <motion.figure
                 key={work.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                {...fadeInView()}
+                className={`${layout.spacing} ${layout.figure}`}
               >
-                <IllustCard work={work} locale={locale} />
-              </motion.div>
-            ))}
+                <Link
+                  href={withLocale(locale, `/illust/${work.slug}`)}
+                  className="group block"
+                >
+                  <div className="overflow-hidden bg-paper-deep">
+                    <Image
+                      src={work.image}
+                      alt={title}
+                      width={0}
+                      height={0}
+                      sizes="(min-width: 768px) 74vw, 100vw"
+                      className="h-auto w-full transition-opacity duration-700 group-hover:opacity-90"
+                    />
+                  </div>
+                  <figcaption
+                    className={`mt-6 flex flex-col gap-2 ${layout.caption}`}
+                  >
+                    <h3 className="font-display text-xl text-ink transition-colors group-hover:text-terracotta md:text-2xl">
+                      {title}
+                    </h3>
+                    <p className={LABEL}>
+                      {getIllustCategoryLabel(locale, work.category)}
+                      <span className="mx-2 text-line-strong">/</span>
+                      {work.date.replace(/\//g, ".")}
+                    </p>
+                  </figcaption>
+                </Link>
+              </motion.figure>
+            );
+          })}
+        </div>
+
+        <motion.div {...fadeInView()} className="mt-28 md:mt-40">
+          <BookLink href={withLocale(locale, "/illust")}>
+            {dict.home.viewIndex}
+          </BookLink>
+        </motion.div>
+      </section>
+
+      {/* 02 / About */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
+          <motion.div {...fadeInView()}>
+            <Chapter number="02" label={dict.home.aboutLabel} />
+          </motion.div>
+          <div className="mt-14 flex flex-col gap-10 md:mt-20 md:flex-row md:items-end md:gap-20">
+            <motion.div
+              {...fadeInView()}
+              className="relative aspect-square w-40 shrink-0 overflow-hidden bg-paper-deep md:w-56"
+            >
+              <Image
+                src="https://assets.seki-saki.com/meta/star.webp"
+                alt=""
+                aria-hidden
+                fill
+                sizes="224px"
+                className="object-cover"
+              />
+            </motion.div>
+            <motion.div {...fadeInView(0.1)} className="md:pb-2">
+              <p className="mb-8 max-w-md font-display text-xl leading-loose text-ink md:text-2xl">
+                {dict.home.aboutLead}
+              </p>
+              <BookLink href={withLocale(locale, "/about")}>
+                {dict.home.aboutLink}
+              </BookLink>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* About Preview Section */}
-      <section className="border-y border-line bg-paper-deep py-20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
-              <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-full border-4 border-paper-card bg-paper-card shadow-soft">
-                <Image
-                  src="https://assets.seki-saki.com/meta/star.webp"
-                  alt="about"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <Link
-                href={withLocale(locale, "/about")}
-                className="flex flex-shrink-0 items-center justify-center gap-3 text-3xl font-bold text-ink transition-colors hover:text-terracotta"
-              >
-                {dict.home.aboutLink}
-                <ArrowRight size={32} />
-              </Link>
-            </div>
+      {/* 03 / Contact */}
+      <section className="border-t border-line">
+        <div className="mx-auto max-w-[1600px] px-6 py-32 md:px-10 md:py-48">
+          <motion.div {...fadeInView()}>
+            <Chapter number="03" label={dict.home.contactLabel} />
           </motion.div>
-        </div>
-      </section>
-
-      {/* Contact CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex flex-col items-center gap-6 text-center"
-          >
-            <h2 className="text-3xl font-bold md:text-4xl">
-              {dict.home.contactCtaHeading}
-            </h2>
-            <p className="max-w-md text-ink-soft">{dict.home.contactCtaText}</p>
-            <Link
-              href={withLocale(locale, "/contact")}
-              className="inline-flex items-center gap-2 rounded-full bg-terracotta px-8 py-3 font-medium text-paper-card shadow-soft transition-colors hover:bg-terracotta-dark"
-            >
-              {dict.home.contactCtaButton}
-              <ArrowRight size={20} />
-            </Link>
-            <ExhibitionBanner locale={locale} />
+          <motion.div {...fadeInView(0.1)} className="mt-14 md:ml-[28%]">
+            <p className={`${PROSE} max-w-xl`}>{dict.home.contactLead}</p>
+            <div className="mt-10">
+              <BookLink href={withLocale(locale, "/contact")}>
+                {dict.home.contactLink}
+              </BookLink>
+            </div>
+            <div className="mt-14">
+              <ExhibitionBanner locale={locale} />
+            </div>
           </motion.div>
         </div>
       </section>

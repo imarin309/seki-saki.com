@@ -11,23 +11,40 @@ export interface Dictionary {
     openMenu: string;
   };
   home: {
-    heroTitle: string;
-    viewIllusts: string;
-    featuredHeading: string;
-    viewAll: string;
+    /** 表紙に置く作家名 */
+    coverName: string;
+    coverRole: string;
+    /** 表紙の短いコピー */
+    coverCopy: string;
+    /** 一般的な View Works ではなく、作品集をひらく言葉 */
+    coverCta: string;
+    scrollHint: string;
+    selectedLabel: string;
+    selectedNote: string;
+    viewIndex: string;
+    aboutLabel: string;
+    aboutLead: string;
     aboutLink: string;
-    contactCtaHeading: string;
-    contactCtaText: string;
-    contactCtaButton: string;
+    contactLabel: string;
+    contactLead: string;
+    contactLink: string;
   };
   illustList: {
     title: string;
+    kicker: string;
     subtitle: string;
+    allCategory: string;
+    /** 「全 40 点」のような点数表示 */
+    countSuffix: string;
     noResults: string;
   };
   illustDetail: {
     workNotFound: string;
     backToIllusts: string;
+    /** 図版番号のラベル */
+    plate: string;
+    technique: string;
+    year: string;
     previous: string;
     next: string;
     noPreviousWork: string;
@@ -35,12 +52,14 @@ export interface Dictionary {
   };
   worksList: {
     title: string;
+    kicker: string;
     empty: string;
     viewWork: string;
   };
   worksDetail: {
     workNotFound: string;
     backToWorks: string;
+    entry: string;
     previous: string;
     next: string;
     noPreviousWork: string;
@@ -51,11 +70,13 @@ export interface Dictionary {
   };
   about: {
     title: string;
+    kicker: string;
     heading: string;
     bio: string[];
   };
   contact: {
     title: string;
+    kicker: string;
     intro: string;
     formNameLabel: string;
     formEmailLabel: string;
@@ -74,7 +95,7 @@ export interface Dictionary {
 
 const ja: Dictionary = {
   nav: {
-    home: "Home",
+    home: "Cover",
     illust: "Illust",
     works: "Works",
     about: "About",
@@ -83,47 +104,61 @@ const ja: Dictionary = {
     openMenu: "メニューを開く",
   },
   home: {
-    heroTitle: "Designer & Illustrator",
-    viewIllusts: "View Illusts",
-    featuredHeading: "Featured Illusts",
-    viewAll: "View All",
+    coverName: "世木口",
+    coverRole: "Illustrator",
+    coverCopy: "芯のある人を、一枚ずつ。",
+    coverCta: "作品集をひらく",
+    scrollHint: "Scroll",
+    selectedLabel: "Selected Works",
+    selectedNote: "近作より数点。",
+    viewIndex: "すべての作品を見る",
+    aboutLabel: "About",
+    aboutLead: "描いている人のこと。",
     aboutLink: "世木口について",
-    contactCtaHeading: "お仕事のご依頼はこちらから",
-    contactCtaText:
-      "イラスト制作のご依頼・ご相談はお気軽にお問い合わせください。",
-    contactCtaButton: "お問い合わせ",
+    contactLabel: "Contact",
+    contactLead: "イラスト制作のご依頼・ご相談を承っています。",
+    contactLink: "お問い合わせ",
   },
   illustList: {
     title: "Illust",
-    subtitle: "Selected projects and artworks",
+    kicker: "Index",
+    subtitle: "これまでに描いた作品の目次です。",
+    allCategory: "すべて",
+    countSuffix: "点",
     noResults: "このカテゴリーのイラストはありません。",
   },
   illustDetail: {
     workNotFound: "作品が見つかりませんでした",
-    backToIllusts: "イラスト一覧に戻る",
-    previous: "Previous",
-    next: "Next",
-    noPreviousWork: "前の作品はありません",
-    noNextWork: "次の作品はありません",
+    backToIllusts: "目次に戻る",
+    plate: "Plate",
+    technique: "技法",
+    year: "制作",
+    previous: "Previous Page",
+    next: "Next Page",
+    noPreviousWork: "最初のページです",
+    noNextWork: "最後のページです",
   },
   worksList: {
     title: "Works",
+    kicker: "Record",
     empty: "実績はまだありません。",
-    viewWork: "作品を見る",
+    viewWork: "読む",
   },
   worksDetail: {
     workNotFound: "実績が見つかりませんでした",
     backToWorks: "実績一覧に戻る",
-    previous: "Previous",
-    next: "Next",
-    noPreviousWork: "前の実績はありません",
-    noNextWork: "次の実績はありません",
+    entry: "Record",
+    previous: "Previous Page",
+    next: "Next Page",
+    noPreviousWork: "最初のページです",
+    noNextWork: "最後のページです",
     noImage: "画像なし",
     prevImageAria: "前の画像",
     nextImageAria: "次の画像",
   },
   about: {
     title: "About Me",
+    kicker: "About",
     heading: "派手で美しい人物をリアル調に描きます。",
     bio: [
       "はじめまして。世木口と申します。",
@@ -133,6 +168,7 @@ const ja: Dictionary = {
   },
   contact: {
     title: "Contact",
+    kicker: "Contact",
     intro: "お仕事のご依頼・ご相談は下記フォームからお気軽にどうぞ。",
     formNameLabel: "お名前（ハンドルネーム可）",
     formEmailLabel: "メールアドレス",
@@ -158,7 +194,7 @@ const ja: Dictionary = {
 
 const en: Dictionary = {
   nav: {
-    home: "Home",
+    home: "Cover",
     illust: "Illust",
     works: "Works",
     about: "About",
@@ -167,47 +203,61 @@ const en: Dictionary = {
     openMenu: "Open menu",
   },
   home: {
-    heroTitle: "Designer & Illustrator",
-    viewIllusts: "View Illusts",
-    featuredHeading: "Featured Illusts",
-    viewAll: "View All",
+    coverName: "Sekiguchi",
+    coverRole: "Illustrator",
+    coverCopy: "People with a quiet strength, one page at a time.",
+    coverCta: "Open the book",
+    scrollHint: "Scroll",
+    selectedLabel: "Selected Works",
+    selectedNote: "A few recent pieces.",
+    viewIndex: "See all works",
+    aboutLabel: "About",
+    aboutLead: "About the person drawing.",
     aboutLink: "About Sekiguchi",
-    contactCtaHeading: "Get in Touch",
-    contactCtaText:
-      "Feel free to reach out for illustration commissions and inquiries.",
-    contactCtaButton: "Contact",
+    contactLabel: "Contact",
+    contactLead: "Open for illustration commissions and inquiries.",
+    contactLink: "Get in touch",
   },
   illustList: {
     title: "Illust",
-    subtitle: "Selected projects and artworks",
+    kicker: "Index",
+    subtitle: "An index of the works drawn so far.",
+    allCategory: "All",
+    countSuffix: " works",
     noResults: "No illusts found in this category.",
   },
   illustDetail: {
     workNotFound: "Work not found",
-    backToIllusts: "Back to Illusts",
-    previous: "Previous",
-    next: "Next",
-    noPreviousWork: "No previous work",
-    noNextWork: "No next work",
+    backToIllusts: "Back to index",
+    plate: "Plate",
+    technique: "Technique",
+    year: "Year",
+    previous: "Previous Page",
+    next: "Next Page",
+    noPreviousWork: "This is the first page",
+    noNextWork: "This is the last page",
   },
   worksList: {
     title: "Works",
+    kicker: "Record",
     empty: "No works yet.",
-    viewWork: "View work",
+    viewWork: "Read",
   },
   worksDetail: {
     workNotFound: "Work not found",
     backToWorks: "Back to Works",
-    previous: "Previous",
-    next: "Next",
-    noPreviousWork: "No previous work",
-    noNextWork: "No next work",
+    entry: "Record",
+    previous: "Previous Page",
+    next: "Next Page",
+    noPreviousWork: "This is the first page",
+    noNextWork: "This is the last page",
     noImage: "No image",
     prevImageAria: "Previous image",
     nextImageAria: "Next image",
   },
   about: {
     title: "About Me",
+    kicker: "About",
     heading: "I draw vivid, beautiful figures with a realistic touch.",
     bio: [
       "Hello, I'm Sekiguchi.",
@@ -217,6 +267,7 @@ const en: Dictionary = {
   },
   contact: {
     title: "Contact",
+    kicker: "Contact",
     intro: "For work inquiries or questions, feel free to use the form below.",
     formNameLabel: "Name (handle name is fine)",
     formEmailLabel: "Email address",
