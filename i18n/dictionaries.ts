@@ -33,6 +33,8 @@ export interface Dictionary {
     title: string;
     kicker: string;
     subtitle: string;
+    categoryFilterLabel: string;
+    yearFilterLabel: string;
     allCategory: string;
     /** 「全 40 点」のような点数表示 */
     countSuffix: string;
@@ -123,6 +125,8 @@ const ja: Dictionary = {
     title: "Illust",
     kicker: "Index",
     subtitle: "これまでに描いた作品の目次です。",
+    categoryFilterLabel: "カテゴリ",
+    yearFilterLabel: "制作年",
     allCategory: "すべて",
     countSuffix: "点",
     noResults: "このカテゴリーのイラストはありません。",
@@ -222,6 +226,8 @@ const en: Dictionary = {
     title: "Illust",
     kicker: "Index",
     subtitle: "An index of the works drawn so far.",
+    categoryFilterLabel: "Category",
+    yearFilterLabel: "Year",
     allCategory: "All",
     countSuffix: " works",
     noResults: "No illusts found in this category.",

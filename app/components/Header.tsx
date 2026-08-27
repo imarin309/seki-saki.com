@@ -139,11 +139,7 @@ export function Header() {
             className="flex h-6 w-6 flex-col items-end justify-center gap-1.5"
           >
             {/* 罫線 2 本だけのメニューアイコン。開いているときは細い 1 本に畳む */}
-            <span
-              className={`block h-px bg-ink transition-all duration-500 ${
-                mobileMenuOpen ? "w-6" : "w-6"
-              }`}
-            />
+            <span className="block h-px w-6 bg-ink" />
             <span
               className={`block h-px bg-ink transition-all duration-500 ${
                 mobileMenuOpen ? "w-6 opacity-0" : "w-4 opacity-100"

@@ -87,7 +87,7 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
         className="mb-20 flex flex-col gap-6 border-b border-line pb-10 md:mb-28"
       >
         <FilterRow
-          label="Category"
+          label={dict.illustList.categoryFilterLabel}
           value={category}
           onChange={setCategory}
           options={[
@@ -99,7 +99,7 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
           ]}
         />
         <FilterRow
-          label="Year"
+          label={dict.illustList.yearFilterLabel}
           value={year}
           onChange={setYear}
           options={[
@@ -121,7 +121,9 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
               work={work}
               locale={locale}
               plateNumber={plateNumbers.get(work.id)}
-              priority={index < 3}
+              // 段組みのため DOM 順とファーストビューが一致しない。
+              // 常に画面上端にくる先頭の 1 点だけを優先読み込みする
+              priority={index === 0}
             />
           </motion.div>
         ))}

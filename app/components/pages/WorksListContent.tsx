@@ -49,6 +49,8 @@ export default function WorksListContent({ locale }: { locale: Locale }) {
                       width={0}
                       height={0}
                       sizes="(min-width: 768px) 144px, 160px"
+                      // 先頭の 1 件はファーストビューに入るため遅延読み込みしない
+                      priority={index === 0}
                       className="h-auto w-full transition-opacity duration-700 group-hover:opacity-90"
                     />
                   </div>
