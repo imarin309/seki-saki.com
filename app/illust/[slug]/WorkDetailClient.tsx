@@ -80,10 +80,14 @@ export default function WorkDetailClient({
       </motion.div>
 
       <figure className="mt-14 md:mt-20">
-        {/* 版面に合わせて 1 枚を置く。トリミングせず全体を見せる */}
+        {/*
+          版面に合わせて 1 枚を置く。トリミングせず全体を見せる。
+          モバイルは画面が狭いので幅いっぱい（原寸の縦横比）に、
+          md 以上は版面の高さを揃えたいので固定高さの中央へ収める。
+        */}
         <motion.div
           {...fadeIn(0.1)}
-          className="group relative mx-auto h-[58svh] w-full max-w-5xl [touch-action:pan-y] md:h-[72svh]"
+          className="group relative mx-auto w-full max-w-5xl [touch-action:pan-y] md:flex md:h-[72svh] md:items-center md:justify-center"
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX;
             touchStartY.current = e.touches[0].clientY;
@@ -100,10 +104,11 @@ export default function WorkDetailClient({
           <Image
             src={work.image}
             alt={title}
-            fill
+            width={0}
+            height={0}
             sizes="(min-width: 1024px) 64rem, 100vw"
             priority
-            className={`object-contain ${
+            className={`h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain ${
               work.image2
                 ? `transition-opacity duration-700 ${showAlt ? "opacity-0" : "group-hover:opacity-0"}`
                 : ""
