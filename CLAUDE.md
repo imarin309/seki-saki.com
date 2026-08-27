@@ -69,26 +69,33 @@ Vitest + React Testing Library によるコンポーネントのスモークテ�
 
 ### 共有コンポーネント
 
-- `app/components/Header.tsx` — 固定ナビゲーション（`motion` の layoutId でアクティブリンクをアニメーション、パス名からロケールを判定して言語切り替えリンクを表示）
-- `app/components/Footer.tsx` — フッター
+- `app/components/Header.tsx` — 固定ナビゲーション（`motion` の layoutId でアクティブリンクに極細の下線をアニメーション、パス名からロケールを判定して言語切り替えリンクを表示）
+- `app/components/Footer.tsx` — フッター（パス名からロケールを判定するクライアントコンポーネント）
+- `app/components/PageHeader.tsx` — 下層ページの扉（極小の kicker + 非常に大きなページタイトル + 補助情報）
+- `app/components/Chapter.tsx` — `02 / About` 形式の章見出し。トップページの章立てに使用
+- `app/components/BookLink.tsx` — ボタンを使わない導線（罫線 1 本＋矢印）
+- `app/components/PageTurnNav.tsx` — 詳細ページ下部の Previous Page / Next Page。イラスト・実績の両詳細で共用
+- `app/components/IllustCard.tsx` — 一覧に並べる図版。カードに入れず、原寸の縦横比の画像とキャプションのみ
 - `app/components/SyncHtmlLang.tsx` — 現在のロケールに応じて `document.documentElement.lang` を同期するクライアントコンポーネント
 - `app/meta.tsx` — サイトのタイトル・説明・URL 等の定数と、ロケール別の値を返す `getSiteTitle()` / `getSiteDescription()` / `getOgLocale()`。メタデータと Header で使用
 
 ### スタイリング
 
-Tailwind CSS で「ポップな絵本」風のライトテーマ。薄い茶色〜クリームの紙のような背景に、丸ゴシック（`Zen Maru Gothic`、`app/layout.tsx` で `next/font/google` から読み込み）・丸角・やわらかい影を組み合わせています。色は生の 16 進数を直書きせず、`tailwind.config.ts` の `theme.extend.colors` に定義したセマンティックなトークンを使ってください。
+サイト全体のデザイン指針はリポジトリ直下の **`DESIGN.md`** に定義しています。方針は「イラストレーターのポートフォリオ」ではなく **「作家の作品世界を一冊の作品集として体験する Web サイト」**。UI パーツではなく余白・作品画像・タイポグラフィでデザインし、カード UI・角丸・影・派手なアニメーションは原則使いません。デザイン判断に迷ったら `DESIGN.md` の「Design Decision Priority」に従ってください。
 
-| トークン                         | 値                                | 用途                                            |
-| -------------------------------- | --------------------------------- | ----------------------------------------------- |
-| `paper`                          | `#f5ecdd`                         | ページ全体の背景（`app/globals.css` の `body`） |
-| `paper-deep`                     | `#ece0cc`                         | 帯状のサブセクション、画像プレースホルダー      |
-| `paper-card`                     | `#fdf8f0`                         | カード面、アクセント上の文字色                  |
-| `line` / `line-strong`           | `#ddcdb3` / `#c9b499`             | 枠線・区切り線                                  |
-| `ink` / `ink-soft` / `ink-muted` | `#3d2f24` / `#6f5c4a` / `#94816d` | 本文・副次テキスト・メタ情報                    |
-| `terracotta` / `-dark` / `-soft` | `#e2725b` / `#c85a44` / `#f7ded6` | アクセント（アクティブなナビ、ボタン、リンク）  |
-| `mustard` / `leaf` / `sky`       | `#e8a33d` / `#7fa650` / `#6b93a8` | サブアクセント（未使用の予備）                  |
+Tailwind CSS のライトテーマで、作品の色が主役になるよう彩度を抑えた紙色の面に、明朝（`Zen Old Mincho`）とゴシック（`Zen Kaku Gothic New`）を組み合わせています。フォントは `app/layout.tsx` で `next/font/google` から読み込み、CSS 変数（`--font-display` / `--font-sans`）経由で `font-display` / `font-sans` ユーティリティとして使います。色は生の 16 進数を直書きせず、`tailwind.config.ts` の `theme.extend.colors` に定義したセマンティックなトークンを使ってください。
 
-影は `shadow-soft`（通常）と `shadow-lift`（ホバー時）を使います。ブラウザの UI 色は `app/layout.tsx` の `viewport.themeColor` で背景色に合わせています。
+| トークン                         | 値                                | 用途                                               |
+| -------------------------------- | --------------------------------- | -------------------------------------------------- |
+| `paper`                          | `#f6f3ec`                         | ページ全体の背景（`app/globals.css` の `body`）    |
+| `paper-deep`                     | `#eae5da`                         | 画像の読み込み前の面、サムネイルの下地             |
+| `line` / `line-strong`           | `#e0dacd` / `#c3bbaa`             | 極細の罫線・区切り線                               |
+| `ink` / `ink-soft` / `ink-muted` | `#26221e` / `#6a625a` / `#a09789` | 本文・副次テキスト・キャプションやページ番号       |
+| `terracotta` / `-dark` / `-soft` | `#b4553c` / `#8f4029` / `#ead9d2` | 唯一のアクセント（章番号、アクティブ状態、リンク） |
+
+影（`box-shadow`）のトークンは持ちません。要素を浮かせず、区切りは 1px の罫線と余白で表現します。ブラウザの UI 色は `app/layout.tsx` の `viewport.themeColor` で背景色に合わせています。
+
+`app/design.ts` に、繰り返し使うクラス文字列（`LABEL` / `CHAPTER_NUMBER` / `PROSE` / `QUIET_LINK`）とアニメーション定義（`fadeIn()` / `fadeInView()` / `EASE`）をまとめています。動きは fade + わずかな上下移動だけに統一しているため、新しい演出を足すときもこれらを使ってください。`app/components/SiteChrome.tsx` の `MotionConfig reducedMotion="user"` により、端末側で視差効果を減らす設定がされている場合は動きを止めます。また `app/layout.tsx` の `<noscript>` で、JS 無効時にフェードイン前（`opacity: 0`）のまま固定されないようにしています。
 
 `/exhibition/*` 配下は展示ごとに独立したアートディレクションを持つスタンドアロンページのため、この配色には従わず個別に配色を指定しています（`still_here` は黒背景のまま）。
 

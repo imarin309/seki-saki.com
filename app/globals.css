@@ -5,10 +5,12 @@
 @layer base {
   html {
     font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    @apply bg-paper text-ink;
+    @apply bg-paper font-sans text-ink;
   }
 
   ::selection {

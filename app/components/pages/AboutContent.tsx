@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import { PageHeader } from "@/app/components/PageHeader";
+import { PROSE, fadeIn } from "@/app/design";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -9,49 +11,42 @@ export default function AboutContent({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-6">
-        {/* Header */}
+    <div className="mx-auto max-w-[1600px] px-6 py-24 md:px-10 md:py-32">
+      <PageHeader kicker={dict.about.kicker} title={dict.about.title} />
+
+      {/* 左右非対称。写真を左の狭い段に、文章を右の広い段に置く */}
+      <div className="flex flex-col gap-14 md:flex-row md:gap-20 lg:gap-28">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="mb-20"
+          {...fadeIn(0.3)}
+          className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-paper-deep md:w-[34%] lg:w-[30%]"
         >
-          <h1 className="mb-6 text-4xl font-bold md:text-6xl">
-            {dict.about.title}
-          </h1>
+          <Image
+            src="https://assets.seki-saki.com/meta/star.webp"
+            alt=""
+            aria-hidden
+            fill
+            sizes="(min-width: 768px) 34vw, 100vw"
+            className="object-cover"
+          />
         </motion.div>
 
-        {/* Bio */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-20 grid grid-cols-1 gap-12 lg:grid-cols-2"
-        >
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-paper-deep shadow-soft">
-            <Image
-              src="https://assets.seki-saki.com/meta/star.webp"
-              alt="profile"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="flex flex-col justify-center">
-            <h2 className="mb-6 text-3xl font-bold">{dict.about.heading}</h2>
-            {dict.about.bio.map((paragraph, index) => (
-              <p
-                key={index}
-                className={`leading-relaxed text-ink-soft ${
-                  index === dict.about.bio.length - 1 ? "" : "mb-4"
-                }`}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </motion.div>
+        <div className="max-w-xl md:pt-6">
+          <motion.h2
+            {...fadeIn(0.35)}
+            className="mb-12 font-display text-2xl leading-relaxed text-ink md:text-3xl"
+          >
+            {dict.about.heading}
+          </motion.h2>
+          {dict.about.bio.map((paragraph, index) => (
+            <motion.p
+              key={paragraph}
+              {...fadeIn(0.4 + index * 0.08)}
+              className={PROSE}
+            >
+              {paragraph}
+            </motion.p>
+          ))}
+        </div>
       </div>
     </div>
   );

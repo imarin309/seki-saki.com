@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { currentExhibition } from "@/data/exhibition-banner";
+import { LABEL } from "@/app/design";
 import type { Locale } from "@/i18n/config";
 
 export default function ExhibitionBanner({ locale }: { locale: Locale }) {
@@ -12,21 +12,24 @@ export default function ExhibitionBanner({ locale }: { locale: Locale }) {
   return (
     <Link
       href={currentExhibition.href}
-      className="group inline-flex items-center gap-3 rounded-full border border-line bg-paper-card/90 py-2 pl-2 pr-5 shadow-soft backdrop-blur-sm transition-colors hover:bg-paper-card"
+      className="group flex max-w-md items-center gap-5 border-t border-line pt-5"
     >
-      <div className="relative h-9 w-9 flex-shrink-0 overflow-hidden rounded-full">
+      <div className="relative h-14 w-14 shrink-0 overflow-hidden bg-paper-deep">
         <Image
           src={currentExhibition.image}
-          alt={currentExhibition.title}
+          alt=""
+          aria-hidden
           fill
-          className="object-cover"
+          sizes="56px"
+          className="object-cover transition-opacity duration-700 group-hover:opacity-90"
         />
       </div>
-      <p className="text-sm text-ink">{currentExhibition.title}</p>
-      <ArrowRight
-        size={16}
-        className="text-terracotta transition-transform group-hover:translate-x-1"
-      />
+      <div>
+        <p className={LABEL}>Exhibition</p>
+        <p className="mt-1.5 font-display text-sm leading-snug text-ink transition-colors group-hover:text-terracotta">
+          {currentExhibition.title}
+        </p>
+      </div>
     </Link>
   );
 }

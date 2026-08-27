@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "motion/react";
 import { Header } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 
@@ -16,15 +17,18 @@ function isStandalonePath(pathname: string): boolean {
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  if (isStandalonePath(pathname)) {
-    return <>{children}</>;
-  }
-
+  // 端末側で視差効果を減らす設定をしている場合は、動きを止めて表示だけ行う
   return (
-    <>
-      <Header />
-      <main className="pt-20">{children}</main>
-      <Footer />
-    </>
+    <MotionConfig reducedMotion="user">
+      {isStandalonePath(pathname) ? (
+        children
+      ) : (
+        <>
+          <Header />
+          <main className="pt-16">{children}</main>
+          <Footer />
+        </>
+      )}
+    </MotionConfig>
   );
 }

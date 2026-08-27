@@ -3,33 +3,51 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Illust } from "@/data/illusts";
-import { getIllustTitle, getIllustDescription } from "@/data/illusts";
+import { getIllustTitle } from "@/data/illusts";
 import { getIllustCategoryLabel } from "@/app/config";
+import { LABEL } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
 
 interface Props {
   work: Illust;
   locale: Locale;
+  /** 図版番号。指定するとキャプションの先頭に置く */
+  plateNumber?: number;
+  sizes?: string;
+  priority?: boolean;
 }
 
-export default function IllustCard({ work, locale }: Props) {
+/**
+ * 一覧に並べる図版。カードには入れず、画像をそのまま面に置き、
+ * キャプションだけを下に小さく添える。
+ */
+export default function IllustCard({
+  work,
+  locale,
+  plateNumber,
+  sizes = "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw",
+  priority = false,
+}: Props) {
   const title = getIllustTitle(work, locale);
-  const description = getIllustDescription(work, locale);
 
   return (
     <Link
       href={withLocale(locale, `/illust/${work.slug}`)}
       className="group block"
     >
-      <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-paper-deep shadow-soft transition-shadow duration-300 group-hover:shadow-lift">
+      {/* 画像は原寸の縦横比のまま置き、トリミングしない */}
+      <div className="relative overflow-hidden bg-paper-deep">
         <Image
           src={work.image}
           alt={title}
-          fill
-          className={`object-cover duration-500 ${
+          width={0}
+          height={0}
+          sizes={sizes}
+          priority={priority}
+          className={`h-auto w-full duration-700 ${
             work.image2
               ? "transition-opacity group-hover:opacity-0"
-              : "transition-transform group-hover:scale-105"
+              : "transition-opacity group-hover:opacity-90"
           }`}
         />
         {work.image2 && (
@@ -37,24 +55,26 @@ export default function IllustCard({ work, locale }: Props) {
             src={work.image2}
             alt={title}
             fill
-            className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            sizes={sizes}
+            className="object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="absolute bottom-0 left-0 right-0 translate-y-4 p-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-          <p className="whitespace-pre-line text-sm text-paper-card">
-            {description}
-          </p>
-        </div>
       </div>
-      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
-        {title}
-      </h3>
-      <p className="flex items-center gap-2 text-sm text-ink-muted">
-        <span className="rounded-full bg-paper-deep px-2.5 py-0.5 text-xs text-ink-soft">
-          {getIllustCategoryLabel(locale, work.category)}
-        </span>
-        {work.date}
+
+      <div className="mt-5 flex items-baseline gap-3">
+        {plateNumber !== undefined && (
+          <span className={`${LABEL} shrink-0 tabular-nums`}>
+            {String(plateNumber).padStart(2, "0")}
+          </span>
+        )}
+        <h3 className="font-display text-lg leading-snug text-ink transition-colors group-hover:text-terracotta">
+          {title}
+        </h3>
+      </div>
+      <p className={`${LABEL} mt-2`}>
+        {getIllustCategoryLabel(locale, work.category)}
+        <span className="mx-2 text-line-strong">/</span>
+        {work.date.replace(/\//g, ".")}
       </p>
     </Link>
   );

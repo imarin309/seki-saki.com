@@ -3,10 +3,11 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { sortedWorks, getWorkTitle, getWorkDescription } from "@/data/works";
+import { BookLink } from "@/app/components/BookLink";
+import { PageTurnNav } from "@/app/components/PageTurnNav";
+import { LABEL, PROSE, fadeIn } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -23,7 +24,7 @@ function Linkify({ text }: { text: string }) {
         href={part}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-terracotta underline underline-offset-2 hover:text-terracotta-dark"
+        className="text-terracotta underline underline-offset-4 transition-colors hover:text-terracotta-dark"
       >
         {part}
       </a>
@@ -62,53 +63,67 @@ function ImageCarousel({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-line shadow-soft">
-      <div
-        ref={scrollRef}
-        onScroll={handleScroll}
-        className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {images.map((image, i) => (
-          <div
-            key={image}
-            className="w-full shrink-0 snap-center overflow-hidden bg-paper-deep"
-          >
-            <Image
-              src={image}
-              alt={`${title} ${i + 1}`}
-              width={1200}
-              height={900}
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="h-auto w-full"
-              priority={i === 0}
-            />
-          </div>
-        ))}
+    <div>
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {images.map((image, i) => (
+            <div
+              key={image}
+              className="relative h-[52svh] w-full shrink-0 snap-center md:h-[68svh]"
+            >
+              <Image
+                src={image}
+                alt={`${title} ${i + 1}`}
+                fill
+                sizes="(min-width: 1024px) 64rem, 100vw"
+                className="object-contain"
+                priority={i === 0}
+              />
+            </div>
+          ))}
+        </div>
+
+        {images.length > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => scrollToIndex(Math.max(index - 1, 0))}
+              disabled={index === 0}
+              aria-label={dict.worksDetail.prevImageAria}
+              className="absolute left-0 top-1/2 hidden size-10 -translate-y-1/2 items-center justify-center border border-line bg-paper/80 text-ink backdrop-blur-sm transition-colors hover:border-terracotta hover:text-terracotta disabled:opacity-25 sm:flex"
+            >
+              <span aria-hidden>←</span>
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                scrollToIndex(Math.min(index + 1, images.length - 1))
+              }
+              disabled={index === images.length - 1}
+              aria-label={dict.worksDetail.nextImageAria}
+              className="absolute right-0 top-1/2 hidden size-10 -translate-y-1/2 items-center justify-center border border-line bg-paper/80 text-ink backdrop-blur-sm transition-colors hover:border-terracotta hover:text-terracotta disabled:opacity-25 sm:flex"
+            >
+              <span aria-hidden>→</span>
+            </button>
+          </>
+        )}
       </div>
 
       {images.length > 1 && (
-        <>
-          <button
-            type="button"
-            onClick={() => scrollToIndex(Math.max(index - 1, 0))}
-            disabled={index === 0}
-            aria-label={dict.worksDetail.prevImageAria}
-            className="absolute left-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-paper-card/90 p-2 text-ink shadow-soft transition-colors hover:bg-paper-card disabled:opacity-30 sm:flex"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <button
-            type="button"
-            onClick={() =>
-              scrollToIndex(Math.min(index + 1, images.length - 1))
-            }
-            disabled={index === images.length - 1}
-            aria-label={dict.worksDetail.nextImageAria}
-            className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded-full bg-paper-card/90 p-2 text-ink shadow-soft transition-colors hover:bg-paper-card disabled:opacity-30 sm:flex"
-          >
-            <ArrowRight size={20} />
-          </button>
-        </>
+        <div className="mt-6 flex justify-center gap-2">
+          {images.map((image, i) => (
+            <span
+              key={image}
+              className={`block h-px w-6 transition-colors duration-500 ${
+                i === index ? "bg-terracotta" : "bg-line-strong"
+              }`}
+            />
+          ))}
+        </div>
       )}
     </div>
   );
@@ -121,25 +136,19 @@ export default function WorkDetailClient({
   slug: string;
   locale: Locale;
 }) {
-  const router = useRouter();
   const dict = getDictionary(locale);
   const currentIndex = sortedWorks.findIndex((w) => w.slug === slug);
   const work = currentIndex >= 0 ? sortedWorks[currentIndex] : null;
 
   if (!work) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h1 className="mb-4 text-4xl font-bold">
-            {dict.worksDetail.workNotFound}
-          </h1>
-          <Link
-            href={withLocale(locale, "/works")}
-            className="text-ink-soft transition-colors hover:text-terracotta"
-          >
-            {dict.worksDetail.backToWorks}
-          </Link>
-        </div>
+      <div className="flex min-h-[70svh] flex-col items-center justify-center gap-8 px-6">
+        <h1 className="font-display text-2xl md:text-3xl">
+          {dict.worksDetail.workNotFound}
+        </h1>
+        <BookLink href={withLocale(locale, "/works")}>
+          {dict.worksDetail.backToWorks}
+        </BookLink>
       </div>
     );
   }
@@ -152,164 +161,85 @@ export default function WorkDetailClient({
 
   const title = getWorkTitle(work, locale);
   const description = getWorkDescription(work, locale);
+  const entryNumber = String(sortedWorks.length - currentIndex).padStart(
+    2,
+    "0"
+  );
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mb-8"
+    <article className="mx-auto max-w-[1600px] px-6 py-16 md:px-10 md:py-20">
+      <motion.div {...fadeIn()}>
+        <Link
+          href={withLocale(locale, "/works")}
+          className={`${LABEL} inline-flex items-center gap-3 transition-colors hover:text-terracotta`}
         >
-          <button
-            onClick={() => router.push(withLocale(locale, "/works"))}
-            className="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-terracotta"
-          >
-            <ArrowLeft size={20} />
-            {dict.worksDetail.backToWorks}
-          </button>
-        </motion.div>
+          <span aria-hidden>←</span>
+          {dict.worksDetail.backToWorks}
+        </Link>
+      </motion.div>
 
-        <div className="mb-20 flex flex-col gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="mb-4 tabular-nums text-ink-muted">
-              {work.date.replace(/\//g, " / ")}
-            </p>
-            <h1 className="text-4xl font-bold md:text-5xl">{title}</h1>
-          </motion.div>
+      <motion.div
+        {...fadeIn(0.05)}
+        className="mt-10 flex items-baseline justify-between border-b border-line pb-4"
+      >
+        <span className={`${LABEL} tabular-nums`}>
+          {dict.worksDetail.entry} {entryNumber}
+        </span>
+        <span className={`${LABEL} tabular-nums`}>
+          {work.date.replace(/\//g, ".")}
+        </span>
+      </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mx-auto w-full lg:max-w-2xl"
-          >
-            {work.images && work.images.length > 0 ? (
-              <ImageCarousel images={work.images} title={title} dict={dict} />
-            ) : (
-              <div className="flex aspect-[4/3] items-center justify-center rounded-3xl border border-line bg-paper-deep text-ink-muted">
-                {dict.worksDetail.noImage}
-              </div>
-            )}
-          </motion.div>
+      <motion.h1
+        {...fadeIn(0.1)}
+        className="mt-14 max-w-4xl font-display text-2xl leading-relaxed tracking-[0.04em] text-ink md:mt-20 md:text-4xl"
+      >
+        {title}
+      </motion.h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <p className="whitespace-pre-line text-xl leading-relaxed text-ink-soft">
-              <Linkify text={description} />
-            </p>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="border-t border-line pt-12"
-        >
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div>
-              {prevWork ? (
-                <Link
-                  href={withLocale(locale, `/works/${prevWork.slug}`)}
-                  className="group block"
-                >
-                  <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-terracotta" />
-                    <span className="text-ink-muted">
-                      {dict.worksDetail.previous}
-                    </span>
-                  </div>
-                  <div className="flex gap-4">
-                    {prevWork.images?.[0] && (
-                      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-line bg-paper-deep">
-                        <Image
-                          src={prevWork.images[0]}
-                          alt={getWorkTitle(prevWork, locale)}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
-                        {getWorkTitle(prevWork, locale)}
-                      </h3>
-                      <p className="text-ink-muted">{prevWork.date}</p>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                <div className="opacity-30">
-                  <div className="mb-4 flex items-center gap-4">
-                    <ArrowLeft size={20} className="text-terracotta" />
-                    <span className="text-ink-muted">
-                      {dict.worksDetail.previous}
-                    </span>
-                  </div>
-                  <p className="text-ink-muted">
-                    {dict.worksDetail.noPreviousWork}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <div className="md:text-right">
-              {nextWork ? (
-                <Link
-                  href={withLocale(locale, `/works/${nextWork.slug}`)}
-                  className="group block"
-                >
-                  <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-ink-muted">
-                      {dict.worksDetail.next}
-                    </span>
-                    <ArrowRight size={20} className="text-terracotta" />
-                  </div>
-                  <div className="flex justify-end gap-4">
-                    <div className="text-right">
-                      <h3 className="mb-1 text-xl font-medium text-ink transition-colors group-hover:text-terracotta">
-                        {getWorkTitle(nextWork, locale)}
-                      </h3>
-                      <p className="text-ink-muted">{nextWork.date}</p>
-                    </div>
-                    {nextWork.images?.[0] && (
-                      <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border border-line bg-paper-deep">
-                        <Image
-                          src={nextWork.images[0]}
-                          alt={getWorkTitle(nextWork, locale)}
-                          fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-110"
-                        />
-                      </div>
-                    )}
-                  </div>
-                </Link>
-              ) : (
-                <div className="opacity-30">
-                  <div className="mb-4 flex items-center justify-end gap-4">
-                    <span className="text-ink-muted">
-                      {dict.worksDetail.next}
-                    </span>
-                    <ArrowRight size={20} className="text-terracotta" />
-                  </div>
-                  <p className="text-ink-muted">
-                    {dict.worksDetail.noNextWork}
-                  </p>
-                </div>
-              )}
-            </div>
+      <motion.div {...fadeIn(0.2)} className="mx-auto mt-14 max-w-5xl md:mt-20">
+        {work.images && work.images.length > 0 ? (
+          <ImageCarousel images={work.images} title={title} dict={dict} />
+        ) : (
+          <div className="flex aspect-[4/3] items-center justify-center border border-line text-sm text-ink-muted">
+            {dict.worksDetail.noImage}
           </div>
-        </motion.div>
-      </div>
-    </div>
+        )}
+      </motion.div>
+
+      <motion.div {...fadeIn(0.3)} className="mx-auto mt-16 max-w-5xl md:mt-20">
+        <p className={`${PROSE} max-w-2xl border-t border-line pt-10`}>
+          <Linkify text={description} />
+        </p>
+      </motion.div>
+
+      {/* Previous Page / Next Page */}
+      <motion.div {...fadeIn(0.4)} className="mt-32 md:mt-40">
+        <PageTurnNav
+          previous={
+            prevWork && {
+              href: withLocale(locale, `/works/${prevWork.slug}`),
+              title: getWorkTitle(prevWork, locale),
+              meta: prevWork.date.replace(/\//g, "."),
+              image: prevWork.images?.[0],
+            }
+          }
+          next={
+            nextWork && {
+              href: withLocale(locale, `/works/${nextWork.slug}`),
+              title: getWorkTitle(nextWork, locale),
+              meta: nextWork.date.replace(/\//g, "."),
+              image: nextWork.images?.[0],
+            }
+          }
+          labels={{
+            previous: dict.worksDetail.previous,
+            next: dict.worksDetail.next,
+            noPrevious: dict.worksDetail.noPreviousWork,
+            noNext: dict.worksDetail.noNextWork,
+          }}
+        />
+      </motion.div>
+    </article>
   );
 }
