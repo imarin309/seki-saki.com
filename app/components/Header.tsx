@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { SITE_TITLE, INSTAGRAM_URL } from "@/app/meta";
+import { SITE_TITLE, SITE_ICON, INSTAGRAM_URL } from "@/app/meta";
 import { EASE } from "@/app/design";
 import {
   getAlternateLocalePath,
@@ -88,8 +89,16 @@ export function Header() {
       <nav className="mx-auto flex h-16 max-w-[1600px] items-center justify-between px-6 md:px-10">
         <Link
           href={withLocale(locale, "/")}
-          className="font-display text-base tracking-[0.2em] text-ink transition-colors hover:text-terracotta"
+          className="flex items-center gap-3 font-display text-base tracking-[0.2em] text-ink transition-colors hover:text-terracotta"
         >
+          <Image
+            src={SITE_ICON}
+            alt=""
+            aria-hidden
+            width={28}
+            height={28}
+            className="h-7 w-7 shrink-0 object-cover"
+          />
           {SITE_TITLE}
         </Link>
 
