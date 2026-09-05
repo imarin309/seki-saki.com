@@ -40,14 +40,13 @@ const SELECTED_LAYOUTS = [
   {
     // 2点目：小さく左端に置き、前に大きく余白をとる
     figure: "w-[72%] md:w-[44%]",
-    caption: "md:flex-row md:items-baseline md:justify-between",
+    caption: "",
     spacing: "mt-32 md:mt-56",
   },
   {
     // 3点目：中くらいで右へ寄せる。キャプションも寄せた側に揃える
     figure: "ml-auto w-[88%] md:ml-[16%] md:w-[60%]",
-    caption:
-      "items-end text-right md:flex-row md:items-baseline md:justify-between md:text-left",
+    caption: "items-end text-right",
     spacing: "mt-24 md:mt-48",
   },
 ];
@@ -159,11 +158,8 @@ export default function HomeContent({ locale }: { locale: Locale }) {
                     />
                   </div>
                   <figcaption
-                    className={`mt-6 flex flex-col gap-2 ${layout.caption}`}
+                    className={`mt-6 flex flex-col ${layout.caption}`}
                   >
-                    <h3 className="font-display text-xl text-ink transition-colors group-hover:text-terracotta md:text-2xl">
-                      {title}
-                    </h3>
                     <p className={LABEL}>
                       {getIllustCategoryLabel(locale, work.category)}
                       <span className="mx-2 text-line-strong">/</span>
