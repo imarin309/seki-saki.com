@@ -28,12 +28,16 @@ describe("IllustListContent", () => {
     const secondCategory = ILLUST_CATEGORIES[1];
     await user.click(screen.getByRole("button", { name: secondCategory }));
 
-    const secondCategoryTitles = illusts
+    const secondCategoryHrefs = illusts
       .filter((illust) => illust.category === secondCategory)
-      .map((illust) => illust.title);
+      .map((illust) => `/illust/${illust.slug}`);
 
-    for (const title of secondCategoryTitles) {
-      expect(screen.getByText(title)).toBeInTheDocument();
+    const renderedHrefs = screen
+      .getAllByRole("link")
+      .map((link) => link.getAttribute("href"));
+
+    for (const href of secondCategoryHrefs) {
+      expect(renderedHrefs).toContain(href);
     }
   });
 });

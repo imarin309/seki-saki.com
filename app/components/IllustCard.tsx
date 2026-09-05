@@ -61,20 +61,17 @@ export default function IllustCard({
         )}
       </div>
 
-      <div className="mt-5 flex items-baseline gap-3">
+      <p className={`${LABEL} mt-5 flex items-baseline gap-3`}>
         {plateNumber !== undefined && (
-          <span className={`${LABEL} shrink-0 tabular-nums`}>
+          <span className="shrink-0 tabular-nums">
             {String(plateNumber).padStart(2, "0")}
           </span>
         )}
-        <h3 className="font-display text-lg leading-snug text-ink transition-colors group-hover:text-terracotta">
-          {title}
-        </h3>
-      </div>
-      <p className={`${LABEL} mt-2`}>
-        {getIllustCategoryLabel(locale, work.category)}
-        <span className="mx-2 text-line-strong">/</span>
-        {work.date.replace(/\//g, ".")}
+        <span>
+          {getIllustCategoryLabel(locale, work.category)}
+          <span className="mx-2 text-line-strong">/</span>
+          {work.date.replace(/\//g, ".")}
+        </span>
       </p>
     </Link>
   );
