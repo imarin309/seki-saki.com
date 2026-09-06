@@ -38,7 +38,7 @@ Vitest + React Testing Library によるコンポーネントのスモークテ�
 
 ### データフロー
 
-全作品データは `data/illusts.ts` に TypeScript の静的配列として定義されています（型: `Illust`、配列: `illusts`、ソート済み配列: `sortedIllusts`）。新しい作品を追加する場合は、連番の `id` を付けてこのファイルにエントリを追記します。トップページは最初の 3 件（`sortedIllusts.slice(0, 3)`）を表示し、イラスト一覧ページではクライアントサイドでカテゴリフィルタリングを行います。
+全作品データは `data/illusts.ts` に TypeScript の静的配列として定義されています（型: `Illust`、配列: `illusts`、ソート済み配列: `sortedIllusts`）。新しい作品を追加する場合は、連番の `id` を付けてこのファイルにエントリを追記し、`node .claude/skills/add-illusts/fetch-image-sizes.mjs` を実行して `width` / `height`（画像の実寸）を埋めます（一連の手順は `add-illusts` スキルにまとまっています）。イラスト一覧は CSS 段組み（`columns`）で流し込むため、実寸がないと画像の読み込みごとに列の高さが変わって作品が飛びます。トップページは最初の 3 件（`sortedIllusts.slice(0, 3)`）を表示し、イラスト一覧ページではクライアントサイドでカテゴリフィルタリングを行います。
 
 ### ページ・ルート構成
 
@@ -100,7 +100,3 @@ Tailwind CSS のライトテーマで、作品の色が主役になるよう彩�
 `/exhibition/*` 配下は展示ごとに独立したアートディレクションを持つスタンドアロンページのため、この配色には従わず個別に配色を指定しています（`still_here` は黒背景のまま）。
 
 `prettier-plugin-tailwindcss` により Prettier が Tailwind クラスを自動整列します。
-
-### スクリプト
-
-`scripts/convert-to-webp.sh` — CDN にアップロードする前に画像を WebP 形式へ変換するシェルスクリプトです。

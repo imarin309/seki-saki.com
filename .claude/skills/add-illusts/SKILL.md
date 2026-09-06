@@ -54,10 +54,21 @@ disable-model-invocation: true
    - `slug` / `title` — 原則ファイル名のベース名をそのまま使う。日付入りのファイル名は日付を読み取って `date` に反映する。既存の命名と形式が違う場合（`drawing_0824` と `drawing_20260828` など）は、ファイル名側に合わせたうえで差異をユーザーに伝える。
    - `date` — `yyyy/mm/dd`。月日のゼロ埋めはしない（既存が `2026/8/17` の形式。`normalizeDateForSort` がソート時に吸収する）。
    - `description` は空文字のままでよい。ユーザーから文言の指定があれば `description` / `descriptionEn` に入れる。
+   - `width` / `height` は書かない。次の手順のスクリプトが CDN から取得して挿入する。
 
    件数が多いときは手編集より `python3` のヒアドキュメントで一括生成するほうが確実。
 
-5. **検証**
+5. **実寸の取得**
+
+   ```bash
+   node .claude/skills/add-illusts/fetch-image-sizes.mjs
+   ```
+
+   `data/illusts.ts` の全エントリについて、CDN の WebP ヘッダーから `width` / `height` を読み取って書き込む。一覧ページは CSS 段組み（`columns`）で画像を流し込むため、実寸がないと 1 枚読み込まれるたびに列の高さが変わり、後続の作品が列をまたいで飛ぶ。`Illust` 型で必須にしているので、実行するまでは型エラーになる。
+
+   既存エントリの値も取得し直して上書きするため、`git diff data/illusts.ts` で差分が今回追加したエントリに収まっているか確認する。取得に失敗した画像があるとその場で止まるので、URL を見直す。
+
+6. **検証**
 
    ```bash
    pnpm format:check && pnpm lint && pnpm test
