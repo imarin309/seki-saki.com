@@ -14,7 +14,14 @@ const DATA_FILE = new URL("../../../data/illusts.ts", import.meta.url);
 /** WebP のヘッダーは先頭 32 バイトに収まるが、余裕を持って取得する */
 const HEADER_BYTES = 64;
 
+/** VP8X の canvas サイズは 29 バイト目まで使う */
+const MIN_HEADER_BYTES = 30;
+
 function parseWebpSize(buffer) {
+  if (buffer.length < MIN_HEADER_BYTES) {
+    throw new Error("ヘッダーを読み切れませんでした");
+  }
+
   if (
     buffer.toString("ascii", 0, 4) !== "RIFF" ||
     buffer.toString("ascii", 8, 12) !== "WEBP"
@@ -48,12 +55,32 @@ function parseWebpSize(buffer) {
   throw new Error(`未対応のチャンク: ${format}`);
 }
 
+/**
+ * Range を無視して 200 で全体を返すサーバーに当たっても画像を丸ごと落とさないよう、
+ * 必要なバイト数が揃った時点でストリームを打ち切る。
+ */
+async function readHead(res) {
+  const reader = res.body.getReader();
+  const chunks = [];
+  let read = 0;
+
+  while (read < HEADER_BYTES) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    read += value.length;
+  }
+  await reader.cancel();
+
+  return Buffer.concat(chunks);
+}
+
 async function fetchSize(url) {
   const res = await fetch(url, {
     headers: { Range: `bytes=0-${HEADER_BYTES - 1}` },
   });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  return parseWebpSize(Buffer.from(await res.arrayBuffer()));
+  return parseWebpSize(await readHead(res));
 }
 
 const source = await readFile(DATA_FILE, "utf8");

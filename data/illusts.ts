@@ -14,7 +14,7 @@ export interface Illust {
   /**
    * image の実寸。読み込み前から段組みの高さを確定させ、
    * 画像が揃うまで作品が列をまたいで飛ぶのを防ぐ。
-   * scripts/fetch-image-sizes.mjs で CDN から取得できる。
+   * .claude/skills/add-illusts/fetch-image-sizes.mjs で CDN から取得できる。
    */
   width: number;
   height: number;
