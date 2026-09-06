@@ -6,7 +6,7 @@ import { sortedIllusts } from "@/data/illusts";
 import { ILLUST_CATEGORIES, getIllustCategoryLabel } from "@/app/config";
 import IllustCard from "@/app/components/IllustCard";
 import { PageHeader } from "@/app/components/PageHeader";
-import { LABEL, fadeIn } from "@/app/design";
+import { LABEL, fadeIn, fadeInView } from "@/app/design";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -114,7 +114,9 @@ export default function IllustListContent({ locale }: { locale: Locale }) {
         {filteredIllusts.map((work, index) => (
           <motion.div
             key={work.id}
-            {...fadeIn(Math.min(index, 8) * 0.05)}
+            // 段送りは初期表示の数点だけ。スクロール後の作品まで遅らせると
+            // 画面に入ってから現れるまでが鈍く感じられる
+            {...fadeInView(index < 6 ? index * 0.05 : 0)}
             className="mb-16 break-inside-avoid md:mb-24"
           >
             <IllustCard

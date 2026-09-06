@@ -11,6 +11,13 @@ export interface Illust {
   /** yyyy / yyyy/mm / yyyy/mm/dd のいずれかの形式 */
   date: string;
   image: string;
+  /**
+   * image の実寸。読み込み前から段組みの高さを確定させ、
+   * 画像が揃うまで作品が列をまたいで飛ぶのを防ぐ。
+   * scripts/fetch-image-sizes.mjs で CDN から取得できる。
+   */
+  width: number;
+  height: number;
   /** ホバー時にクロスフェードで表示する別バージョン画像（任意） */
   image2?: string;
   description: string;
@@ -37,6 +44,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2025",
     image: `${BASE}/2025/confidence.webp`,
+    width: 1590,
+    height: 2163,
     description: "",
   },
   {
@@ -47,6 +56,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2025",
     image: `${BASE}/2025/manatsu_no_shisen.webp`,
+    width: 1727,
+    height: 2018,
     description: "",
   },
   {
@@ -56,6 +67,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2025",
     image: `${BASE}/2025/electronics.webp`,
+    width: 2866,
+    height: 4047,
     description: "",
   },
   {
@@ -66,6 +79,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2025",
     image: `${BASE}/2025/atsunuri_woman.webp`,
+    width: 2048,
+    height: 2048,
     description: "",
   },
   {
@@ -76,6 +91,8 @@ export const illusts: Illust[] = [
     category: "ペン画",
     date: "2025",
     image: `${BASE}/2025/pen1.webp`,
+    width: 3035,
+    height: 4299,
     description: "",
   },
   {
@@ -86,6 +103,8 @@ export const illusts: Illust[] = [
     category: "ペン画",
     date: "2025",
     image: `${BASE}/2025/pen2.webp`,
+    width: 3543,
+    height: 3543,
     description: "",
   },
   {
@@ -96,6 +115,8 @@ export const illusts: Illust[] = [
     category: "ペン画",
     date: "2025",
     image: `${BASE}/2025/human_pen.webp`,
+    width: 1802,
+    height: 2402,
     description: "",
   },
   {
@@ -106,6 +127,8 @@ export const illusts: Illust[] = [
     category: "ペン画",
     date: "2025",
     image: `${BASE}/2025/human_pen2.webp`,
+    width: 1640,
+    height: 2186,
     description: "",
   },
   {
@@ -116,6 +139,8 @@ export const illusts: Illust[] = [
     category: "ペン画",
     date: "2025",
     image: `${BASE}/2025/human_pen5.webp`,
+    width: 1640,
+    height: 2360,
     description: "",
   },
   {
@@ -126,6 +151,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2025/12/30",
     image: `${BASE}/2026/avoid_fatal_injury.webp`,
+    width: 2866,
+    height: 4047,
     description:
       "自由に大胆でありたいという心情とは裏腹に、どこか保守的で自己愛の強い存在を揶揄する",
     descriptionEn:
@@ -138,6 +165,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/1/11",
     image: `${BASE}/2026/FOCUS.webp`,
+    width: 716,
+    height: 1012,
     description:
       "助けを求める人を描きたいと思った。イラストは西洋絵画の涙の表現を参考にした。また、魅せたい箇所以外の情報を減らすためにノイズをかけた。",
     descriptionEn:
@@ -150,6 +179,8 @@ export const illusts: Illust[] = [
     category: "モノクロ",
     date: "2026/3/3",
     image: `${BASE}/2026/long_hair_girl.webp`,
+    width: 2048,
+    height: 2048,
     description: "30 minutes sketch 1",
   },
   {
@@ -159,6 +190,8 @@ export const illusts: Illust[] = [
     category: "モノクロ",
     date: "2026/3/29",
     image: `${BASE}/2026/boy.webp`,
+    width: 1067,
+    height: 1535,
     description: "たまにはメンズも描いてみました。平成男子になりました。",
     descriptionEn:
       "For once I drew a guy — he ended up looking like a Heisei-era boy.",
@@ -170,6 +203,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/3/29",
     image: `${BASE}/2026/weding_illust.webp`,
+    width: 1906,
+    height: 1608,
     description:
       "友人のウェディングパンフレットのイラストを描きました。\n学生時代から可愛らしいカップルの印象があり、その雰囲気を明るくカラフルお花や笑顔で表現しました。\nお花はリクエストをいただいたもので構成されています。",
     descriptionEn:
@@ -182,6 +217,8 @@ export const illusts: Illust[] = [
     category: "モノクロ",
     date: "2026/3/31",
     image: `${BASE}/2026/maegami.webp`,
+    width: 2048,
+    height: 2048,
     description: "お昼休みスケッチ！前髪の長めの方を描きました。",
     descriptionEn: "A lunch-break sketch! I drew someone with longer bangs.",
   },
@@ -192,6 +229,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/4/11",
     image: `${BASE}/2026/hikari.webp`,
+    width: 2866,
+    height: 4047,
     description: "",
   },
   {
@@ -201,6 +240,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/4/19",
     image: `${BASE}/2026/hikari2.webp`,
+    width: 2866,
+    height: 4047,
     description: "",
   },
   {
@@ -210,6 +251,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/4/19",
     image: `${BASE}/2026/hikari3.webp`,
+    width: 2866,
+    height: 4047,
     description: "",
   },
   {
@@ -219,6 +262,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/4/29",
     image: `${BASE}/2026/Boy_meets_Star.webp`,
+    width: 2866,
+    height: 4047,
     description: "線画をしっかり描くことを意識しました。",
     descriptionEn: "I focused on drawing solid, confident line work.",
   },
@@ -229,6 +274,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/5/6",
     image: `${BASE}/2026/engel_or_devil.webp`,
+    width: 2866,
+    height: 3820,
     image2: `${BASE}/2026/engel_or_devil_megane.webp`,
     description: "",
   },
@@ -240,6 +287,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/iriomoteyamaneko.webp`,
+    width: 1860,
+    height: 2631,
     description:
       "路上の境界で、命は何を問うのだろう。\n\n奪われ続ける野生と、人間の暮らし。互いが交わることのない平行線の先で、彼女たちの眼差しがこちらを見つめている。",
     descriptionEn:
@@ -253,6 +302,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/kame.webp`,
+    width: 2631,
+    height: 1861,
     description:
       "（シェイクスピア『ハムレット』より）\n\n悲劇の底で、もしも別の命と出逢っていたなら。\n\n水面に揺れる少女の傍らに寄り添う小さな命が、絶望の物語に密やかなIFを投げかける。",
     descriptionEn:
@@ -266,6 +317,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/yukihyou.webp`,
+    width: 1860,
+    height: 2631,
     description:
       "白銀の静寂の中、同じ地平を見つめる二人。\n\n風の音だけが響くその場所から、まだ見ぬ世界への旅が始まる。",
     descriptionEn:
@@ -279,6 +332,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/toki.webp`,
+    width: 7441,
+    height: 10524,
     description:
       "人間が残した深い爪痕と、再び空へと還された命。\n\n肖像のように佇むトキの鋭い眼差しは、過去の後悔を試すように、まっすぐこちらを射抜いている。",
     descriptionEn:
@@ -292,6 +347,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/wani.webp`,
+    width: 2631,
+    height: 1861,
     description:
       "獰猛とされるその頭上は、時に小さな命たちの憩いの場となる。\n\n畏怖の裏側に存在する、知られざる平穏な日常の一幕。",
     descriptionEn:
@@ -305,6 +362,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/mizuramogura.webp`,
+    width: 1860,
+    height: 2631,
     description:
       "（カンタータ『土の歌』第四楽章より）\n\nゆらぐ世界のゆくえに抱く、言葉にならない漠然とした不安。\n\n足元の闇から聞こえるのは、「いずれ人間も同じ土へと還るのだ」という密やかな囁き。",
     descriptionEn:
@@ -318,6 +377,8 @@ export const illusts: Illust[] = [
     category: "厚塗り",
     date: "2026/7/31",
     image: `${BASE}/2026/umigarasu.webp`,
+    width: 2631,
+    height: 1861,
     description:
       "水中を切り裂くように泳ぐウミガラスと、ひとりの女性が出会う一瞬。\n\nこの出会いは掠めるような奇跡か、それとも互いを知る始まりなのか。次の瞬間、鳥は深く静かな水中へと消えていく。",
     descriptionEn:
@@ -331,6 +392,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/9",
     image: `${BASE}/2026/drawing_0809.webp`,
+    width: 1505,
+    height: 1767,
     description: "",
   },
   {
@@ -340,6 +403,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/11",
     image: `${BASE}/2026/drawing_0811.webp`,
+    width: 1641,
+    height: 1928,
     description: "",
   },
   {
@@ -349,6 +414,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/12",
     image: `${BASE}/2026/drawing_0812.webp`,
+    width: 2048,
+    height: 1948,
     description: "",
   },
   {
@@ -358,6 +425,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/13",
     image: `${BASE}/2026/drawing_0813.webp`,
+    width: 2375,
+    height: 1919,
     description: "",
   },
   {
@@ -367,6 +436,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/15",
     image: `${BASE}/2026/drawing_0815.webp`,
+    width: 1480,
+    height: 1880,
     description: "",
   },
   {
@@ -376,6 +447,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/16",
     image: `${BASE}/2026/drawing_0816.webp`,
+    width: 1378,
+    height: 1998,
     description: "",
   },
   {
@@ -385,6 +458,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/17",
     image: `${BASE}/2026/drawing_0817.webp`,
+    width: 1604,
+    height: 2277,
     description: "",
   },
   {
@@ -394,6 +469,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/18",
     image: `${BASE}/2026/drawing_0818.webp`,
+    width: 1378,
+    height: 1998,
     description: "",
   },
   {
@@ -403,6 +480,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/19",
     image: `${BASE}/2026/drawing_0819.webp`,
+    width: 1406,
+    height: 2094,
     description: "",
   },
   {
@@ -412,6 +491,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/20",
     image: `${BASE}/2026/drawing_0820.webp`,
+    width: 1406,
+    height: 1406,
     description: "",
   },
   {
@@ -421,6 +502,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/22",
     image: `${BASE}/2026/drawing_0822.webp`,
+    width: 2094,
+    height: 1189,
     description: "",
   },
   {
@@ -430,6 +513,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/23",
     image: `${BASE}/2026/drawing_0823.webp`,
+    width: 1554,
+    height: 1291,
     description: "",
   },
   {
@@ -439,6 +524,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/24",
     image: `${BASE}/2026/drawing_0824.webp`,
+    width: 2094,
+    height: 1406,
     description: "",
   },
   {
@@ -448,6 +535,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/28",
     image: `${BASE}/2026/drawing_20260828.webp`,
+    width: 1406,
+    height: 1406,
     description: "",
   },
   {
@@ -457,6 +546,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/29",
     image: `${BASE}/2026/drawing_20260829.webp`,
+    width: 1772,
+    height: 1405,
     description: "",
   },
   {
@@ -466,6 +557,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/30",
     image: `${BASE}/2026/drawing_20260830.webp`,
+    width: 2092,
+    height: 1342,
     description: "",
   },
   {
@@ -475,6 +568,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/8/31",
     image: `${BASE}/2026/drawing_20260831.webp`,
+    width: 2094,
+    height: 1406,
     description: "",
   },
   {
@@ -484,6 +579,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/9/1",
     image: `${BASE}/2026/drawing_20260901.webp`,
+    width: 2094,
+    height: 1406,
     description: "",
   },
   {
@@ -493,6 +590,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/9/2",
     image: `${BASE}/2026/drawing_20260902.webp`,
+    width: 2094,
+    height: 1406,
     description: "",
   },
   {
@@ -502,6 +601,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/9/3",
     image: `${BASE}/2026/drawing_20260903.webp`,
+    width: 1406,
+    height: 2094,
     description: "",
   },
   {
@@ -511,6 +612,8 @@ export const illusts: Illust[] = [
     category: "ドローイング",
     date: "2026/9/4",
     image: `${BASE}/2026/drawing_20260904.webp`,
+    width: 1734,
+    height: 2015,
     description: "",
   },
 ];

@@ -40,8 +40,8 @@ export default function IllustCard({
         <Image
           src={work.image}
           alt={title}
-          width={0}
-          height={0}
+          width={work.width}
+          height={work.height}
           sizes={sizes}
           priority={priority}
           className={`h-auto w-full duration-700 ${
