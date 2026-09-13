@@ -22,7 +22,7 @@ disable-model-invocation: true
 
 2. **カテゴリの決定**
 
-   ユーザーの指定に従う。`app/config.tsx` の `ILLUST_CATEGORIES` にある日本語キー（`厚塗り` / `ペン画` / `モノクロ` / `ドローイング`）をそのまま `category` に入れる。英語で指定された場合は `ILLUST_CATEGORY_LABELS` の en ラベルから対応する日本語キーへ読み替える（例: `drawing` → `ドローイング`）。一覧にないカテゴリを指定されたら、`app/config.tsx` への追加が必要な旨を確認する。
+   ユーザーの指定に従う。`app/config.tsx` の `ILLUST_CATEGORIES` にある日本語キー（`アナログ` / `デジタル` / `粘土`）をそのまま `category` に入れる。英語で指定された場合は `ILLUST_CATEGORY_LABELS` の en ラベルから対応する日本語キーへ読み替える（例: `analog` → `アナログ`）。一覧にないカテゴリを指定されたら、`app/config.tsx` への追加が必要な旨を確認する。
 
 3. **配信 URL の確認**
 
@@ -43,7 +43,7 @@ disable-model-invocation: true
      id: "41",
      slug: "drawing_20260828",
      title: "drawing_20260828",
-     category: "ドローイング",
+     category: "アナログ",
      date: "2026/8/28",
      image: `${BASE}/2026/drawing_20260828.webp`,
      description: "",
