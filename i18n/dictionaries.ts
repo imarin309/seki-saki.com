@@ -19,8 +19,6 @@ export interface Dictionary {
     /** 一般的な View Works ではなく、作品集をひらく言葉 */
     coverCta: string;
     scrollHint: string;
-    introLabel: string;
-    introBody: string[];
     selectedLabel: string;
     selectedNote: string;
     viewIndex: string;
@@ -75,7 +73,6 @@ export interface Dictionary {
   about: {
     title: string;
     kicker: string;
-    heading: string;
     bio: string[];
   };
   contact: {
@@ -110,12 +107,9 @@ const ja: Dictionary = {
   home: {
     coverName: "世木口",
     coverRole: "Illustrator",
-    coverCopy: "芯のある人を、一枚ずつ。",
+    coverCopy: "ふと見かけた日常を、一枚ずつ。",
     coverCta: "作品集をひらく",
     scrollHint: "Scroll",
-    introLabel: "Introduction",
-    // TODO: 作家紹介の文章が決まったら差し替える
-    introBody: ["準備中です。"],
     selectedLabel: "Selected Works",
     selectedNote: "近作より数点。",
     viewIndex: "すべての作品を見る",
@@ -166,11 +160,14 @@ const ja: Dictionary = {
     nextImageAria: "次の画像",
   },
   about: {
-    title: "About Me",
+    title: "世木口について",
     kicker: "About",
-    heading: "準備中です",
-    // TODO: プロフィール文が決まったら差し替える
-    bio: ["準備中です。"],
+    bio: [
+      "はじめまして。\n暮らしの中で感じたことを元にイラストを描いています。\n街ですれ違った人の人生や価値観をよく考えることが好きです。",
+      "私の作品は都会の寂しさの中でちょっと温かさを見かけたときに、それを記録するように描いています。",
+      "これまではデジタルで人物を描いてきました。最近は日々のドローイングを中心に見た人がクスッと笑えて、肩の力が抜けるような絵を目指しています。",
+      "なんでも挑戦してみたいですが、特に絵本や雑誌の挿絵などのお仕事に興味があります。",
+    ],
   },
   contact: {
     title: "Contact",
@@ -211,11 +208,9 @@ const en: Dictionary = {
   home: {
     coverName: "Sekiguchi",
     coverRole: "Illustrator",
-    coverCopy: "People with a quiet strength, one page at a time.",
+    coverCopy: "Little things I happen to see, one page at a time.",
     coverCta: "Open the book",
     scrollHint: "Scroll",
-    introLabel: "Introduction",
-    introBody: ["Coming soon."],
     selectedLabel: "Selected Works",
     selectedNote: "A few recent pieces.",
     viewIndex: "See all works",
@@ -266,10 +261,14 @@ const en: Dictionary = {
     nextImageAria: "Next image",
   },
   about: {
-    title: "About Me",
+    title: "About Sekiguchi",
     kicker: "About",
-    heading: "I draw vivid, beautiful figures with a realistic touch.",
-    bio: ["Coming soon."],
+    bio: [
+      "Nice to meet you.\nI draw illustrations based on what I feel in everyday life.\nI like to think about the lives and values of the people I pass on the street.",
+      "I draw my work as a way of recording the small moments of warmth I find amid the loneliness of the city.",
+      "Until now, I've mainly drawn people digitally. Lately I've been focusing on daily drawings, aiming for pictures that make you chuckle and help you loosen up a little.",
+      "I'm eager to try all kinds of things, and I'm especially interested in illustrating picture books and magazines.",
+    ],
   },
   contact: {
     title: "Contact",
