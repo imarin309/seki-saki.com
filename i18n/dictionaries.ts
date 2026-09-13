@@ -19,8 +19,6 @@ export interface Dictionary {
     /** 一般的な View Works ではなく、作品集をひらく言葉 */
     coverCta: string;
     scrollHint: string;
-    introLabel: string;
-    introBody: string[];
     selectedLabel: string;
     selectedNote: string;
     viewIndex: string;
@@ -113,13 +111,6 @@ const ja: Dictionary = {
     coverCopy: "ふと見かけた日常を、一枚ずつ。",
     coverCta: "作品集をひらく",
     scrollHint: "Scroll",
-    introLabel: "Introduction",
-    introBody: [
-      "駅のホームで、プリンを食べながら歩いていく人を見かけた。",
-      "家に帰ると、トカゲがいつもの顔でこちらを見ている。",
-      "そんな、見過ごしてしまいそうな毎日のひとコマを描いています。",
-      "見てくれた人が、ふっと笑ってくれたら嬉しいです。",
-    ],
     selectedLabel: "Selected Works",
     selectedNote: "近作より数点。",
     viewIndex: "すべての作品を見る",
@@ -222,13 +213,6 @@ const en: Dictionary = {
     coverCopy: "Little things I happen to see, one page at a time.",
     coverCta: "Open the book",
     scrollHint: "Scroll",
-    introLabel: "Introduction",
-    introBody: [
-      "I once saw someone walking through the station, eating a pudding as they went.",
-      "At home, my lizard looks up at me with the same face as always.",
-      "I draw small moments like these, the kind that are easy to miss.",
-      "If they make you smile a little, I'm happy.",
-    ],
     selectedLabel: "Selected Works",
     selectedNote: "A few recent pieces.",
     viewIndex: "See all works",
