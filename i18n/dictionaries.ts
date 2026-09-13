@@ -73,7 +73,6 @@ export interface Dictionary {
   about: {
     title: string;
     kicker: string;
-    heading: string;
     bio: string[];
   };
   contact: {
@@ -161,14 +160,13 @@ const ja: Dictionary = {
     nextImageAria: "次の画像",
   },
   about: {
-    title: "About Me",
+    title: "世木口について",
     kicker: "About",
-    heading: "日々のひとコマを、クスッと笑える絵に。",
     bio: [
-      "世木口です。\n日常で見かけた風景や出来事をもとに、イラストを描いています。",
-      "よく描くのは、一緒に暮らしているトカゲ。\n夜の窓辺でピースをしていたり、水の中を泳いでいたり。\n絵の中では、少しだけ自由に過ごしています。",
-      "これまでは厚塗りやペン画で、人物や生きものを描いてきました。\n最近は日々のドローイングを中心に、\n見た人がクスッと笑えて、あたたかい気持ちになれる絵を目指しています。",
-      "いつか、絵本の挿絵を描くのが夢です。",
+      "はじめまして。\n暮らしの中で感じたことを元にイラストを描いています。\n街ですれ違った人の人生や価値観をよく考えることが好きです。",
+      "私の作品は都会の寂しさの中でちょっと温かさを見かけたときに、それを記録するように描いています。",
+      "これまではデジタルで人物を描いてきました。最近は日々のドローイングを中心に見た人がクスッと笑えて、肩の力が抜けるような絵を目指しています。",
+      "なんでも挑戦してみたいですが、特に絵本や雑誌の挿絵などのお仕事に興味があります。",
     ],
   },
   contact: {
@@ -263,14 +261,13 @@ const en: Dictionary = {
     nextImageAria: "Next image",
   },
   about: {
-    title: "About Me",
+    title: "About Sekiguchi",
     kicker: "About",
-    heading: "Everyday moments, drawn to make you smile.",
     bio: [
-      "I'm Sekiguchi.\nI draw the scenes and little happenings of everyday life.",
-      "A frequent model is the lizard I live with.\nFlashing a peace sign by the window at night, or swimming through the water,\nin my drawings it gets to be a little freer.",
-      "I've painted people and animals in thick paint and pen.\nLately I've been drawing a little every day,\naiming for pictures that make you chuckle and feel warm inside.",
-      "Someday, I'd love to illustrate picture books.",
+      "Nice to meet you.\nI draw illustrations based on what I feel in everyday life.\nI like to think about the lives and values of the people I pass on the street.",
+      "I draw my work as a way of recording the small moments of warmth I find amid the loneliness of the city.",
+      "Until now, I've mainly drawn people digitally. Lately I've been focusing on daily drawings, aiming for pictures that make you chuckle and help you loosen up a little.",
+      "I'm eager to try all kinds of things, and I'm especially interested in illustrating picture books and magazines.",
     ],
   },
   contact: {
