@@ -37,15 +37,17 @@ export default function AboutContent({ locale }: { locale: Locale }) {
           >
             {dict.about.heading}
           </motion.h2>
-          {dict.about.bio.map((paragraph, index) => (
-            <motion.p
-              key={paragraph}
-              {...fadeIn(0.4 + index * 0.08)}
-              className={PROSE}
-            >
-              {paragraph}
-            </motion.p>
-          ))}
+          <div className="space-y-8">
+            {dict.about.bio.map((paragraph, index) => (
+              <motion.p
+                key={paragraph}
+                {...fadeIn(0.4 + index * 0.08)}
+                className={PROSE}
+              >
+                {paragraph}
+              </motion.p>
+            ))}
+          </div>
         </div>
       </div>
     </div>

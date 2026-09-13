@@ -110,12 +110,16 @@ const ja: Dictionary = {
   home: {
     coverName: "世木口",
     coverRole: "Illustrator",
-    coverCopy: "芯のある人を、一枚ずつ。",
+    coverCopy: "ふと見かけた日常を、一枚ずつ。",
     coverCta: "作品集をひらく",
     scrollHint: "Scroll",
     introLabel: "Introduction",
-    // TODO: 作家紹介の文章が決まったら差し替える
-    introBody: ["準備中です。"],
+    introBody: [
+      "駅のホームで、プリンを食べながら歩いていく人を見かけた。",
+      "家に帰ると、トカゲがいつもの顔でこちらを見ている。",
+      "そんな、見過ごしてしまいそうな毎日のひとコマを描いています。",
+      "見てくれた人が、ふっと笑ってくれたら嬉しいです。",
+    ],
     selectedLabel: "Selected Works",
     selectedNote: "近作より数点。",
     viewIndex: "すべての作品を見る",
@@ -168,9 +172,13 @@ const ja: Dictionary = {
   about: {
     title: "About Me",
     kicker: "About",
-    heading: "準備中です",
-    // TODO: プロフィール文が決まったら差し替える
-    bio: ["準備中です。"],
+    heading: "日々のひとコマを、クスッと笑える絵に。",
+    bio: [
+      "世木口です。\n日常で見かけた風景や出来事をもとに、イラストを描いています。",
+      "よく描くのは、一緒に暮らしているトカゲ。\n夜の窓辺でピースをしていたり、水の中を泳いでいたり。\n絵の中では、少しだけ自由に過ごしています。",
+      "これまでは厚塗りやペン画で、人物や生きものを描いてきました。\n最近は日々のドローイングを中心に、\n見た人がクスッと笑えて、あたたかい気持ちになれる絵を目指しています。",
+      "いつか、絵本の挿絵を描くのが夢です。",
+    ],
   },
   contact: {
     title: "Contact",
@@ -211,11 +219,16 @@ const en: Dictionary = {
   home: {
     coverName: "Sekiguchi",
     coverRole: "Illustrator",
-    coverCopy: "People with a quiet strength, one page at a time.",
+    coverCopy: "Little things I happen to see, one page at a time.",
     coverCta: "Open the book",
     scrollHint: "Scroll",
     introLabel: "Introduction",
-    introBody: ["Coming soon."],
+    introBody: [
+      "I once saw someone walking through the station, eating a pudding as they went.",
+      "At home, my lizard looks up at me with the same face as always.",
+      "I draw small moments like these, the kind that are easy to miss.",
+      "If they make you smile a little, I'm happy.",
+    ],
     selectedLabel: "Selected Works",
     selectedNote: "A few recent pieces.",
     viewIndex: "See all works",
@@ -268,8 +281,13 @@ const en: Dictionary = {
   about: {
     title: "About Me",
     kicker: "About",
-    heading: "I draw vivid, beautiful figures with a realistic touch.",
-    bio: ["Coming soon."],
+    heading: "Everyday moments, drawn to make you smile.",
+    bio: [
+      "I'm Sekiguchi.\nI draw the scenes and little happenings of everyday life.",
+      "A frequent model is the lizard I live with.\nFlashing a peace sign by the window at night, or swimming through the water,\nin my drawings it gets to be a little freer.",
+      "I've painted people and animals in thick paint and pen.\nLately I've been drawing a little every day,\naiming for pictures that make you chuckle and feel warm inside.",
+      "Someday, I'd love to illustrate picture books.",
+    ],
   },
   contact: {
     title: "Contact",
