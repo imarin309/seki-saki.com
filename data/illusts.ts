@@ -738,6 +738,24 @@ export const illusts: Illust[] = [
     height: 1200,
     description: "",
   },
+  {
+    id: "60",
+    slug: "nendo_20260926",
+    title: "nendo_20260926",
+    category: "粘土",
+    date: "2026/9/26",
+    image: `${BASE}/2026/nendo_20260926.webp`,
+    width: 1200,
+    height: 800,
+    images: [
+      `${BASE}/2026/nendo_20260926_1.webp`,
+      `${BASE}/2026/nendo_20260926_2.webp`,
+      `${BASE}/2026/nendo_20260926_3.webp`,
+      `${BASE}/2026/nendo_20260926_4.webp`,
+      `${BASE}/2026/nendo_20260926_5.webp`,
+    ],
+    description: "",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
