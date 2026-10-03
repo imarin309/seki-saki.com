@@ -713,6 +713,28 @@ export const illusts: Illust[] = [
     height: 826,
     description: "",
   },
+  {
+    id: "58",
+    slug: "analog_20261001",
+    title: "analog_20261001",
+    category: "アナログ",
+    date: "2026/10/1",
+    image: `${BASE}/2026/analog_20261001.webp`,
+    width: 1038,
+    height: 1200,
+    description: "",
+  },
+  {
+    id: "59",
+    slug: "analog_20261002",
+    title: "analog_20261002",
+    category: "アナログ",
+    date: "2026/10/2",
+    image: `${BASE}/2026/analog_20261002.webp`,
+    width: 976,
+    height: 1200,
+    description: "",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
