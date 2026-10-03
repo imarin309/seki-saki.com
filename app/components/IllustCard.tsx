@@ -44,21 +44,8 @@ export default function IllustCard({
           height={work.height}
           sizes={sizes}
           priority={priority}
-          className={`h-auto w-full duration-700 ${
-            work.image2
-              ? "transition-opacity group-hover:opacity-0"
-              : "transition-opacity group-hover:opacity-90"
-          }`}
+          className="h-auto w-full transition-opacity duration-700 group-hover:opacity-90"
         />
-        {work.image2 && (
-          <Image
-            src={work.image2}
-            alt={title}
-            fill
-            sizes={sizes}
-            className="object-cover opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-          />
-        )}
       </div>
 
       <p className={`${LABEL} mt-5 flex items-baseline gap-3`}>

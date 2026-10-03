@@ -18,8 +18,11 @@ export interface Illust {
    */
   width: number;
   height: number;
-  /** ホバー時にクロスフェードで表示する別バージョン画像（任意） */
-  image2?: string;
+  /**
+   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像（任意）。
+   * 一覧・OGP などは image だけを使うため、実寸は持たない。
+   */
+  images?: string[];
   description: string;
   /** 英語版説明文。未指定の場合は description をそのまま使用 */
   descriptionEn?: string;
@@ -275,7 +278,7 @@ export const illusts: Illust[] = [
     image: `${BASE}/2026/engel_or_devil.webp`,
     width: 2866,
     height: 3820,
-    image2: `${BASE}/2026/engel_or_devil_megane.webp`,
+    images: [`${BASE}/2026/engel_or_devil_megane.webp`],
     description: "",
   },
   {

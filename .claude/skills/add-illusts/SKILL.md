@@ -55,6 +55,7 @@ disable-model-invocation: true
    - `date` — `yyyy/mm/dd`。月日のゼロ埋めはしない（既存が `2026/8/17` の形式。`normalizeDateForSort` がソート時に吸収する）。
    - `description` は空文字のままでよい。ユーザーから文言の指定があれば `description` / `descriptionEn` に入れる。
    - `width` / `height` は書かない。次の手順のスクリプトが CDN から取得して挿入する。
+   - 複数枚を 1 作品として追加する場合（`nendo_20260926.webp` と `nendo_20260926_1.webp` 〜 など）は、連番なしをメインの `image` に、残りを番号順に `images` へ入れる。詳細ページでメイン画像の下にプレビューとして並ぶ。`images` は実寸を取得しないので、URL の疎通は全ファイルで確認する。
 
    件数が多いときは手編集より `python3` のヒアドキュメントで一括生成するほうが確実。
 
