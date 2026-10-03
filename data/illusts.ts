@@ -18,8 +18,11 @@ export interface Illust {
    */
   width: number;
   height: number;
-  /** ホバー時にクロスフェードで表示する別バージョン画像（任意） */
-  image2?: string;
+  /**
+   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像（任意）。
+   * 一覧・OGP などは image だけを使うため、実寸は持たない。
+   */
+  images?: string[];
   description: string;
   /** 英語版説明文。未指定の場合は description をそのまま使用 */
   descriptionEn?: string;
@@ -275,7 +278,7 @@ export const illusts: Illust[] = [
     image: `${BASE}/2026/engel_or_devil.webp`,
     width: 2866,
     height: 3820,
-    image2: `${BASE}/2026/engel_or_devil_megane.webp`,
+    images: [`${BASE}/2026/engel_or_devil_megane.webp`],
     description: "",
   },
   {
@@ -711,6 +714,46 @@ export const illusts: Illust[] = [
     image: `${BASE}/2026/drawing-20260913.webp`,
     width: 1169,
     height: 826,
+    description: "",
+  },
+  {
+    id: "58",
+    slug: "analog_20261001",
+    title: "analog_20261001",
+    category: "アナログ",
+    date: "2026/10/1",
+    image: `${BASE}/2026/analog_20261001.webp`,
+    width: 1038,
+    height: 1200,
+    description: "",
+  },
+  {
+    id: "59",
+    slug: "analog_20261002",
+    title: "analog_20261002",
+    category: "アナログ",
+    date: "2026/10/2",
+    image: `${BASE}/2026/analog_20261002.webp`,
+    width: 976,
+    height: 1200,
+    description: "",
+  },
+  {
+    id: "60",
+    slug: "nendo_20260926",
+    title: "nendo_20260926",
+    category: "粘土",
+    date: "2026/9/26",
+    image: `${BASE}/2026/nendo_20260926.webp`,
+    width: 1200,
+    height: 800,
+    images: [
+      `${BASE}/2026/nendo_20260926_1.webp`,
+      `${BASE}/2026/nendo_20260926_2.webp`,
+      `${BASE}/2026/nendo_20260926_3.webp`,
+      `${BASE}/2026/nendo_20260926_4.webp`,
+      `${BASE}/2026/nendo_20260926_5.webp`,
+    ],
     description: "",
   },
 ];

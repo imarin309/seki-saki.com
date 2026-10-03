@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { motion } from "motion/react";
 import {
   sortedIllusts,
@@ -12,7 +12,7 @@ import {
 import { getIllustCategoryLabel } from "@/app/config";
 import { BookLink } from "@/app/components/BookLink";
 import { PageTurnNav } from "@/app/components/PageTurnNav";
-import { LABEL, PROSE, fadeIn } from "@/app/design";
+import { EASE, LABEL, PROSE, fadeIn } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -24,9 +24,7 @@ export default function WorkDetailClient({
   locale: Locale;
 }) {
   const dict = getDictionary(locale);
-  const [showAlt, setShowAlt] = useState(false);
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
+  const [pageIndex, setPageIndex] = useState(0);
 
   const currentIndex = sortedIllusts.findIndex((w) => w.slug === slug);
   const work = currentIndex >= 0 ? sortedIllusts[currentIndex] : null;
@@ -53,6 +51,7 @@ export default function WorkDetailClient({
   const title = getIllustTitle(work, locale);
   const description = getIllustDescription(work, locale);
   const plateNumber = String(currentIndex + 1).padStart(2, "0");
+  const pages = [work.image, ...(work.images ?? [])];
 
   return (
     <article className="mx-auto max-w-[1600px] px-6 py-16 md:px-10 md:py-20">
@@ -87,58 +86,51 @@ export default function WorkDetailClient({
         */}
         <motion.div
           {...fadeIn(0.1)}
-          className="group relative mx-auto w-full max-w-5xl [touch-action:pan-y] md:flex md:h-[72svh] md:items-center md:justify-center"
-          onTouchStart={(e) => {
-            touchStartX.current = e.touches[0].clientX;
-            touchStartY.current = e.touches[0].clientY;
-          }}
-          onTouchEnd={(e) => {
-            if (!work.image2) return;
-            const dx = e.changedTouches[0].clientX - touchStartX.current;
-            const dy = e.changedTouches[0].clientY - touchStartY.current;
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
-              setShowAlt((v) => !v);
-            }
-          }}
+          className="mx-auto w-full max-w-5xl md:flex md:h-[72svh] md:items-center md:justify-center"
         >
-          <Image
-            src={work.image}
-            alt={title}
-            width={0}
-            height={0}
-            sizes="(min-width: 1024px) 64rem, 100vw"
-            priority
-            className={`h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain ${
-              work.image2
-                ? `transition-opacity duration-700 ${showAlt ? "opacity-0" : "group-hover:opacity-0"}`
-                : ""
-            }`}
-          />
-          {work.image2 && (
+          <motion.div
+            key={pages[pageIndex]}
+            initial={pageIndex === 0 ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="w-full md:flex md:h-full md:items-center md:justify-center"
+          >
             <Image
-              src={work.image2}
-              alt={title}
-              fill
+              src={pages[pageIndex]}
+              alt={pages.length > 1 ? `${title} ${pageIndex + 1}` : title}
+              width={0}
+              height={0}
               sizes="(min-width: 1024px) 64rem, 100vw"
-              className={`object-contain transition-opacity duration-700 ${
-                showAlt ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-              }`}
+              priority
+              className="h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain"
             />
-          )}
+          </motion.div>
         </motion.div>
 
-        {work.image2 && (
-          <div className="mx-auto mt-6 flex max-w-5xl justify-center gap-2">
-            <span
-              className={`block h-px w-6 transition-colors duration-500 ${
-                showAlt ? "bg-line-strong" : "bg-terracotta"
-              }`}
-            />
-            <span
-              className={`block h-px w-6 transition-colors duration-500 ${
-                showAlt ? "bg-terracotta" : "bg-line-strong"
-              }`}
-            />
+        {pages.length > 1 && (
+          <div className="mx-auto mt-8 flex max-w-5xl flex-wrap justify-center gap-3">
+            {pages.map((page, i) => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => setPageIndex(i)}
+                aria-label={dict.illustDetail.showImageAria(i + 1)}
+                aria-current={i === pageIndex}
+                className={`relative size-14 border bg-paper-deep transition-colors duration-500 md:size-16 ${
+                  i === pageIndex
+                    ? "border-terracotta"
+                    : "border-transparent hover:border-line-strong"
+                }`}
+              >
+                <Image
+                  src={page}
+                  alt=""
+                  fill
+                  sizes="4rem"
+                  className="object-cover"
+                />
+              </button>
+            ))}
           </div>
         )}
 

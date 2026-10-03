@@ -55,6 +55,18 @@ export const works: Work[] = [
       "https://assets.seki-saki.com/2026/stillhere_dm2.webp",
     ],
   },
+  {
+    id: "4",
+    slug: "kikkakeya",
+    title: "きっかけ家さまにて作品を販売しています",
+    titleEn: "My Work Is Now on Sale at Kikkakeya",
+    date: "2026/09/27",
+    description:
+      "一般社団法人kikiさんが運営しているきっかけ家さまで作品を販売させていただいております。\n\n好奇心で溢れているようなとても素敵な空間に置かせていただき、嬉しいです😊🌳\nお近くにお越しの際は是非覗いてください！\n\nkiki/きっかけ家\nhttps://kiki-to.com/kikkakeya\n☆お休み日があります。HPやSNSでご確認ください。\n\n📍東京都小金井市貫井北町4-1-1",
+    descriptionEn:
+      "My work is now on sale at Kikkakeya, a space run by the general incorporated association kiki.\n\nI'm so happy to have my pieces displayed in such a wonderful space that feels full of curiosity 😊🌳\nIf you're in the area, please stop by and take a look!\n\nkiki / Kikkakeya\nhttps://kiki-to.com/kikkakeya\n☆ The shop has regular closing days. Please check their website or social media before visiting.\n\n📍4-1-1 Nukuikitamachi, Koganei-shi, Tokyo",
+    images: ["https://assets.seki-saki.com/2026/tenji_202609.webp"],
+  },
 ];
 
 export const sortedWorks = [...works].sort((a, b) =>
