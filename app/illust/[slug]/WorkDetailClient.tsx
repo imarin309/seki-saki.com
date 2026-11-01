@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   sortedIllusts,
   getIllustTitle,
+  getIllustLabel,
   getIllustDescription,
+  type Illust,
 } from "@/data/illusts";
 import { getIllustCategoryLabel } from "@/app/config";
 import { BookLink } from "@/app/components/BookLink";
@@ -15,6 +17,20 @@ import { PageTurnNav } from "@/app/components/PageTurnNav";
 import { EASE, LABEL, PROSE, fadeIn } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+
+interface Page {
+  /** 動画のページでは poster */
+  image: string;
+  video?: string;
+}
+
+function toPages(work: Illust): Page[] {
+  return [work.image, ...(work.images ?? [])].map((page) =>
+    typeof page === "string"
+      ? { image: page }
+      : { image: page.poster, video: page.video }
+  );
+}
 
 export default function WorkDetailClient({
   slug,
@@ -25,6 +41,7 @@ export default function WorkDetailClient({
 }) {
   const dict = getDictionary(locale);
   const [pageIndex, setPageIndex] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   const currentIndex = sortedIllusts.findIndex((w) => w.slug === slug);
   const work = currentIndex >= 0 ? sortedIllusts[currentIndex] : null;
@@ -48,10 +65,13 @@ export default function WorkDetailClient({
       ? sortedIllusts[currentIndex + 1]
       : null;
 
-  const title = getIllustTitle(work, locale);
+  const hasTitle = getIllustTitle(work, locale) !== "";
+  const title = getIllustLabel(work, locale);
   const description = getIllustDescription(work, locale);
   const plateNumber = String(currentIndex + 1).padStart(2, "0");
-  const pages = [work.image, ...(work.images ?? [])];
+  const pages = toPages(work);
+  const page = pages[pageIndex];
+  const pageAlt = pages.length > 1 ? `${title} ${pageIndex + 1}` : title;
 
   return (
     <article className="mx-auto max-w-[1600px] px-6 py-16 md:px-10 md:py-20">
@@ -89,32 +109,52 @@ export default function WorkDetailClient({
           className="mx-auto w-full max-w-5xl md:flex md:h-[72svh] md:items-center md:justify-center"
         >
           <motion.div
-            key={pages[pageIndex]}
+            key={page.video ?? page.image}
             initial={pageIndex === 0 ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: EASE }}
             className="w-full md:flex md:h-full md:items-center md:justify-center"
           >
-            <Image
-              src={pages[pageIndex]}
-              alt={pages.length > 1 ? `${title} ${pageIndex + 1}` : title}
-              width={0}
-              height={0}
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              priority
-              className="h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain"
-            />
+            {page.video ? (
+              // 低電力モードなどで自動再生が拒否された場合の再生と、ループの停止のために controls は常に出す
+              <video
+                src={page.video}
+                poster={page.image}
+                aria-label={pageAlt}
+                autoPlay={!reduceMotion}
+                controls
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain"
+              />
+            ) : (
+              <Image
+                src={page.image}
+                alt={pageAlt}
+                width={0}
+                height={0}
+                sizes="(min-width: 1024px) 64rem, 100vw"
+                priority
+                className="h-auto w-full md:h-full md:w-auto md:max-w-full md:object-contain"
+              />
+            )}
           </motion.div>
         </motion.div>
 
         {pages.length > 1 && (
           <div className="mx-auto mt-8 flex max-w-5xl flex-wrap justify-center gap-3">
-            {pages.map((page, i) => (
+            {pages.map((thumb, i) => (
               <button
-                key={page}
+                key={thumb.video ?? thumb.image}
                 type="button"
                 onClick={() => setPageIndex(i)}
-                aria-label={dict.illustDetail.showImageAria(i + 1)}
+                aria-label={
+                  thumb.video
+                    ? dict.illustDetail.showVideoAria(i + 1)
+                    : dict.illustDetail.showImageAria(i + 1)
+                }
                 aria-current={i === pageIndex}
                 className={`relative size-14 border bg-paper-deep transition-colors duration-500 md:size-16 ${
                   i === pageIndex
@@ -123,21 +163,34 @@ export default function WorkDetailClient({
                 }`}
               >
                 <Image
-                  src={page}
+                  src={thumb.image}
                   alt=""
                   fill
                   sizes="4rem"
                   className="object-cover"
                 />
+                {thumb.video && (
+                  <span
+                    aria-hidden
+                    className="absolute bottom-1 right-1 flex size-4 items-center justify-center bg-ink/60 text-[8px] leading-none text-paper"
+                  >
+                    ▶
+                  </span>
+                )}
               </button>
             ))}
           </div>
         )}
 
         <figcaption className="mx-auto mt-16 max-w-5xl md:mt-20">
+          {/* タイトルのない作品も、読み上げと検索のために見えない見出しを残す */}
           <motion.h1
             {...fadeIn(0.2)}
-            className="font-display text-3xl leading-tight tracking-[0.04em] text-ink md:text-5xl"
+            className={
+              hasTitle
+                ? "font-display text-3xl leading-tight tracking-[0.04em] text-ink md:text-5xl"
+                : "sr-only"
+            }
           >
             {title}
           </motion.h1>
@@ -174,7 +227,7 @@ export default function WorkDetailClient({
           previous={
             prevWork && {
               href: withLocale(locale, `/illust/${prevWork.slug}`),
-              title: getIllustTitle(prevWork, locale),
+              title: getIllustLabel(prevWork, locale),
               meta: getIllustCategoryLabel(locale, prevWork.category),
               image: prevWork.image,
             }
@@ -182,7 +235,7 @@ export default function WorkDetailClient({
           next={
             nextWork && {
               href: withLocale(locale, `/illust/${nextWork.slug}`),
-              title: getIllustTitle(nextWork, locale),
+              title: getIllustLabel(nextWork, locale),
               meta: getIllustCategoryLabel(locale, nextWork.category),
               image: nextWork.image,
             }

@@ -1,9 +1,17 @@
 import type { Locale } from "@/i18n/config";
+import { getIllustCategoryLabel } from "@/app/config";
+
+/** poster は動画を読み込まずにサムネイルと再生前の表示を出すための静止画 */
+export interface IllustVideo {
+  video: string;
+  poster: string;
+}
 
 export interface Illust {
   id: string;
   /** URLに使用するスラッグ。タイトルの空白を「_」で置き換え、記号は除去したもの */
   slug: string;
+  /** ファイル名や日付しか付けようのない作品は空にする。表示には getIllustLabel を使う */
   title: string;
   /** 英語版タイトル。未指定の場合は title をそのまま使用（タイトルが既に英語の場合など） */
   titleEn?: string;
@@ -19,10 +27,10 @@ export interface Illust {
   width: number;
   height: number;
   /**
-   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像（任意）。
+   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像・動画（任意）。
    * 一覧・OGP などは image だけを使うため、実寸は持たない。
    */
-  images?: string[];
+  images?: (string | IllustVideo)[];
   description: string;
   /** 英語版説明文。未指定の場合は description をそのまま使用 */
   descriptionEn?: string;
@@ -389,7 +397,7 @@ export const illusts: Illust[] = [
   {
     id: "28",
     slug: "drawing_0809",
-    title: "drawing_0809",
+    title: "",
     category: "アナログ",
     date: "2026/8/9",
     image: `${BASE}/2026/drawing_0809.webp`,
@@ -400,7 +408,7 @@ export const illusts: Illust[] = [
   {
     id: "29",
     slug: "drawing_0811",
-    title: "drawing_0811",
+    title: "",
     category: "アナログ",
     date: "2026/8/11",
     image: `${BASE}/2026/drawing_0811.webp`,
@@ -411,7 +419,7 @@ export const illusts: Illust[] = [
   {
     id: "30",
     slug: "drawing_0812",
-    title: "drawing_0812",
+    title: "",
     category: "アナログ",
     date: "2026/8/12",
     image: `${BASE}/2026/drawing_0812.webp`,
@@ -422,7 +430,7 @@ export const illusts: Illust[] = [
   {
     id: "31",
     slug: "drawing_0813",
-    title: "drawing_0813",
+    title: "",
     category: "アナログ",
     date: "2026/8/13",
     image: `${BASE}/2026/drawing_0813.webp`,
@@ -433,7 +441,7 @@ export const illusts: Illust[] = [
   {
     id: "32",
     slug: "drawing_0815",
-    title: "drawing_0815",
+    title: "",
     category: "アナログ",
     date: "2026/8/15",
     image: `${BASE}/2026/drawing_0815.webp`,
@@ -444,7 +452,7 @@ export const illusts: Illust[] = [
   {
     id: "33",
     slug: "drawing_0816",
-    title: "drawing_0816",
+    title: "",
     category: "アナログ",
     date: "2026/8/16",
     image: `${BASE}/2026/drawing_0816.webp`,
@@ -455,7 +463,7 @@ export const illusts: Illust[] = [
   {
     id: "34",
     slug: "drawing_0817",
-    title: "drawing_0817",
+    title: "",
     category: "アナログ",
     date: "2026/8/17",
     image: `${BASE}/2026/drawing_0817.webp`,
@@ -466,7 +474,7 @@ export const illusts: Illust[] = [
   {
     id: "35",
     slug: "drawing_0818",
-    title: "drawing_0818",
+    title: "",
     category: "アナログ",
     date: "2026/8/18",
     image: `${BASE}/2026/drawing_0818.webp`,
@@ -477,7 +485,7 @@ export const illusts: Illust[] = [
   {
     id: "36",
     slug: "drawing_0819",
-    title: "drawing_0819",
+    title: "",
     category: "アナログ",
     date: "2026/8/19",
     image: `${BASE}/2026/drawing_0819.webp`,
@@ -488,7 +496,7 @@ export const illusts: Illust[] = [
   {
     id: "37",
     slug: "drawing_0820",
-    title: "drawing_0820",
+    title: "",
     category: "アナログ",
     date: "2026/8/20",
     image: `${BASE}/2026/drawing_0820.webp`,
@@ -499,7 +507,7 @@ export const illusts: Illust[] = [
   {
     id: "38",
     slug: "drawing_0822",
-    title: "drawing_0822",
+    title: "",
     category: "アナログ",
     date: "2026/8/22",
     image: `${BASE}/2026/drawing_0822.webp`,
@@ -510,7 +518,7 @@ export const illusts: Illust[] = [
   {
     id: "39",
     slug: "drawing_0823",
-    title: "drawing_0823",
+    title: "",
     category: "アナログ",
     date: "2026/8/23",
     image: `${BASE}/2026/drawing_0823.webp`,
@@ -521,7 +529,7 @@ export const illusts: Illust[] = [
   {
     id: "40",
     slug: "drawing_0824",
-    title: "drawing_0824",
+    title: "",
     category: "アナログ",
     date: "2026/8/24",
     image: `${BASE}/2026/drawing_0824.webp`,
@@ -532,7 +540,7 @@ export const illusts: Illust[] = [
   {
     id: "41",
     slug: "drawing_20260828",
-    title: "drawing_20260828",
+    title: "",
     category: "アナログ",
     date: "2026/8/28",
     image: `${BASE}/2026/drawing_20260828.webp`,
@@ -543,7 +551,7 @@ export const illusts: Illust[] = [
   {
     id: "42",
     slug: "drawing_20260829",
-    title: "drawing_20260829",
+    title: "",
     category: "アナログ",
     date: "2026/8/29",
     image: `${BASE}/2026/drawing_20260829.webp`,
@@ -554,7 +562,7 @@ export const illusts: Illust[] = [
   {
     id: "43",
     slug: "drawing_20260830",
-    title: "drawing_20260830",
+    title: "",
     category: "アナログ",
     date: "2026/8/30",
     image: `${BASE}/2026/drawing_20260830.webp`,
@@ -565,7 +573,7 @@ export const illusts: Illust[] = [
   {
     id: "44",
     slug: "drawing_20260831",
-    title: "drawing_20260831",
+    title: "",
     category: "アナログ",
     date: "2026/8/31",
     image: `${BASE}/2026/drawing_20260831.webp`,
@@ -576,7 +584,7 @@ export const illusts: Illust[] = [
   {
     id: "45",
     slug: "drawing_20260901",
-    title: "drawing_20260901",
+    title: "",
     category: "アナログ",
     date: "2026/9/1",
     image: `${BASE}/2026/drawing_20260901.webp`,
@@ -587,7 +595,7 @@ export const illusts: Illust[] = [
   {
     id: "46",
     slug: "drawing_20260902",
-    title: "drawing_20260902",
+    title: "",
     category: "デジタル",
     date: "2026/9/2",
     image: `${BASE}/2026/drawing_20260902.webp`,
@@ -598,7 +606,7 @@ export const illusts: Illust[] = [
   {
     id: "47",
     slug: "drawing_20260903",
-    title: "drawing_20260903",
+    title: "",
     category: "デジタル",
     date: "2026/9/3",
     image: `${BASE}/2026/drawing_20260903.webp`,
@@ -609,7 +617,7 @@ export const illusts: Illust[] = [
   {
     id: "48",
     slug: "drawing_20260904",
-    title: "drawing_20260904",
+    title: "",
     category: "アナログ",
     date: "2026/9/4",
     image: `${BASE}/2026/drawing_20260904.webp`,
@@ -620,7 +628,7 @@ export const illusts: Illust[] = [
   {
     id: "49",
     slug: "drawing_20260905",
-    title: "drawing_20260905",
+    title: "",
     category: "デジタル",
     date: "2026/9/5",
     image: `${BASE}/2026/drawing-20260905.webp`,
@@ -631,7 +639,7 @@ export const illusts: Illust[] = [
   {
     id: "50",
     slug: "drawing_20260906",
-    title: "drawing_20260906",
+    title: "",
     category: "アナログ",
     date: "2026/9/6",
     image: `${BASE}/2026/drawing-20260906.webp`,
@@ -642,7 +650,7 @@ export const illusts: Illust[] = [
   {
     id: "51",
     slug: "drawing_20260907",
-    title: "drawing_20260907",
+    title: "",
     category: "アナログ",
     date: "2026/9/7",
     image: `${BASE}/2026/drawing-20260907.webp`,
@@ -653,7 +661,7 @@ export const illusts: Illust[] = [
   {
     id: "52",
     slug: "drawing_20260908",
-    title: "drawing_20260908",
+    title: "",
     category: "アナログ",
     date: "2026/9/8",
     image: `${BASE}/2026/drawing-20260908.webp`,
@@ -664,7 +672,7 @@ export const illusts: Illust[] = [
   {
     id: "53",
     slug: "drawing_20260909",
-    title: "drawing_20260909",
+    title: "",
     category: "アナログ",
     date: "2026/9/9",
     image: `${BASE}/2026/drawing-20260909.webp`,
@@ -675,7 +683,7 @@ export const illusts: Illust[] = [
   {
     id: "54",
     slug: "drawing_20260910",
-    title: "drawing_20260910",
+    title: "",
     category: "アナログ",
     date: "2026/9/10",
     image: `${BASE}/2026/drawing-20260910.webp`,
@@ -686,7 +694,7 @@ export const illusts: Illust[] = [
   {
     id: "55",
     slug: "enpitsu_20260911",
-    title: "enpitsu_20260911",
+    title: "",
     category: "アナログ",
     date: "2026/9/11",
     image: `${BASE}/2026/enpitsu-20260911.webp`,
@@ -697,7 +705,7 @@ export const illusts: Illust[] = [
   {
     id: "56",
     slug: "nendo_20260913",
-    title: "nendo_20260913",
+    title: "",
     category: "粘土",
     date: "2026/9/13",
     image: `${BASE}/2026/nendo_20260913.webp`,
@@ -708,7 +716,7 @@ export const illusts: Illust[] = [
   {
     id: "57",
     slug: "drawing_20260913",
-    title: "drawing_20260913",
+    title: "",
     category: "アナログ",
     date: "2026/9/13",
     image: `${BASE}/2026/drawing-20260913.webp`,
@@ -719,7 +727,7 @@ export const illusts: Illust[] = [
   {
     id: "58",
     slug: "analog_20261001",
-    title: "analog_20261001",
+    title: "",
     category: "アナログ",
     date: "2026/10/1",
     image: `${BASE}/2026/analog_20261001.webp`,
@@ -730,7 +738,7 @@ export const illusts: Illust[] = [
   {
     id: "59",
     slug: "analog_20261002",
-    title: "analog_20261002",
+    title: "",
     category: "アナログ",
     date: "2026/10/2",
     image: `${BASE}/2026/analog_20261002.webp`,
@@ -741,7 +749,7 @@ export const illusts: Illust[] = [
   {
     id: "60",
     slug: "nendo_20260926",
-    title: "nendo_20260926",
+    title: "",
     category: "粘土",
     date: "2026/9/26",
     image: `${BASE}/2026/nendo_20260926.webp`,
@@ -756,6 +764,40 @@ export const illusts: Illust[] = [
     ],
     description: "",
   },
+  {
+    id: "61",
+    slug: "the_end_of_a_night_spent_all_alone",
+    title: "ひとりきりの夜の終わり",
+    titleEn: "The End of a Night Spent All Alone",
+    category: "アナログ",
+    date: "2026/10/10",
+    image: `${BASE}/2026/20261010_2.webp`,
+    width: 941,
+    height: 1200,
+    images: [`${BASE}/2026/20261010_1.webp`],
+    description: "F0\noil pastel and Acrylic on wood panel",
+  },
+  {
+    id: "62",
+    slug: "kogemaru",
+    title: "こげまる",
+    titleEn: "Kogemaru",
+    category: "粘土",
+    date: "2026/10/14",
+    image: `${BASE}/2026/20261014_1.webp`,
+    width: 898,
+    height: 1200,
+    images: [
+      `${BASE}/2026/20261014_2.webp`,
+      {
+        video: `${BASE}/2026/20261014_3.mp4`,
+        poster: `${BASE}/2026/20261014_poster.webp`,
+      },
+    ],
+    description: "うちの子を作りました🦎\n\n50×60×65\n石粉粘土にアクリル絵の具",
+    descriptionEn:
+      "I made a figure of my pet 🦎\n\n50×60×65\nStone clay, acrylic paint",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
@@ -767,6 +809,14 @@ export const sortedIllusts = [...illusts].sort((a, b) => {
 
 export function getIllustTitle(illust: Illust, locale: Locale): string {
   return locale === "en" ? (illust.titleEn ?? illust.title) : illust.title;
+}
+
+/** タイトルが空の作品は、一覧のキャプションと同じ「技法 日付」で呼ぶ */
+export function getIllustLabel(illust: Illust, locale: Locale): string {
+  return (
+    getIllustTitle(illust, locale) ||
+    `${getIllustCategoryLabel(locale, illust.category)} ${illust.date.replace(/\//g, ".")}`
+  );
 }
 
 export function getIllustDescription(illust: Illust, locale: Locale): string {

@@ -53,6 +53,7 @@ export interface Dictionary {
     noNextWork: string;
     /** n は 1 始まり */
     showImageAria: (n: number) => string;
+    showVideoAria: (n: number) => string;
   };
   worksList: {
     title: string;
@@ -143,6 +144,7 @@ const ja: Dictionary = {
     noPreviousWork: "最初のページです",
     noNextWork: "最後のページです",
     showImageAria: (n) => `${n}枚目の画像を表示`,
+    showVideoAria: (n) => `${n}番目の動画を再生`,
   },
   worksList: {
     title: "Works",
@@ -245,6 +247,7 @@ const en: Dictionary = {
     noPreviousWork: "This is the first page",
     noNextWork: "This is the last page",
     showImageAria: (n) => `Show image ${n}`,
+    showVideoAria: (n) => `Play video ${n}`,
   },
   worksList: {
     title: "Works",
