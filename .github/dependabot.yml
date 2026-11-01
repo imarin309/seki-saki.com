@@ -10,6 +10,13 @@ updates:
         dependency-type: "development"
       production-dependencies:
         dependency-type: "production"
+    ignore:
+      # typescript-eslint が TypeScript 7 に未対応（peer: <6.1.0）で、上げると lint が動かない
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # v4 は PostCSS プラグインの分離など移行作業が要るため、別途対応する
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
 
   # contact-worker（独立した Cloudflare Worker）の npm 依存関係
   - package-ecosystem: "npm"
