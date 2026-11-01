@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import WorkDetailClient from "@/app/illust/[slug]/WorkDetailClient";
-import { sortedIllusts } from "@/data/illusts";
+import { getIllustLabel, sortedIllusts } from "@/data/illusts";
 
 describe("WorkDetailClient (illust)", () => {
   it("renders the work's title and description for a known slug", () => {
@@ -22,7 +22,9 @@ describe("WorkDetailClient (illust)", () => {
     fireEvent.click(second);
 
     expect(second).toHaveAttribute("aria-current", "true");
-    expect(screen.getByAltText(`${work.title} 2`)).toBeInTheDocument();
+    expect(
+      screen.getByAltText(`${getIllustLabel(work, "ja")} 2`)
+    ).toBeInTheDocument();
   });
 
   it("plays a video when its preview thumbnail is clicked", () => {
@@ -37,10 +39,22 @@ describe("WorkDetailClient (illust)", () => {
       screen.getByRole("button", { name: `${n}番目の動画を再生` })
     );
 
-    const video = screen.getByLabelText(`${work.title} ${n}`);
+    const video = screen.getByLabelText(`${getIllustLabel(work, "ja")} ${n}`);
     expect(video).toBeInstanceOf(HTMLVideoElement);
     // iOS は muted でないと自動再生しない。React は muted を属性ではなくプロパティで設定する
     expect((video as HTMLVideoElement).muted).toBe(true);
+  });
+
+  it("keeps a visually hidden heading for an untitled work", () => {
+    const work = sortedIllusts.find((w) => w.title === "");
+    if (!work) throw new Error("no untitled illust");
+    render(<WorkDetailClient slug={work.slug} locale="ja" />);
+
+    const heading = screen.getByRole("heading", {
+      level: 1,
+      name: getIllustLabel(work, "ja"),
+    });
+    expect(heading).toHaveClass("sr-only");
   });
 
   it("shows a not-found message for an unknown slug", () => {

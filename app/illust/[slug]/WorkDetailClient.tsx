@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import {
   sortedIllusts,
   getIllustTitle,
+  getIllustLabel,
   getIllustDescription,
   type Illust,
 } from "@/data/illusts";
@@ -64,7 +65,8 @@ export default function WorkDetailClient({
       ? sortedIllusts[currentIndex + 1]
       : null;
 
-  const title = getIllustTitle(work, locale);
+  const hasTitle = getIllustTitle(work, locale) !== "";
+  const title = getIllustLabel(work, locale);
   const description = getIllustDescription(work, locale);
   const plateNumber = String(currentIndex + 1).padStart(2, "0");
   const pages = toPages(work);
@@ -181,9 +183,14 @@ export default function WorkDetailClient({
         )}
 
         <figcaption className="mx-auto mt-16 max-w-5xl md:mt-20">
+          {/* タイトルのない作品も、読み上げと検索のために見えない見出しを残す */}
           <motion.h1
             {...fadeIn(0.2)}
-            className="font-display text-3xl leading-tight tracking-[0.04em] text-ink md:text-5xl"
+            className={
+              hasTitle
+                ? "font-display text-3xl leading-tight tracking-[0.04em] text-ink md:text-5xl"
+                : "sr-only"
+            }
           >
             {title}
           </motion.h1>
@@ -220,7 +227,7 @@ export default function WorkDetailClient({
           previous={
             prevWork && {
               href: withLocale(locale, `/illust/${prevWork.slug}`),
-              title: getIllustTitle(prevWork, locale),
+              title: getIllustLabel(prevWork, locale),
               meta: getIllustCategoryLabel(locale, prevWork.category),
               image: prevWork.image,
             }
@@ -228,7 +235,7 @@ export default function WorkDetailClient({
           next={
             nextWork && {
               href: withLocale(locale, `/illust/${nextWork.slug}`),
-              title: getIllustTitle(nextWork, locale),
+              title: getIllustLabel(nextWork, locale),
               meta: getIllustCategoryLabel(locale, nextWork.category),
               image: nextWork.image,
             }

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Illust } from "@/data/illusts";
-import { getIllustTitle } from "@/data/illusts";
+import { getIllustLabel } from "@/data/illusts";
 import { getIllustCategoryLabel } from "@/app/config";
 import { LABEL } from "@/app/design";
 import { withLocale, type Locale } from "@/i18n/config";
@@ -28,7 +28,7 @@ export default function IllustCard({
   sizes = "(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw",
   priority = false,
 }: Props) {
-  const title = getIllustTitle(work, locale);
+  const title = getIllustLabel(work, locale);
 
   return (
     <Link

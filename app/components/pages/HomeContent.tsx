@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { sortedIllusts, getIllustTitle } from "@/data/illusts";
+import { sortedIllusts, getIllustLabel } from "@/data/illusts";
 import { getIllustCategoryLabel } from "@/app/config";
 import { Chapter } from "@/app/components/Chapter";
 import ExhibitionBanner from "@/app/components/ExhibitionBanner";
@@ -98,7 +98,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
         >
           <Image
             src={coverIllust.image}
-            alt={getIllustTitle(coverIllust, locale)}
+            alt={getIllustLabel(coverIllust, locale)}
             fill
             sizes="(min-width: 768px) 56vw, 100vw"
             className={`object-cover ${COVER_IMAGE_POSITION_CLASS[COVER_IMAGE_POSITION]}`}
@@ -117,7 +117,7 @@ export default function HomeContent({ locale }: { locale: Locale }) {
         <div className="mt-20 md:mt-28">
           {featuredIllusts.map((work, index) => {
             const layout = SELECTED_LAYOUTS[index];
-            const title = getIllustTitle(work, locale);
+            const title = getIllustLabel(work, locale);
 
             return (
               <motion.figure

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { illusts, getIllustTitle, getIllustDescription } from "@/data/illusts";
+import { illusts, getIllustLabel, getIllustDescription } from "@/data/illusts";
 import { SITE_URL, getSiteTitle, getOgLocale } from "@/app/meta";
 import WorkDetailClient from "@/app/illust/[slug]/WorkDetailClient";
 
@@ -16,7 +16,7 @@ export async function generateMetadata({
   const work = illusts.find((w) => w.slug === slug);
   if (!work) return {};
 
-  const workTitle = getIllustTitle(work, "en");
+  const workTitle = getIllustLabel(work, "en");
   const title = `${workTitle} | ${getSiteTitle("en")}`;
   const description = getIllustDescription(work, "en") || workTitle;
   const url = `${SITE_URL}/en/illust/${slug}`;
