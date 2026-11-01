@@ -25,6 +25,24 @@ describe("WorkDetailClient (illust)", () => {
     expect(screen.getByAltText(`${work.title} 2`)).toBeInTheDocument();
   });
 
+  it("plays a video when its preview thumbnail is clicked", () => {
+    const work = sortedIllusts.find((w) =>
+      w.images?.some((page) => typeof page !== "string")
+    );
+    if (!work?.images) throw new Error("no illust with a preview video");
+    const n = work.images.findIndex((page) => typeof page !== "string") + 2;
+    render(<WorkDetailClient slug={work.slug} locale="ja" />);
+
+    fireEvent.click(
+      screen.getByRole("button", { name: `${n}番目の動画を再生` })
+    );
+
+    const video = screen.getByLabelText(`${work.title} ${n}`);
+    expect(video).toBeInstanceOf(HTMLVideoElement);
+    // iOS は muted でないと自動再生しない。React は muted を属性ではなくプロパティで設定する
+    expect((video as HTMLVideoElement).muted).toBe(true);
+  });
+
   it("shows a not-found message for an unknown slug", () => {
     render(<WorkDetailClient slug="does-not-exist" locale="ja" />);
 

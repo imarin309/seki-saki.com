@@ -1,5 +1,11 @@
 import type { Locale } from "@/i18n/config";
 
+/** poster は動画を読み込まずにサムネイルと再生前の表示を出すための静止画 */
+export interface IllustVideo {
+  video: string;
+  poster: string;
+}
+
 export interface Illust {
   id: string;
   /** URLに使用するスラッグ。タイトルの空白を「_」で置き換え、記号は除去したもの */
@@ -19,10 +25,10 @@ export interface Illust {
   width: number;
   height: number;
   /**
-   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像（任意）。
+   * 詳細ページでメイン画像の下にプレビューとして並べる追加画像・動画（任意）。
    * 一覧・OGP などは image だけを使うため、実寸は持たない。
    */
-  images?: string[];
+  images?: (string | IllustVideo)[];
   description: string;
   /** 英語版説明文。未指定の場合は description をそのまま使用 */
   descriptionEn?: string;
