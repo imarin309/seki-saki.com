@@ -762,6 +762,40 @@ export const illusts: Illust[] = [
     ],
     description: "",
   },
+  {
+    id: "61",
+    slug: "the_end_of_a_night_spent_all_alone",
+    title: "ひとりきりの夜の終わり",
+    titleEn: "The End of a Night Spent All Alone",
+    category: "アナログ",
+    date: "2026/10/10",
+    image: `${BASE}/2026/20261010_2.webp`,
+    width: 941,
+    height: 1200,
+    images: [`${BASE}/2026/20261010_1.webp`],
+    description: "F0\noil pastel and Acrylic on wood panel",
+  },
+  {
+    id: "62",
+    slug: "kogemaru",
+    title: "こげまる",
+    titleEn: "Kogemaru",
+    category: "粘土",
+    date: "2026/10/14",
+    image: `${BASE}/2026/20261014_1.webp`,
+    width: 898,
+    height: 1200,
+    images: [
+      `${BASE}/2026/20261014_2.webp`,
+      {
+        video: `${BASE}/2026/20261014_3.mp4`,
+        poster: `${BASE}/2026/20261014_poster.webp`,
+      },
+    ],
+    description: "うちの子を作りました🦎\n\n50×60×65\n石粉粘土にアクリル絵の具",
+    descriptionEn:
+      "I made a figure of my pet 🦎\n\n50×60×65\nStone clay, acrylic paint",
+  },
 ];
 
 export const sortedIllusts = [...illusts].sort((a, b) => {
