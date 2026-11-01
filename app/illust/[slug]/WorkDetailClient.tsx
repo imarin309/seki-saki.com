@@ -116,13 +116,13 @@ export default function WorkDetailClient({
             className="w-full md:flex md:h-full md:items-center md:justify-center"
           >
             {page.video ? (
-              // 視差効果を減らす設定の端末では、自動で動かさず再生を委ねる
+              // 低電力モードなどで自動再生が拒否された場合の再生と、ループの停止のために controls は常に出す
               <video
                 src={page.video}
                 poster={page.image}
                 aria-label={pageAlt}
                 autoPlay={!reduceMotion}
-                controls={!!reduceMotion}
+                controls
                 muted
                 loop
                 playsInline
