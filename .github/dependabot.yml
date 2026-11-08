@@ -5,11 +5,26 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # 複数に該当する更新は先に書いたグループに入る。メジャー更新は切り分けやすいよう個別PRのまま残す
     groups:
-      dev-dependencies:
-        dependency-type: "development"
-      production-dependencies:
-        dependency-type: "production"
+      # バージョンがずれると動かないため、メジャー更新も含めて常に一緒に上げる
+      react-next:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "next"
+          - "eslint-config-next"
+      npm-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+      npm-security:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
     ignore:
       # typescript-eslint が TypeScript 7 に未対応（peer: <6.1.0）で、上げると lint が動かない
       - dependency-name: "typescript"
@@ -23,9 +38,23 @@ updates:
     directory: "/contact-worker"
     schedule:
       interval: "weekly"
+    groups:
+      contact-worker-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+      contact-worker-security:
+        applies-to: security-updates
+        update-types:
+          - "minor"
+          - "patch"
 
   # .github/workflows で使用している GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
